@@ -26,7 +26,7 @@ export class ItemService {
         { id: 20, name: "Sergi Roberto", role: "Midfielder" },
         { id: 21, name: "André Gomes", role: "Midfielder" },
         { id: 22, name: "Aleix Vidal", role: "Midfielder" },
-        { id: 23, name: "Umtiti", role: "Defender" },
+        { id: 23, name: "Adam", role: "Defender" },
         { id: 24, name: "Mathieu", role: "Defender" },
         { id: 25, name: "Masip", role: "Goalkeeper" }
     );
