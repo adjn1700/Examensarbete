@@ -1,9 +1,12 @@
+
 <GridLayout>
-    <StackLayout>
-        <Label text="Latitude: {{ latitude }}"></Label>
-        <Label text="Longitude: {{ longitude }}"></Label>
-        <Button class="btn btn-primary btn-active" text="Update" (tap)="updateLocation()"></Button>
-        <Button class="btn btn-primary btn-active" text="Watch Location" (tap)="startWatchingLocation()"></Button>
-        <Button class="btn btn-primary btn-active" text="Stop Watching" (tap)="stopWatchingLocation()"></Button>
-    </StackLayout>
-</GridLayout>
+        <StackLayout id="locationContainer" class="p-5 m-5">
+            <Label class="h2 m-x-auto m-t-5 font-weight-bold" text="Nuvarande löpande längd"></Label>
+            <Label class="h1 m-x-auto m-t-5 font-weight-bold" text="1234m"></Label>
+            <StackLayout class="hr-dark m-10"></StackLayout>
+            <Label class="h2 m-x-auto" text="Mina koordinater"></Label>
+            <Label class="h1 m-x-auto m-t-5 font-weight-bold" text="N: 42.123123"></Label>
+            <Label class="h1 m-x-auto m-t-5" text="E: 50.12323"></Label>
+            <Button class="btn btn-primary btn-active" text="Uppdatera" (tap)="updateLocation()"></Button>
+        </StackLayout>
+    </GridLayout>

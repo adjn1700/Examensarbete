@@ -1,1 +1,7 @@
-/* Add mobile styles for the component here.  */
+
+#locationContainer{
+    border-width: 3;
+    border-color: black;
+    border-radius: 20;
+    height:310;
+}
