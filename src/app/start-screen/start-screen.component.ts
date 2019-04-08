@@ -18,8 +18,6 @@ export class StartScreenComponent implements OnInit {
     for (let county of countyList) {
         this.countys.push(county);
     }
-
-
   }
 
     public selectedIndexChanged(args) {
@@ -33,5 +31,4 @@ export class StartScreenComponent implements OnInit {
   toDashboard(){
       this.router.navigate(['/dashboard'], {clearHistory: true});
   }
-
 }
