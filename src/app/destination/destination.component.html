@@ -1,4 +1,5 @@
-<StackLayout id="destinationontainer" class="p-5 m-5">
-    <Label class="h2 m-x-auto m-t-5 font-weight-bold" text="Destination (1283m)"></Label>
+<Button *ngIf="!isDestinationActive()" class="btn btn-primary btn-active" text="Lägg till destination" (tap)="addDestination()"></Button>
+<StackLayout *ngIf="isDestinationActive()" id="destinationontainer" class="p-5 m-5">
+    <Label class="h2 m-x-auto m-t-5 font-weight-bold" text="Destination {{( destinationValue )}}"></Label>
     <Label class="h1 m-x-auto m-t-5 font-weight-bold" text="50m"></Label>
 </StackLayout>
