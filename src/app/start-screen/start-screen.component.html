@@ -1,7 +1,7 @@
 
 <StackLayout>
-    <Label text="Road analyzer"></Label>
-    <ListPicker [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+    <Button text="Välj län" class="btn" (tap)="showListPicker()"></Button>
+    <ListPicker *ngIf="isVisible" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
     <TextField hint="Välj väg.." autocorrect="false" class="input input-border"></TextField>
     <Button text="Nästa sida" class="btn btn-primary" (tap)="toDashboard()" ></Button>
 </StackLayout>

@@ -13,8 +13,10 @@ let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
 export class StartScreenComponent implements OnInit {
     public countys: Array<string> = [];
     public picked: string;
+    public isVisible: boolean = false;
 
     constructor(private router: RouterExtensions) {
+
     for (let county of countyList) {
         this.countys.push(county);
     }
@@ -30,5 +32,13 @@ export class StartScreenComponent implements OnInit {
 
   toDashboard(){
       this.router.navigate(['/dashboard'], {clearHistory: true});
+  }
+
+  showListPicker(){
+    if (this.isVisible) {
+        this.isVisible = false;
+    } else  {
+        this.isVisible = true;
+    }
   }
 }
