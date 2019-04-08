@@ -8,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DestinationComponent implements OnInit {
 
-  constructor() { }
+    public destinationValue: number;
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    isDestinationActive(): boolean{
+        if(this.destinationValue)
+            return true;
+        else
+            return false;
+    }
+
+    addDestination(): void {
+        this.destinationValue = 1280;
+    }
 
 }
