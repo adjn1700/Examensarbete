@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'ns-dashboard',
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  backToStart(){
+    this.router.navigate(['/start-screen']);
+  }
 
   ngOnInit() {
   }

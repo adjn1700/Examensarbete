@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListPicker } from "tns-core-modules/ui/list-picker";
-import { Router } from "@angular/router";
+import { RouterExtensions } from 'nativescript-angular/router';
 
 let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
 
@@ -14,7 +14,7 @@ export class StartScreenComponent implements OnInit {
     public countys: Array<string> = [];
     public picked: string;
 
-    constructor(private router: Router) {
+    constructor(private router: RouterExtensions) {
     for (let county of countyList) {
         this.countys.push(county);
     }
@@ -31,7 +31,7 @@ export class StartScreenComponent implements OnInit {
   }
 
   toDashboard(){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'], {clearHistory: true});
   }
 
 }

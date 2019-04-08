@@ -3,8 +3,6 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
 import { LocationComponent } from './location/location.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
@@ -25,8 +23,6 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
     ],
     declarations: [
         AppComponent,
-        ItemsComponent,
-        ItemDetailComponent,
         LocationComponent,
         DashboardComponent,
         StartScreenComponent
