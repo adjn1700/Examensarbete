@@ -1,5 +1,8 @@
 <Button *ngIf="!isDestinationActive()" class="btn btn-primary btn-active" text="Lägg till destination" (tap)="addDestination()"></Button>
-<StackLayout *ngIf="isDestinationActive()" id="destinationontainer" class="p-5 m-5">
-    <Label class="h2 m-x-auto m-t-5 font-weight-bold" text="Destination {{( destinationValue )}}"></Label>
-    <Label class="h1 m-x-auto m-t-5 font-weight-bold" text="50m"></Label>
-</StackLayout>
+<GridLayout *ngIf="isDestinationActive()" rows="auto, auto" columns="*" id="destinationontainer" class="p-5 m-5">
+        <Label row="0" col="0" class="h2 m-t-5 font-weight-bold"
+            horizontalAlignment="center" text="Destination"></Label>
+        <Button row="0" col="1" text="X" horizontalAlignment="right"></Button>
+        <Label row="1" col="0" class="h1 m-t-5 font-weight-bold"
+            horizontalAlignment="center" text="50m"></Label>
+    </GridLayout>
