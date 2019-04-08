@@ -8,6 +8,7 @@ import { ItemDetailComponent } from "./item/item-detail.component";
 import { LocationComponent } from './location/location.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
+import { DestinationComponent } from './destination/destination.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -29,7 +30,8 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
         ItemDetailComponent,
         LocationComponent,
         DashboardComponent,
-        StartScreenComponent
+        StartScreenComponent,
+        DestinationComponent
     ],
     providers: [],
     schemas: [

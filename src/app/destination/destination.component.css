@@ -1,0 +1,10 @@
+#destinationontainer{
+    border-width: 2;
+    border-color: black;
+    border-radius: 20;
+    height:110;
+}
+
+#destinationontainer Label{
+    color: black;
+}
