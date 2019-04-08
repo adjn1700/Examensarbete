@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ListPicker } from "tns-core-modules/ui/list-picker";
+
+let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
 
 @Component({
   selector: 'ns-start-screen',
@@ -7,8 +10,19 @@ import { Component, OnInit } from '@angular/core';
   moduleId: module.id,
 })
 export class StartScreenComponent implements OnInit {
+    public countys: Array<string> = [];
+    public picked: string;
 
-  constructor() { }
+    constructor() {
+    for (let county of countyList) {
+        this.countys.push(county);
+    }
+  }
+
+    public selectedIndexChanged(args) {
+    let picker = <ListPicker>args.object;
+    this.picked = this.countys[picker.selectedIndex];
+    }
 
   ngOnInit() {
   }
