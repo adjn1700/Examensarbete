@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { ItemsComponent } from "./item/items.component";
 import { ItemDetailComponent } from "./item/item-detail.component";
 import { LocationComponent } from './location/location.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -27,6 +28,7 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
         ItemsComponent,
         ItemDetailComponent,
         LocationComponent,
+        DashboardComponent,
         StartScreenComponent
     ],
     providers: [],
