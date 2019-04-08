@@ -1,13 +1,7 @@
 
 <StackLayout>
-<<<<<<< HEAD
     <Button text="Välj län" class="btn" (tap)="showListPicker()"></Button>
     <ListPicker *ngIf="isVisible" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
-=======
-    <Image src="~/images/logo.png" ></Image>
-    <Label text="Road analyzer"></Label>
-    <ListPicker [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
->>>>>>> e133589b691a7ec810635d1de2e138c4c6dbdcf1
     <TextField hint="Välj väg.." autocorrect="false" class="input input-border"></TextField>
     <Button text="Nästa sida" class="btn btn-primary" (tap)="toDashboard()" ></Button>
 </StackLayout>
