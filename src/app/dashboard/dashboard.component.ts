@@ -12,7 +12,14 @@ export class DashboardComponent implements OnInit {
   constructor(private router: RouterExtensions) { }
 
   backToStart(){
-    this.router.backToPreviousPage();
+    this.router.navigate(['/start-screen'], {
+        clearHistory: true,
+        animated: true, transition: {
+            name: "slideRight",
+            duration: 200,
+            curve: "easeIn"
+        }
+    } );
   }
 
   ngOnInit() {
