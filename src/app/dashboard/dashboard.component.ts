@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ApiService } from '~/app/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
@@ -10,7 +11,13 @@ import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: RouterExtensions) { }
+  constructor(myapiService: ApiService, private router: RouterExtensions) { }
+
+  ngOnInit() {
+
+}
+
+
 
   cancelAlert(){
     let options: ConfirmOptions = {
@@ -37,7 +44,6 @@ export class DashboardComponent implements OnInit {
     } );
   }
 
-  ngOnInit() {
-  }
+
 
 }
