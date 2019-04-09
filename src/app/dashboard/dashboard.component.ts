@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-<<<<<<< HEAD
 import { ApiService } from '~/app/api.service';
-=======
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
->>>>>>> 90c44530a1903b7250f0d99b36dcb7f7fdc30d80
 
 
 @Component({
