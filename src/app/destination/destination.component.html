@@ -1,4 +1,4 @@
-<Button *ngIf="!isDestinationActive()" class="btn btn-rounded-sm btn-primary btn-active" text="Lägg till destination" (tap)="addDestination()"></Button>
+<Button *ngIf="!isDestinationActive()" class="btn btn-rounded-sm btn-primary btn-active" text="Lägg till destination" (tap)="addDestination()" margin="5"></Button>
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <GridLayout *ngIf="isDestinationActive()" rows="auto, auto" columns="*, auto, *" id="destinationontainer"
     class="cardContent">
