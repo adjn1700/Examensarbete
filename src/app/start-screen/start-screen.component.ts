@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { RouterExtensions } from 'nativescript-angular/router';
 
+import * as dialogs from "tns-core-modules/ui/dialogs";
+
 let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
 
 @Component({
@@ -13,7 +15,8 @@ let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
 export class StartScreenComponent implements OnInit {
     public countys: Array<string> = [];
     public picked: string;
-    public isVisible: boolean = false;
+    public isVisibleCounty: boolean = false;
+    public isVisibleRoad: boolean = false;
 
     constructor(private router: RouterExtensions) {
 
@@ -31,14 +34,37 @@ export class StartScreenComponent implements OnInit {
   }
 
   toDashboard(){
+
+    dialogs.action({
+        message: "Your message",
+        cancelButtonText: "Cancel text",
+        actions: ["Option1", "Option2"]
+    }).then(result => {
+        console.log("Dialog result: " + result);
+        if(result == "Option1"){
+            //Do action1
+        }else if(result == "Option2"){
+            //Do action2
+        }
+    });
+
       this.router.navigate(['/dashboard'], {clearHistory: true});
   }
 
-  showListPicker(){
-    if (this.isVisible) {
-        this.isVisible = false;
+  showListCounty(){
+    if (this.isVisibleCounty) {
+        this.isVisibleCounty = false;
     } else  {
-        this.isVisible = true;
+        this.isVisibleCounty = true;
+        this.isVisibleRoad = false;
+    }
+  }
+  showListRoad(){
+    if (this.isVisibleRoad) {
+        this.isVisibleRoad = false;
+    } else  {
+        this.isVisibleRoad = true;
+        this.isVisibleCounty = false;
     }
   }
 }

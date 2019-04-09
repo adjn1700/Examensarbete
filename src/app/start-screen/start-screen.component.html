@@ -1,7 +1,15 @@
 
-<StackLayout>
-    <Button text="Välj län" class="btn" (tap)="showListPicker()"></Button>
-    <ListPicker *ngIf="isVisible" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
-    <TextField hint="Välj väg.." autocorrect="false" class="input input-border"></TextField>
-    <Button text="Nästa sida" class="btn btn-primary" (tap)="toDashboard()" ></Button>
-</StackLayout>
+<GridLayout rows="*, auto" width="100%">
+    <StackLayout row="0" orientation="vertical">
+        <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
+        <Button text="Välj län" class="btn" (tap)="showListCounty()"></Button>
+        <ListPicker *ngIf="isVisibleCounty" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+        <Button text="Välj väg" class="btn" (tap)="showListRoad()"></Button>
+        <ListPicker *ngIf="isVisibleRoad" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+    </StackLayout>
+
+    <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
+    <StackLayout #bottomElt row="1">
+        <Button row="1" text="Nästa sida" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" ></Button>
+    </StackLayout>
+</GridLayout>
