@@ -17,3 +17,23 @@
 .fa {
   font-family: "FontAwesome", fontawesome-webfont;
 }
+
+.btn-danger{
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-success{
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-dark{
+  background-color: #555555;
+  color: white;
+}
+
+.btn-secondary{
+  background-color: #e7e7e7;
+  color: black;
+}
