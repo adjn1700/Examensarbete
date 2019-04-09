@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { confirm, DialogOptions, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-destination',
@@ -23,6 +24,20 @@ export class DestinationComponent implements OnInit {
 
     addDestination(): void {
         this.destinationValue = 1280;
+    }
+
+    showAlert(): void {
+        let options: ConfirmOptions = {
+            title: "Avsluta navigation",
+            message: "Är du säker?",
+            okButtonText: "Ja",
+            cancelButtonText: "Avbryt"
+        };
+        confirm(options).then((result: boolean) => {
+            if (result === true){
+                this.destinationValue = null;
+            }
+        });
     }
 
 }
