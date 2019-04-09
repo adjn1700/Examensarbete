@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { confirm, DialogOptions, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-destination',

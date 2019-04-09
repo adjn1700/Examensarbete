@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+
 
 @Component({
   selector: 'ns-dashboard',
@@ -10,6 +12,20 @@ import { RouterExtensions } from 'nativescript-angular/router';
 export class DashboardComponent implements OnInit {
 
   constructor(private router: RouterExtensions) { }
+
+  cancelAlert(){
+    let options: ConfirmOptions = {
+        title: "Avsluta",
+        message: "Är du säker att du vill avsluta och gå till förstasidan?",
+        okButtonText: "Ja",
+        cancelButtonText: "Avbryt"
+    };
+    confirm(options).then((result: boolean) => {
+        if (result === true){
+            this.backToStart();
+        }
+    });
+  }
 
   backToStart(){
     this.router.navigate(['/start-screen'], {
