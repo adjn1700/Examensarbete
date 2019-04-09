@@ -34,21 +34,18 @@ export class StartScreenComponent implements OnInit {
   }
 
   toDashboard(){
-
     dialogs.action({
-        message: "Your message",
+        message: "Din riktning",
         cancelButtonText: "Cancel text",
-        actions: ["Option1", "Option2"]
+        actions: ["Med", "Mot"]
     }).then(result => {
-        console.log("Dialog result: " + result);
-        if(result == "Option1"){
-            //Do action1
-        }else if(result == "Option2"){
-            //Do action2
+        if(result == "Med"){
+            this.router.navigate(['/dashboard'], {clearHistory: true});
+        }else if(result == "Mot"){
+            this.router.navigate(['/dashboard'], {clearHistory: true});
         }
     });
 
-      this.router.navigate(['/dashboard'], {clearHistory: true});
   }
 
   showListCounty(){
