@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
-
 @Component({
   selector: 'ns-dashboard',
   templateUrl: './dashboard.component.html',
