@@ -34,6 +34,7 @@ export class StartScreenComponent implements OnInit {
   }
 
   toDashboard(){
+
     dialogs.action({
         message: "Din riktning",
         cancelButtonText: "Cancel text",
@@ -45,7 +46,6 @@ export class StartScreenComponent implements OnInit {
             this.router.navigate(['/dashboard'], {clearHistory: true});
         }
     });
-
   }
 
   showListCounty(){
