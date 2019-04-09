@@ -3,7 +3,6 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ApiService } from '~/app/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 
-
 @Component({
   selector: 'ns-dashboard',
   templateUrl: './dashboard.component.html',

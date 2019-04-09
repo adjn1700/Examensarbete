@@ -37,3 +37,18 @@
   background-color: #e7e7e7;
   color: black;
 }
+
+.cardStyle{
+  background-color: #fff;
+  color: rgb(43, 43, 43);
+}
+
+.cardContent {
+  padding: 10;
+  font-weight: bold;
+  font-size: 30;
+}
+
+.page{
+  background-color: rgb(237, 237, 237);
+}

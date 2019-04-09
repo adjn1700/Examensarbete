@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as Geolocation from "nativescript-geolocation";
 import { LocationService } from './location.service';
+
 
 @Component({
   selector: 'ns-location',
@@ -10,8 +10,8 @@ import { LocationService } from './location.service';
 })
 export class LocationComponent implements OnInit {
 
-    public latitude: number = 0;
-    public longitude: number = 0;
+    public latitude: number;
+    public longitude: number;
 
     public constructor(private locationService : LocationService ) {
     }
@@ -26,6 +26,8 @@ export class LocationComponent implements OnInit {
         });
     }
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.updateLocation();
+    }
 
 }

@@ -1,4 +1,4 @@
-
+<!--
 <StackLayout id="locationContainer" class="p-5 m-5">
     <Label class="h2 m-x-auto m-t-5 font-weight-bold" text="Nuvarande löpande längd"></Label>
     <Label class="h1 m-x-auto m-t-5 font-weight-bold" text="1234m"></Label>
@@ -8,4 +8,18 @@
     <Label class="h1 m-x-auto m-t-5" text="lat: {{latitude}}"></Label>
     <Button class="btn btn-rounded-sm btn-primary btn-active" text="Uppdatera" (tap)="updateLocation()"></Button>
 </StackLayout>
+-->
+
+
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+    <StackLayout class="cardContent">
+        <Label horizontalAlignment="center" class="h2" text="Nuvarande löpande längd"></Label>
+        <Label horizontalAlignment="center" text="1234m"></Label>
+        <StackLayout class="hr-dark m-10"></StackLayout>
+        <Label horizontalAlignment="center" class="h3" text="Mina koordinater"></Label>
+        <Label horizontalAlignment="center" class="h2" text="lng: {{longitude}}"></Label>
+        <Label horizontalAlignment="center" class="h2" text="lat: {{latitude}}"></Label>
+    </StackLayout>
+</CardView>
+
 
