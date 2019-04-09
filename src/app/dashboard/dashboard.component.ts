@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ApiService } from '~/app/api.service';
+
 
 @Component({
   selector: 'ns-dashboard',
@@ -9,7 +11,13 @@ import { RouterExtensions } from 'nativescript-angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: RouterExtensions) { }
+  constructor(myapiService: ApiService, private router: RouterExtensions) { }
+
+  ngOnInit() {
+
+}
+
+
 
   backToStart(){
     this.router.navigate(['/start-screen'], {
@@ -22,7 +30,6 @@ export class DashboardComponent implements OnInit {
     } );
   }
 
-  ngOnInit() {
-  }
+
 
 }
