@@ -6,6 +6,7 @@
         <ListPicker *ngIf="isVisibleCounty" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
         <Button text="Välj väg" class="btn" (tap)="showListRoad()"></Button>
         <ListPicker *ngIf="isVisibleRoad" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+        <TextField hint="Destination i löpande längd" keyboardType="number"></TextField>
     </StackLayout>
 
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->

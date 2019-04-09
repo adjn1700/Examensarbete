@@ -10,7 +10,9 @@ import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 export class DestinationComponent implements OnInit {
 
     public destinationValue: number;
-    constructor() { }
+    constructor() {
+        this.destinationValue = 1280;
+    }
 
     ngOnInit() {
     }

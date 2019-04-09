@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ApiService } from '~/app/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import {SelectedRoad} from '../selectedRoad'
 
 @Component({
   selector: 'ns-dashboard',
@@ -11,10 +12,13 @@ import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 })
 export class DashboardComponent implements OnInit {
 
+    //Till hämta api
     public host: string;
     public userAgent: string;
     public origin: string;
     public url: string;
+
+    public selectedRoad: SelectedRoad;
 
   constructor(private myapiService: ApiService, private router: RouterExtensions) { }
 
