@@ -3,6 +3,9 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ApiService } from '~/app/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import {SelectedRoad} from '../selectedRoad'
+import { Observable } from 'tns-core-modules/ui/page/page';
+
+
 
 @Component({
   selector: 'ns-dashboard',
@@ -12,51 +15,26 @@ import {SelectedRoad} from '../selectedRoad'
 })
 export class DashboardComponent implements OnInit {
 
-    //Till hämta api
-    public host: string;
-    public userAgent: string;
-    public origin: string;
-    public url: string;
+    public dataRequest: string = `<REQUEST>
+    <LOGIN authenticationkey="8ccbb37be31d48adbaf3009f14a45141" />
+        <QUERY objecttype="Situation">
+            <FILTER>
+                    <WITHIN name="Deviation.Geometry.SWEREF99TM" shape="center" value="320011 6398983" radius="10000" />
+            </FILTER>
+            <INCLUDE>Deviation.Header</INCLUDE>
+            <INCLUDE>Deviation.IconId</INCLUDE>
+            <INCLUDE>Deviation.Message</INCLUDE>
+            <INCLUDE>Deviation.MessageCode</INCLUDE>
+            <INCLUDE>Deviation.MessageType</INCLUDE>
+        </QUERY>
+    </REQUEST>`;
 
-    public selectedRoad: SelectedRoad;
-
-  constructor(private myapiService: ApiService, private router: RouterExtensions) { }
-
-  ngOnInit() {
-    //console.log(this.extractData());
-}
-    //Api Get
-    extractData() {
-        this.myapiService.getData()
-            .subscribe((result) => {
-                this.onGetDataSuccess(result);
-            }, (error) => {
-                console.log(error);
-            });
-    }
-
-    private onGetDataSuccess(res) {
-        this.host = res.headers.Host;
-        this.userAgent = res.headers["User-Agent"];
-        this.origin = res.origin;
-        this.url = res.url;
-    }
-    //Api Post
-    public user: string;
-    public pass: string;
-    public message: string = "";
+    //public selectedRoad: SelectedRoad;
 
 
-    public submit() {
-        this.makePostRequest();
-    }
+    constructor(private myapiService: ApiService, private router: RouterExtensions) { }
 
-    private makePostRequest() {
-        this.myapiService
-            .postData({ username: this.user, password: this.pass })
-            .subscribe(res => {
-                this.message = (<any>res).json.data.username;
-            });
+    ngOnInit() {
     }
 
     //Alert
