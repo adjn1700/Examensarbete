@@ -12,6 +12,7 @@ import { DestinationComponent } from './destination/destination.component';
 import { ApiService } from "~/app/api.service";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
+import { DestinationAddComponent } from './destination-add/destination-add.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -36,7 +37,8 @@ import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autoco
         LocationComponent,
         DashboardComponent,
         StartScreenComponent,
-        DestinationComponent
+        DestinationComponent,
+        DestinationAddComponent
     ],
     providers: [ApiService],
     schemas: [
