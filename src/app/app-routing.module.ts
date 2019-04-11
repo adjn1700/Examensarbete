@@ -4,11 +4,13 @@ import { Routes } from "@angular/router";
 
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DestinationAddComponent } from './destination-add/destination-add.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "/start-screen", pathMatch: "full" },
     { path: "start-screen", component: StartScreenComponent },
-    { path: "dashboard", component: DashboardComponent }
+    { path: "dashboard", component: DashboardComponent },
+    { path: "destibation-add", component: DestinationAddComponent }
 ];
 
 @NgModule({
