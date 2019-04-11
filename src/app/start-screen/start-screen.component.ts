@@ -4,7 +4,11 @@ import { RouterExtensions } from 'nativescript-angular/router';
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 
-let countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
+import { ObservableArray } from "tns-core-modules/data/observable-array";
+import { TokenModel } from "nativescript-ui-autocomplete";
+
+const countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
+const roadList = ["101", "1002", "230", "122"];
 
 @Component({
   selector: 'ns-start-screen',
@@ -18,12 +22,20 @@ export class StartScreenComponent implements OnInit {
     public isVisibleCounty: boolean = false;
     public isVisibleRoad: boolean = false;
 
+    autocompleteCounties: ObservableArray<TokenModel>;
+    autocompleteRoads: ObservableArray<TokenModel>;
 
     constructor(private router: RouterExtensions) {
 
-    for (let county of countyList) {
-        this.countys.push(county);
-    }
+        this.autocompleteCounties = new ObservableArray<TokenModel>();
+        countyList.forEach((county) => {
+            this.autocompleteCounties.push(new TokenModel(county, undefined));
+        });
+
+        this.autocompleteRoads = new ObservableArray<TokenModel>();
+        roadList.forEach((road) => {
+            this.autocompleteRoads.push(new TokenModel(road, undefined));
+        });
   }
 
     public selectedIndexChanged(args) {

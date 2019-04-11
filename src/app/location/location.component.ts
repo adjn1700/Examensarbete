@@ -20,6 +20,7 @@ export class LocationComponent implements OnInit {
     }
 
     ngOnInit(){
+        this.getDeviceLocation();
         this.startWatchingLocation();
     }
 

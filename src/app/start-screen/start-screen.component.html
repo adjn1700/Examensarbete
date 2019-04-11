@@ -1,16 +1,38 @@
 
 <GridLayout class="page" rows="*, auto" width="100%">
-    <StackLayout row="0" orientation="vertical">
+    <StackLayout class="p-20" row="0">
         <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
-        <Button text="Välj län" class="btn" (tap)="showListCounty()"></Button>
-        <ListPicker *ngIf="isVisibleCounty" [items]="countys" selectedIndex="3" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
-        <Button text="Välj väg" class="btn" (tap)="showListRoad()"></Button>
-        <ListPicker *ngIf="isVisibleRoad" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
-        <TextField hint="Destination i löpande längd" keyboardType="number"></TextField>
+        <StackLayout class="input-field">
+            <Label text="Välj län" class="label m-b-5"></Label>
+            <RadAutoCompleteTextView [items]="autocompleteCounties" suggestMode="Suggest">
+                <SuggestionView tkAutoCompleteSuggestionView>
+                    <ng-template tkSuggestionItemTemplate let-item="item">
+                        <GridLayout columns="auto, *">
+                            <Label col="1" [text]="item.text" class="p-l-5"></Label>
+                        </GridLayout>
+                    </ng-template>
+                </SuggestionView>
+            </RadAutoCompleteTextView>
+            <StackLayout class="hr-light"></StackLayout>
+        </StackLayout>
+        <StackLayout class="input-field" style="margin-top: 20">
+            <Label text="Välj väg" class="label m-b-5"></Label>
+            <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest">
+                <SuggestionView tkAutoCompleteSuggestionView>
+                    <ng-template tkSuggestionItemTemplate let-item="item">
+                        <GridLayout columns="auto, *">
+                            <Label col="1" [text]="item.text" class="p-l-5"></Label>
+                        </GridLayout>
+                    </ng-template>
+                </SuggestionView>
+            </RadAutoCompleteTextView>
+            <StackLayout class="hr-light"></StackLayout>
+        </StackLayout>
     </StackLayout>
+
 
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
     <StackLayout #bottomElt row="1">
-        <Button row="1" text="Nästa sida" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" ></Button>
+        <Button row="1" text="Nästa sida" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20"></Button>
     </StackLayout>
 </GridLayout>

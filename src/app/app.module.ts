@@ -11,6 +11,8 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
 import { DestinationComponent } from './destination/destination.component';
 import { ApiService } from "~/app/api.service";
 
+import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
+
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -26,7 +28,8 @@ import { ApiService } from "~/app/api.service";
         NativeScriptModule,
         AppRoutingModule,
         HttpClientModule,
-        NativeScriptHttpClientModule
+        NativeScriptHttpClientModule,
+        NativeScriptUIAutoCompleteTextViewModule
     ],
     declarations: [
         AppComponent,
