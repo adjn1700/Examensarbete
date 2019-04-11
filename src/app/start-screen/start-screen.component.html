@@ -15,7 +15,7 @@
             </RadAutoCompleteTextView>
             <StackLayout class="hr-light"></StackLayout>
         </StackLayout>
-        <StackLayout class="input-field" style="margin-top: 20">
+        <StackLayout class="input-field m-t-10" >
             <Label text="Välj väg" class="label m-b-5"></Label>
             <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest">
                 <SuggestionView tkAutoCompleteSuggestionView>
@@ -27,6 +27,10 @@
                 </SuggestionView>
             </RadAutoCompleteTextView>
             <StackLayout class="hr-light"></StackLayout>
+        </StackLayout>
+        <StackLayout>
+            <Label text="Din destination" class="label destlbl"></Label>
+            <TextField class="tfDestination m-t-5" keyboardType="number"></TextField>
         </StackLayout>
     </StackLayout>
 

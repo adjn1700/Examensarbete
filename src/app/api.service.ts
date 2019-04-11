@@ -22,15 +22,13 @@ export class ApiService {
         var xmlRequest = `
         <REQUEST>
             <LOGIN authenticationkey="8ccbb37be31d48adbaf3009f14a45141" />
-            <QUERY objecttype="Situation">
+            <QUERY objecttype="Situation" limit="1">
+
               <FILTER>
                     <WITHIN name="Deviation.Geometry.SWEREF99TM" shape="center" value="320011 6398983" radius="10000" />
               </FILTER>
               <INCLUDE>Deviation.Header</INCLUDE>
               <INCLUDE>Deviation.IconId</INCLUDE>
-              <INCLUDE>Deviation.Message</INCLUDE>
-              <INCLUDE>Deviation.MessageCode</INCLUDE>
-              <INCLUDE>Deviation.MessageType</INCLUDE>
             </QUERY>
         </REQUEST>`
         return xmlRequest;
