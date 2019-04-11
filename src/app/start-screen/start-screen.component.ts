@@ -18,6 +18,7 @@ export class StartScreenComponent implements OnInit {
     public isVisibleCounty: boolean = false;
     public isVisibleRoad: boolean = false;
 
+
     constructor(private router: RouterExtensions) {
 
     for (let county of countyList) {

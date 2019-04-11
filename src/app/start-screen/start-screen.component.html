@@ -3,7 +3,7 @@
     <StackLayout row="0" orientation="vertical">
         <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
         <Button text="Välj län" class="btn" (tap)="showListCounty()"></Button>
-        <ListPicker *ngIf="isVisibleCounty" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+        <ListPicker *ngIf="isVisibleCounty" [items]="countys" selectedIndex="3" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
         <Button text="Välj väg" class="btn" (tap)="showListRoad()"></Button>
         <ListPicker *ngIf="isVisibleRoad" [items]="countys" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
         <TextField hint="Destination i löpande längd" keyboardType="number"></TextField>
