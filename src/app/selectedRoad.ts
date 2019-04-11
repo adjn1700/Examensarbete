@@ -1,6 +1,7 @@
 export class SelectedRoad{
-    id: number;
     county: string;
-    road: number;
+    countyId: number;
+    road: string;
+    roadId: number;
     direction: string;
 }

@@ -14,15 +14,18 @@ import { Observable } from 'tns-core-modules/ui/page/page';
   moduleId: module.id
 })
 export class DashboardComponent implements OnInit {
-
-
-
-    //public selectedRoad: SelectedRoad;
-
-
+    public selectedRoad: SelectedRoad;
     constructor(private myapiService: ApiService, private router: RouterExtensions) { }
 
     ngOnInit() {
+        //TEST-data
+        this.selectedRoad = new SelectedRoad();
+        this.selectedRoad.county = "Jämtlands län";
+        this.selectedRoad.countyId = 1;
+        this.selectedRoad.road = "Väg 84";
+        this.selectedRoad.roadId = 84;
+        this.selectedRoad.direction = "med";
+        //
     }
 
     //api
