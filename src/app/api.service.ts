@@ -19,9 +19,10 @@ export class ApiService {
         return this.http.post(this.apiUrl, data );
     }
     private createRequest() {
-        var xmlRequest = `<REQUEST>
-        <LOGIN authenticationkey="8ccbb37be31d48adbaf3009f14a45141" />
-        <QUERY objecttype="Situation">
+        var xmlRequest = `
+        <REQUEST>
+            <LOGIN authenticationkey="8ccbb37be31d48adbaf3009f14a45141" />
+            <QUERY objecttype="Situation">
               <FILTER>
                     <WITHIN name="Deviation.Geometry.SWEREF99TM" shape="center" value="320011 6398983" radius="10000" />
               </FILTER>
@@ -30,8 +31,8 @@ export class ApiService {
               <INCLUDE>Deviation.Message</INCLUDE>
               <INCLUDE>Deviation.MessageCode</INCLUDE>
               <INCLUDE>Deviation.MessageType</INCLUDE>
-        </QUERY>
-  </REQUEST>`
+            </QUERY>
+        </REQUEST>`
         return xmlRequest;
     }
 
