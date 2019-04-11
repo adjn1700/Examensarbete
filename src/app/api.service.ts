@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-    private apiUrl = 'http://api.trafikinfo.trafikverket.se/v1.3/data.json';
+    private apiUrl = 'https://api.trafikinfo.trafikverket.se/v1.3/data.json';
 
     constructor(private http: HttpClient) {
      }
@@ -16,7 +16,7 @@ export class ApiService {
     //Post data api Fungerar inte
     postData() {
         var data = this.createRequest();
-        return this.http.post(this.apiUrl, { data });
+        return this.http.post(this.apiUrl, data );
     }
     private createRequest() {
         var xmlRequest = `<REQUEST>

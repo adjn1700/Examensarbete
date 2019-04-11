@@ -9,6 +9,7 @@ import { LocationComponent } from './location/location.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { DestinationComponent } from './destination/destination.component';
+import { ApiService } from "~/app/api.service";
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -34,7 +35,7 @@ import { DestinationComponent } from './destination/destination.component';
         StartScreenComponent,
         DestinationComponent
     ],
-    providers: [],
+    providers: [ApiService],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
