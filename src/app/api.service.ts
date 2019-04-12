@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { request, getFile, getImage, getJSON, getString } from "tns-core-modules/http";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -13,7 +12,7 @@ export class ApiService {
      }
 
 
-    //Post data api Fungerar inte
+    //Post data api
     postData() {
         var data = this.createRequest();
         return this.http.post(this.apiUrl, data );

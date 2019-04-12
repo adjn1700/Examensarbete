@@ -4,7 +4,7 @@
         <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
         <StackLayout class="input-field">
             <Label text="Välj län" class="label m-b-5"></Label>
-            <RadAutoCompleteTextView [items]="autocompleteCounties" suggestMode="Suggest">
+            <RadAutoCompleteTextView [items]="autocompleteCounties" suggestMode="Suggest" displayMode="Plain">
                 <SuggestionView tkAutoCompleteSuggestionView>
                     <ng-template tkSuggestionItemTemplate let-item="item">
                         <GridLayout columns="auto, *">
@@ -17,7 +17,7 @@
         </StackLayout>
         <StackLayout class="input-field m-t-10" >
             <Label text="Välj väg" class="label m-b-5"></Label>
-            <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest">
+            <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest" displayMode="Plain">
                 <SuggestionView tkAutoCompleteSuggestionView>
                     <ng-template tkSuggestionItemTemplate let-item="item">
                         <GridLayout columns="auto, *">
@@ -29,7 +29,7 @@
             <StackLayout class="hr-light"></StackLayout>
         </StackLayout>
         <StackLayout>
-            <Label text="Din destination" class="label destlbl"></Label>
+            <Label text="Välj din destination" class="label destlbl"></Label>
             <TextField class="tfDestination m-t-5" keyboardType="number"></TextField>
         </StackLayout>
     </StackLayout>
@@ -37,6 +37,6 @@
 
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
     <StackLayout #bottomElt row="1">
-        <Button row="1" text="Nästa sida" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20"></Button>
+        <Button row="1" text="Bekräfta" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20"></Button>
     </StackLayout>
 </GridLayout>
