@@ -4,8 +4,7 @@ import { ApiService } from '~/app/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import {SelectedRoad} from '../selectedRoad'
 import { Observable } from 'tns-core-modules/ui/page/page';
-
-
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'ns-dashboard',
@@ -15,7 +14,11 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 })
 export class DashboardComponent implements OnInit {
     public selectedRoad: SelectedRoad;
-    constructor(private myapiService: ApiService, private router: RouterExtensions) { }
+    constructor(
+        private myapiService: ApiService,
+        private router: RouterExtensions,
+        private locationService: LocationService
+        ) { }
 
     ngOnInit() {
         //TEST-data
@@ -25,7 +28,11 @@ export class DashboardComponent implements OnInit {
         this.selectedRoad.road = "Väg 84";
         this.selectedRoad.roadId = 84;
         this.selectedRoad.direction = "med";
-        //
+
+        //updates current location and asks device permission if not granted
+        this.locationService.updateCurrentLocation();
+        //starts the stream of location service to connected child components
+        this.locationService.startWatchingLocation();
     }
 
     //api
@@ -53,6 +60,7 @@ export class DashboardComponent implements OnInit {
 
   //Navigering
   backToStart(){
+    this.locationService.stopWatchingLocation();
     this.router.navigate(['/start-screen'], {
         clearHistory: true,
         animated: true, transition: {

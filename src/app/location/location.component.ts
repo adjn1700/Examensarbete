@@ -1,5 +1,8 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as Geolocation from "nativescript-geolocation";
+import { Subscription } from 'rxjs';
+import { LocationService } from '../location.service';
+import { Location } from '../location'
 
 
 @Component({
@@ -8,62 +11,28 @@ import * as Geolocation from "nativescript-geolocation";
   styleUrls: ['./location.component.css'],
   moduleId: module.id,
 })
-export class LocationComponent implements OnInit {
+export class LocationComponent implements OnInit, OnDestroy {
 
-    public latitude: number;
-    public longitude: number;
-    private watchId: number;
+    public currentContinuousLength: number;
+    public location: Location;
+    subscription: Subscription;
 
-    public constructor(private zone: NgZone) {
-        this.latitude = 0;
-        this.longitude = 0;
-    }
+    public constructor(
+        private zone: NgZone,
+        private locationService: LocationService
+        )
+        {
+            this.subscription = this.locationService.location$.subscribe(
+                loc => {
+                    this.location = loc;
+                }
+            )
+        }
 
     ngOnInit(){
-        this.getDeviceLocation();
-        this.startWatchingLocation();
     }
-
-    public updateLocation() {
-        this.getDeviceLocation().then(result => {
-            this.latitude = result.latitude;
-            this.longitude = result.longitude;
-        }, error => {
-            console.error(error);
-        });
-    }
-
-    public getDeviceLocation(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({timeout: 10000}).then(location => {
-                    resolve(location);
-                    console.log(location);
-                }).catch(error => {
-                    reject(error);
-                });
-            });
-        });
-    }
-
-    public startWatchingLocation() {
-        this.watchId = Geolocation.watchLocation(location => {
-            if(location) {
-                this.zone.run(() => {
-                    this.latitude = location.latitude;
-                    this.longitude = location.longitude;
-                });
-            }
-        }, error => {
-            //console.dump(error);
-        }, { updateDistance: 1, minimumUpdateTime: 1000 });
-    }
-
-    public stopWatchingLocation() {
-        if(this.watchId) {
-            Geolocation.clearWatch(this.watchId);
-            this.watchId = null;
-        }
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
     }
 
 }
