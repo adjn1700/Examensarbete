@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { RouterExtensions } from 'nativescript-angular/router';
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
+import { Observable } from 'tns-core-modules/ui/page/page';
 
 const countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
-const roadList = ["101", "1002", "230", "122"];
+const roadList = ["101", "1002", "230", "122", "722", "522", "562"];
 
 @Component({
   selector: 'ns-start-screen',
@@ -38,10 +38,6 @@ export class StartScreenComponent implements OnInit {
         });
   }
 
-    public selectedIndexChanged(args) {
-    let picker = <ListPicker>args.object;
-    this.picked = this.countys[picker.selectedIndex];
-    }
 
   ngOnInit() {
   }
