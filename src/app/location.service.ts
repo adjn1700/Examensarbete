@@ -61,6 +61,7 @@ export class LocationService {
         if(this.watchId) {
             Geolocation.clearWatch(this.watchId);
             this.watchId = null;
+
         }
     }
 }

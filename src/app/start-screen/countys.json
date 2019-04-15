@@ -1,0 +1,128 @@
+[
+  {
+    "LanKod": 1,
+    "RegionKod": 4,
+    "Namn": "Stockholm (AB)",
+    "LanBokstav": "AB"
+  },
+  {
+    "LanKod": 3,
+    "RegionKod": 3,
+    "Namn": "Uppsala (C)",
+    "LanBokstav": "C"
+  },
+  {
+    "LanKod": 4,
+    "RegionKod": 3,
+    "Namn": "Södermanland (D)",
+    "LanBokstav": "D"
+  },
+  {
+    "LanKod": 5,
+    "RegionKod": 3,
+    "Namn": "Östergötland (E)",
+    "LanBokstav": "E"
+  },
+  {
+    "LanKod": 6,
+    "RegionKod": 6,
+    "Namn": "Jönköping (F)",
+    "LanBokstav": "F"
+  },
+  {
+    "LanKod": 7,
+    "RegionKod": 6,
+    "Namn": "Kronoberg (G)",
+    "LanBokstav": "G"
+  },
+  {
+    "LanKod": 8,
+    "RegionKod": 6,
+    "Namn": "Kalmar (H)",
+    "LanBokstav": "H"
+  },
+  {
+    "LanKod": 9,
+    "RegionKod": 4,
+    "Namn": "Gotland (I)",
+    "LanBokstav": "I"
+  },
+  {
+    "LanKod": 10,
+    "RegionKod": 6,
+    "Namn": "Blekinge (K)",
+    "LanBokstav": "K"
+  },
+  {
+    "LanKod": 12,
+    "RegionKod": 6,
+    "Namn": "Skåne (M)",
+    "LanBokstav": "M"
+  },
+  {
+    "LanKod": 13,
+    "RegionKod": 5,
+    "Namn": "Halland (N)",
+    "LanBokstav": "N"
+  },
+  {
+    "LanKod": 14,
+    "RegionKod": 5,
+    "Namn": "Västra Götaland (O)",
+    "LanBokstav": "O"
+  },
+  {
+    "LanKod": 17,
+    "RegionKod": 5,
+    "Namn": "Värmland (S)",
+    "LanBokstav": "S"
+  },
+  {
+    "LanKod": 18,
+    "RegionKod": 3,
+    "Namn": "Örebro (T)",
+    "LanBokstav": "T"
+  },
+  {
+    "LanKod": 19,
+    "RegionKod": 3,
+    "Namn": "Västmanland (U)",
+    "LanBokstav": "U"
+  },
+  {
+    "LanKod": 20,
+    "RegionKod": 2,
+    "Namn": "Dalarna (W)",
+    "LanBokstav": "W"
+  },
+  {
+    "LanKod": 21,
+    "RegionKod": 2,
+    "Namn": "Gävleborg (X)",
+    "LanBokstav": "X"
+  },
+  {
+    "LanKod": 22,
+    "RegionKod": 2,
+    "Namn": "Västernorrland (Y)",
+    "LanBokstav": "Y"
+  },
+  {
+    "LanKod": 23,
+    "RegionKod": 2,
+    "Namn": "Jämtland (Z)",
+    "LanBokstav": "Z"
+  },
+  {
+    "LanKod": 24,
+    "RegionKod": 1,
+    "Namn": "Västerbotten (AC)",
+    "LanBokstav": "AC"
+  },
+  {
+    "LanKod": 25,
+    "RegionKod": 1,
+    "Namn": "Norrbotten (BD)",
+    "LanBokstav": "BD"
+  }
+]
