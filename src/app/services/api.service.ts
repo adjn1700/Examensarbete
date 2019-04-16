@@ -29,10 +29,10 @@ export class ApiService {
             <QUERY objecttype="PavementData" schemaversion="1">
                 <FILTER>
                     <AND>
-                            <EQ name="County" value="${selectedRoad.countyId}" />
-                            <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
-                            <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
-                            <EQ name="Direction.Value" value="${selectedRoad.direction}" />
+                        <EQ name="County" value="${selectedRoad.countyId}" />
+                        <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
+                        <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
+                        <EQ name="Direction.Value" value="${selectedRoad.direction}" />
                     </AND>
                 </FILTER>
                 <INCLUDE>StartContinuousLength</INCLUDE>
