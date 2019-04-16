@@ -38,9 +38,9 @@ export class DashboardComponent implements OnInit {
         //TEST-data
         this.selectedRoad = new SelectedRoad();
         this.selectedRoad.county = this.county;
-        this.selectedRoad.countyId = 1;
+        this.selectedRoad.countyId = 23;
         this.selectedRoad.road = this.road;
-        this.selectedRoad.roadId = 84;
+        this.selectedRoad.roadId = 14;
         this.selectedRoad.direction = "med";
         this.selectedRoad.subroadId=0;
 

@@ -23,7 +23,7 @@ export class ApiService {
     }
 
 
-    public getPavementDataForRoad(selectedRoad: SelectedRoad){
+    public getPavementDataForRoad(selectedRoad: SelectedRoad): Observable<PavementData[]>{
         let customRequest = `<REQUEST>
         <LOGIN authenticationkey="${this.authKey}" />
             <QUERY objecttype="PavementData" schemaversion="1">
@@ -44,7 +44,7 @@ export class ApiService {
                 <INCLUDE>Thickness</INCLUDE>
             </QUERY>
         </REQUEST>`
-    return this.http.post(this.apiUrl, customRequest).pipe(map(res => res['PavementData']));
+    return this.http.post<PavementData[]>(this.apiUrl, customRequest);
     }
 
     private createRequest() {
