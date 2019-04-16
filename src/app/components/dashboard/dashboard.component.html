@@ -3,7 +3,7 @@
     <StackLayout row="0" class="p-10">
         <ns-destination></ns-destination>
         <ns-location></ns-location>
-        <ns-paving></ns-paving>
+        <ns-paving [selectedRoad]="selectedRoad"></ns-paving>
     </StackLayout>
     <StackLayout row="1">
             <Button text="API" class="btn btn-danger btn-rounded-sm btn-primary" (tap)="doApi()"></Button>

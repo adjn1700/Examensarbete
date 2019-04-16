@@ -1,21 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Response } from '@angular/http';
+import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SelectedRoad } from '../models/selectedRoad';
+import { PavementData } from '../models/pavementData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
     private apiUrl = 'https://api.trafikinfo.trafikverket.se/v1.3/data.json';
+    private authKey = '8ccbb37be31d48adbaf3009f14a45141'
 
     constructor(private http: HttpClient) {
     }
 
     //Post data api
-    postData() {
-        var data = this.createRequestWGS();
+    postData(request:string) {
+        var data = request;
         return this.http.post(this.apiUrl, data );
     }
+
+
+    public getPavementDataForRoad(selectedRoad: SelectedRoad){
+        let customRequest = `<REQUEST>
+        <LOGIN authenticationkey="${this.authKey}" />
+            <QUERY objecttype="PavementData" schemaversion="1">
+                <FILTER>
+                    <AND>
+                            <EQ name="County" value="${selectedRoad.countyId}" />
+                            <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
+                            <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
+                            <EQ name="Direction.Value" value="${selectedRoad.direction}" />
+                    </AND>
+                </FILTER>
+                <INCLUDE>StartContinuousLength</INCLUDE>
+                <INCLUDE>EndContinuousLength</INCLUDE>
+                <INCLUDE>Length</INCLUDE>
+                <INCLUDE>PavementDate</INCLUDE>
+                <INCLUDE>PavementType</INCLUDE>
+                <INCLUDE>MaxStoneSize</INCLUDE>
+                <INCLUDE>Thickness</INCLUDE>
+            </QUERY>
+        </REQUEST>`
+    return this.http.post(this.apiUrl, customRequest);
+    }
+
     private createRequest() {
         var xmlRequest = `
         <REQUEST>
