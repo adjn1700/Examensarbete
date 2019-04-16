@@ -7,7 +7,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
-import { County } from '../county'
+import { County } from '../models/county'
 import { Observable } from 'tns-core-modules/ui/page/page';
 
 import {knownFolders} from "tns-core-modules/file-system";
