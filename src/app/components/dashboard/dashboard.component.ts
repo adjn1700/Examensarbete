@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
         this.selectedRoad.road = "Väg 84";
         this.selectedRoad.roadId = 84;
         this.selectedRoad.direction = "med";
+        this.selectedRoad.subroadId=0;
 
         //updates current location and asks device permission if not granted
         this.locationService.updateCurrentLocation();
@@ -37,7 +38,19 @@ export class DashboardComponent implements OnInit {
 
     //api
     doApi(){
-        this.myapiService.postData().subscribe(
+        var testData= `
+        <REQUEST>
+            <LOGIN authenticationkey="8ccbb37be31d48adbaf3009f14a45141" />
+            <QUERY objecttype="Situation" limit="1">
+
+              <FILTER>
+                    <WITHIN name="Deviation.Geometry.WGS84" shape="center" value="11.979843 57.696954" radius="500m" />
+              </FILTER>
+              <INCLUDE>Deviation.Header</INCLUDE>
+              <INCLUDE>Deviation.IconId</INCLUDE>
+            </QUERY>
+        </REQUEST>`
+        this.myapiService.postData(testData).subscribe(
             (response) => console.log(response),
             (error) => console.log(error)
     );
