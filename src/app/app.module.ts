@@ -5,15 +5,15 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { LocationComponent } from './location/location.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LocationComponent } from './components/location/location.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
-import { DestinationComponent } from './destination/destination.component';
-import { ApiService } from "~/app/api.service";
+import { DestinationComponent } from './components/destination/destination.component';
+import { ApiService } from "~/app/services/api.service";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
-import { DestinationAddComponent } from './destination-add/destination-add.component';
-import { PavingComponent } from './paving/paving.component';
+import { DestinationAddComponent } from './components/destination-add/destination-add.component';
+import { PavingComponent } from './components/paving/paving.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding

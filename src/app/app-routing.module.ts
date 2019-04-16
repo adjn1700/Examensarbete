@@ -3,8 +3,8 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
 import { StartScreenComponent } from './start-screen/start-screen.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DestinationAddComponent } from './destination-add/destination-add.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DestinationAddComponent } from './components/destination-add/destination-add.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "/start-screen", pathMatch: "full" },
