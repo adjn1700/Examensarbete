@@ -45,6 +45,9 @@
 
 .cardContent {
   padding: 10;
+}
+
+.bigBoldText{
   font-weight: bold;
   font-size: 30;
 }

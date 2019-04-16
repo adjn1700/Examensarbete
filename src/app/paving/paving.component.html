@@ -1,1 +1,20 @@
-<Button text="paving works!" class="btn btn-primary"></Button>
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+    <StackLayout class="cardContent">
+        <StackLayout>
+            <Label class="h2" text="Senaste beläggning" horizontalAlignment="center"></Label>
+            <GridLayout rows="auto" columns="*, auto, *">
+                <Label col="0" text="112m" class="h3"></Label>
+                <Label col="1" text="2014-03-02" class="h2"></Label>
+                <Label col="2" text="712m" class="h3" horizontalAlignment="right"></Label>
+            </GridLayout>
+            <GridLayout columns="3*, *" class="progressbar m-y-3">
+                <StackLayout col="0" class="progressbar-value"></StackLayout>
+            </GridLayout>
+            <Label text="ABS - heltäckande" horizontalAlignment="center"
+                class="font-weight-bold"></Label>
+        </StackLayout>
+        <StackLayout id="nextPavingContainer" class=" m-t-5">
+            <Label horizontalAlignment="center" text="Nästa: 735m" class="h2"></Label>
+        </StackLayout>
+    </StackLayout>
+</CardView>
