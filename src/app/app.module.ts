@@ -4,12 +4,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { LocationComponent } from './components/location/location.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { StartScreenComponent } from './start-screen/start-screen.component';
-import { DestinationComponent } from './components/destination/destination.component';
+import { AppRoutingModule } from "~/app/app-routing.module";
+import { AppComponent } from "~/app/app.component";
+import { LocationComponent } from '~/app/components/location/location.component';
+import { DashboardComponent } from '~/app/components/dashboard/dashboard.component';
+import { StartScreenComponent } from '~/app/start-screen/start-screen.component';
+import { DestinationComponent } from '~/app/components/destination/destination.component';
 import { ApiService } from "~/app/services/api.service";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";

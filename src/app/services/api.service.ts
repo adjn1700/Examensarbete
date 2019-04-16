@@ -44,7 +44,7 @@ export class ApiService {
                 <INCLUDE>Thickness</INCLUDE>
             </QUERY>
         </REQUEST>`
-    return this.http.post(this.apiUrl, customRequest);
+    return this.http.post(this.apiUrl, customRequest).pipe(map(res => res['PavementData']));
     }
 
     private createRequest() {
