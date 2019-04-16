@@ -1,11 +1,11 @@
 export class PavementData {
-    startContinuousLength: number;
-    endContinuousLength: number;
-    length: number;
-    pavementDate: Date;
-    pavementType: string;
-    maxStoneSize: number;
-    thickness: number;
+    StartContinuousLength: number;
+    EndContinuousLength: number;
+    Length: number;
+    PavementDate: Date;
+    PavementType: string;
+    MaxStoneSize: number;
+    Thickness: number;
 
     public constructor(init?:Partial<PavementData>) {
         Object.assign(this, init);

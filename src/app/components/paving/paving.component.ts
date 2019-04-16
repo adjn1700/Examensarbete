@@ -11,21 +11,22 @@ import { SelectedRoad } from '~/app/models/selectedRoad';
 })
 export class PavingComponent implements OnInit {
   @Input() selectedRoad: SelectedRoad;
-  private pavings: PavementData[];
+  public pavings: PavementData[] = [];
+  public test: string;
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getPavementDataForRoad(this.selectedRoad).subscribe((pavings:PavementData[]) => {
-        this.pavings = pavings;
-        });
-
+    this.apiService.getPavementDataForRoad(this.selectedRoad).subscribe(
+        data => {
+            this.pavings = data["PavementData"];
+            console.log(this.pavings)
+        },
+        (error) => {console.log(error)}
+        );
   }
 
-  createPavingApiRequest(){
-
-
-
+  testTap(){
+      console.log(this.pavings[0])
   }
-
 }
