@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { Routes, NavigationExtras } from "@angular/router";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 
@@ -31,6 +33,13 @@ export class StartScreenComponent implements OnInit {
     autocompleteRoads: ObservableArray<TokenModel>;
     autocounty: ObservableArray<TokenModel>;
 
+    destination = "";
+    chosenDestination = "";
+    county = "";
+    chosenCounty = "";
+    road = "";
+    chosenRoad = "";
+
     constructor(private router: RouterExtensions) {
 
         this.autocompleteCounties = new ObservableArray<TokenModel>();
@@ -50,12 +59,37 @@ export class StartScreenComponent implements OnInit {
         console.log(this.autocounty);*/
   }
 
+  setValues(){
+      this.chosenDestination = this.destination;
+      this.chosenRoad = this.road;
+      this.chosenCounty = this.county;
+
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+            "chosenDestination": this.chosenDestination,
+            "chosenRoad": this.chosenRoad,
+            "chosenCounty": this.chosenCounty
+            }
+        };
+  }
 
   ngOnInit() {
 
   }
 
   toDashboard(){
+
+    this.chosenDestination = this.destination;
+    this.chosenRoad = this.road;
+    this.chosenCounty = this.county;
+
+    let navigationExtras: NavigationExtras = {
+        queryParams: {
+            "chosenDestination": this.destination,
+            "chosenRoad": "64",
+            "chosenCounty": "Jämtlands län"
+            }
+        };
 
     dialogs.action({
         message: "Din riktning",
@@ -65,7 +99,7 @@ export class StartScreenComponent implements OnInit {
         if(result == "Med"){
             this.router.navigate(['/dashboard'], {clearHistory: true});
         }else if(result == "Mot"){
-            this.router.navigate(['/dashboard'], {clearHistory: true});
+            this.router.navigate(['/dashboard'], navigationExtras);
         }
     });
   }

@@ -2,6 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { HttpClientModule } from '@angular/common/http'
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -31,7 +32,8 @@ import { PavingComponent } from './components/paving/paving.component';
         AppRoutingModule,
         HttpClientModule,
         NativeScriptHttpClientModule,
-        NativeScriptUIAutoCompleteTextViewModule
+        NativeScriptUIAutoCompleteTextViewModule,
+        NativeScriptFormsModule
     ],
     declarations: [
         AppComponent,
@@ -42,7 +44,7 @@ import { PavingComponent } from './components/paving/paving.component';
         DestinationAddComponent,
         PavingComponent
     ],
-    providers: [ApiService],
+    providers: [],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

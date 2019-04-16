@@ -28,15 +28,16 @@
             </RadAutoCompleteTextView>
             <StackLayout class="hr-light"></StackLayout>
         </StackLayout>
-        <StackLayout>
+        <StackLayout class="m-t-10">
             <Label text="Välj din destination" class="label destlbl"></Label>
-            <TextField class="tfDestination m-t-5" keyboardType="number"></TextField>
+            <TextField [(ngModel)]="destination" class="tfDestination m-t-5" ></TextField>
         </StackLayout>
+
     </StackLayout>
 
 
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
     <StackLayout #bottomElt row="1">
-        <Button row="1" text="Bekräfta" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20"></Button>
+        <Button row="1" text="Bekräfta" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20" clearHistory="true"></Button>
     </StackLayout>
 </GridLayout>
