@@ -16,13 +16,10 @@ export class PavingComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    //funkar ej
-    /*
     this.apiService.getPavementDataForRoad(this.selectedRoad).subscribe((pavings:PavementData[]) => {
         this.pavings = pavings;
-        console.dir(this.pavings);
         });
-    */
+
   }
 
   createPavingApiRequest(){
