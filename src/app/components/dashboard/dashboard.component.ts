@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { ApiService } from '~/app/api.service';
+import { ApiService } from '~/app/services/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
-import {SelectedRoad} from '../selectedRoad'
+import {SelectedRoad} from '../../models/selectedRoad'
 import { Observable } from 'tns-core-modules/ui/page/page';
-import { LocationService } from '../location.service';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'ns-dashboard',

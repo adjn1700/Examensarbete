@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import * as Geolocation from "nativescript-geolocation";
 import { BehaviorSubject } from 'rxjs';
-import { Location } from './location';
+import { Location } from '../models/location';
 
 @Injectable({
   providedIn: 'root'

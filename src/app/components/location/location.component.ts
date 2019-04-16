@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as Geolocation from "nativescript-geolocation";
 import { Subscription } from 'rxjs';
-import { LocationService } from '../location.service';
-import { Location } from '../location'
+import { LocationService } from '../../services/location.service';
+import { Location } from '../../models/location'
 
 
 @Component({
