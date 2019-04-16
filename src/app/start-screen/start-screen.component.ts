@@ -5,10 +5,15 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
+import { County } from '../county'
 import { Observable } from 'tns-core-modules/ui/page/page';
 
-const countyList = ["Hallands", "Jämtlands", "Jönköpings", "Kalmars"];
+import {knownFolders} from "tns-core-modules/file-system";
+//import countys from './countys.json'
+
+const countyList = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
 const roadList = ["101", "1002", "230", "122", "722", "522", "562"];
+//const countyCollection = countys;
 
 @Component({
   selector: 'ns-start-screen',
@@ -17,13 +22,14 @@ const roadList = ["101", "1002", "230", "122", "722", "522", "562"];
   moduleId: module.id,
 })
 export class StartScreenComponent implements OnInit {
-    public countys: Array<string> = [];
+
     public picked: string;
     public isVisibleCounty: boolean = false;
     public isVisibleRoad: boolean = false;
 
     autocompleteCounties: ObservableArray<TokenModel>;
     autocompleteRoads: ObservableArray<TokenModel>;
+    autocounty: ObservableArray<TokenModel>;
 
     constructor(private router: RouterExtensions) {
 
@@ -36,10 +42,17 @@ export class StartScreenComponent implements OnInit {
         roadList.forEach((road) => {
             this.autocompleteRoads.push(new TokenModel(road, undefined));
         });
+
+        /*this.autocounty = new ObservableArray<TokenModel>();
+        countyCollection.forEach((count) => {
+            this.autocounty.push(new TokenModel(count, undefined));
+        });
+        console.log(this.autocounty);*/
   }
 
 
   ngOnInit() {
+
   }
 
   toDashboard(){
@@ -73,4 +86,10 @@ export class StartScreenComponent implements OnInit {
         this.isVisibleCounty = false;
     }
   }
+
+
+
+
+
+
 }
