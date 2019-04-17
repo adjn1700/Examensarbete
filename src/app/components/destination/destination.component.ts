@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 import { DataShareService } from '../../services/data-share.service';
+import { ContinuousLengthService } from '~/app/services/continuous-length.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,13 +14,30 @@ import { DataShareService } from '../../services/data-share.service';
 export class DestinationComponent implements OnInit {
 
     public destinationValue: number;
+    public distanceLeft: number;
+    private currentContinuousLength: number;
+    private subscription: Subscription;
 
-    constructor(public dataShareService: DataShareService) {
-        this.destinationValue = dataShareService.serviceDestination;
+    constructor(
+        private dataShareService: DataShareService,
+        private clService: ContinuousLengthService
+        ) {
+        this.destinationValue = this.dataShareService.serviceDestination;
         this.isDestinationActive();
+        this.subscription = this.clService.continuousLength$.subscribe(cl => {
+            this.currentContinuousLength = cl
+            this.calcDistanceLeft(cl);
+        });
     }
 
     ngOnInit() {
+    }
+
+    calcDistanceLeft(cl:number){
+        let x = cl;
+        let y = this.destinationValue;
+        let result = y - x;
+        this.distanceLeft = result;
     }
 
     isDestinationActive(): boolean{

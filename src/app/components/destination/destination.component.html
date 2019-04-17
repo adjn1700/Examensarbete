@@ -6,7 +6,7 @@
             horizontalAlignment="center" text="Destination ({{destinationValue}}m)"></Label>
         <Button class="fas exitBtn" row="0" col="2" text="&#xf00d;" (tap)="showAlert()" horizontalAlignment="right"></Button>
         <Label row="1" col="1"
-            horizontalAlignment="center" text="50m" class="bigBoldText"></Label>
+            horizontalAlignment="center" [text]="distanceLeft" class="bigBoldText"></Label>
     </GridLayout>
 </CardView>
 
