@@ -15,6 +15,7 @@ export class DestinationComponent implements OnInit {
 
     constructor(public dataShareService: DataShareService) {
         this.destinationValue = dataShareService.serviceDestination;
+        this.isDestinationActive();
     }
 
     ngOnInit() {
