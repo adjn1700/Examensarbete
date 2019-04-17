@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { DataShareService } from '../../services/data-share.service';
+
 
 @Component({
   selector: 'ns-destination',
@@ -10,8 +12,9 @@ import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
 export class DestinationComponent implements OnInit {
 
     public destinationValue: number;
-    constructor() {
-        this.destinationValue = 1280;
+
+    constructor(public dataShareService: DataShareService) {
+        this.destinationValue = dataShareService.serviceDestination;
     }
 
     ngOnInit() {
