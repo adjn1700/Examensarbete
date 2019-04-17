@@ -3,6 +3,7 @@ import * as Geolocation from "nativescript-geolocation";
 import { Subscription } from 'rxjs';
 import { LocationService } from '../../services/location.service';
 import { Location } from '../../models/location'
+import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 
 
 @Component({
@@ -15,16 +16,23 @@ export class LocationComponent implements OnInit, OnDestroy {
 
     public currentContinuousLength: number;
     public location: Location;
-    subscription: Subscription;
+    loSubscription: Subscription;
+    clSubscription: Subscription;
 
     public constructor(
         private zone: NgZone,
-        private locationService: LocationService
+        private locationService: LocationService,
+        private clService: ContinuousLengthService
         )
         {
-            this.subscription = this.locationService.location$.subscribe(
+            this.loSubscription = this.locationService.location$.subscribe(
                 loc => {
                     this.location = loc;
+                }
+            )
+            this.clSubscription = this.clService.continuousLength$.subscribe(
+                cl => {
+                    this.currentContinuousLength = cl;
                 }
             )
         }
@@ -32,7 +40,9 @@ export class LocationComponent implements OnInit, OnDestroy {
     ngOnInit(){
     }
     ngOnDestroy(){
-        this.subscription.unsubscribe();
+        this.clSubscription.unsubscribe();
+        this.loSubscription.unsubscribe();
+
     }
 
 }

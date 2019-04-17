@@ -10,6 +10,6 @@ export class ContinuousLengthService {
   continuousLength$ = this.continuousLengthSource.asObservable();
   constructor() {
       //TEST-data
-      this.continuousLengthSource.next(1100);
+      this.continuousLengthSource.next(3100);
   }
 }

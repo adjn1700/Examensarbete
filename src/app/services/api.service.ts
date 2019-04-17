@@ -18,8 +18,7 @@ export class ApiService {
 
     //Post data api
     postData(request:string) {
-        var data = request;
-        return this.http.post(this.apiUrl, data );
+        return this.http.post(this.apiUrl, request );
     }
 
 
@@ -44,8 +43,23 @@ export class ApiService {
                 <INCLUDE>Thickness</INCLUDE>
             </QUERY>
         </REQUEST>`
-    return this.http.post<PavementData[]>(this.apiUrl, customRequest)
+    return this.postData(customRequest)
         .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
+    }
+
+    getCurrentContinuousLength(){
+        let customRequest = `
+        <REQUEST>
+            <LOGIN authenticationkey="${this.authKey}" />
+            <QUERY objecttype="PavementData" schemaversion="1">
+                <FILTER>
+                        <AND>
+                            <EQ name="County" value="0" />
+                        </AND>
+                </FILTER>
+                <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(23, 14, 0, 2, 521405.8, 6957743.1)" />
+            </QUERY>
+        </REQUEST>`
     }
 
     private createRequest() {

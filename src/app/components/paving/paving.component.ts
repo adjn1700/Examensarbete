@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class PavingComponent implements OnInit {
   @Input() selectedRoad: SelectedRoad;
+  public pbColumns;
   public pavings: PavementData[];
   public currentContinuousLength: number = 0;
   public currentPaving: PavementData;
@@ -38,6 +39,27 @@ export class PavingComponent implements OnInit {
         this.subscription = this.clService.continuousLength$.subscribe(cl => {
             this.currentContinuousLength = cl;
         });
+        //Test-data
+        this.currentPaving = new PavementData({
+            StartContinuousLength:80,
+            EndContinuousLength:17491,
+            Length:17491,
+            PavementType:"Y1B - Enkel ytbehandling på bituminöst underlag",
+            PavementDate:"2008-07-20T00:00:00"
+
+        })
+        this.setProgressbarWidth(this.setTraveledPercentage());
+
+  }
+
+  setTraveledPercentage(){
+      let x = this.currentContinuousLength;
+      let y = this.currentPaving.EndContinuousLength;
+      let currentPerc = x/y;
+      return currentPerc * 100;
+  }
+  setProgressbarWidth(percent) {
+    this.pbColumns = percent + "*," + (100 - percent) + "*";
   }
 
   testTap(){
