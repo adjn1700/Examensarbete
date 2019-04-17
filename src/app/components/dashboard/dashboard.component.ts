@@ -6,6 +6,7 @@ import {SelectedRoad} from '../../models/selectedRoad'
 import { Observable } from 'tns-core-modules/ui/page/page';
 import { LocationService } from '../../services/location.service';
 import {ActivatedRoute} from "@angular/router";
+import { DataShareService } from '../../services/data-share.service';
 
 @Component({
   selector: 'ns-dashboard',
@@ -15,33 +16,40 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
 
-    public destination: string;
+    public destination: number;
     public county: string;
     public road: string;
     public selectedRoad: SelectedRoad;
+    public direction: string;
 
     constructor(
 
         private myapiService: ApiService,
         private router: RouterExtensions,
         private locationService: LocationService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public dataShareService: DataShareService
         ) {
-            this.route.queryParams.subscribe(params => {
-                this.destination = params["chosenDestination"];
-                this.county = params["chosenCounty"];
-                this.road = params["chosenRoad"];
-            });
+            /*
+            this.county = dataShareService.serviceCounty;
+            this.road = dataShareService.serviceRoad;*/
+            this.destination = dataShareService.serviceDestination;
+            this.direction = dataShareService.serviceDirection;
+
+            this.county = "Jämtlands län";
+            this.road = "1002";
+
          }
 
     ngOnInit() {
         //TEST-data
+        //När det funkar byt ut hårdkodad data mot "this.county" och "this.road";
         this.selectedRoad = new SelectedRoad();
         this.selectedRoad.county = this.county;
         this.selectedRoad.countyId = 23;
         this.selectedRoad.road = this.road;
         this.selectedRoad.roadId = 14;
-        this.selectedRoad.direction = "med";
+        this.selectedRoad.direction = this.direction;
         this.selectedRoad.subroadId=0;
 
         //updates current location and asks device permission if not granted

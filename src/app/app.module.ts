@@ -11,6 +11,8 @@ import { DashboardComponent } from '~/app/components/dashboard/dashboard.compone
 import { StartScreenComponent } from '~/app/start-screen/start-screen.component';
 import { DestinationComponent } from '~/app/components/destination/destination.component';
 import { ApiService } from "~/app/services/api.service";
+import { DataShareService } from './services/data-share.service';
+
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';

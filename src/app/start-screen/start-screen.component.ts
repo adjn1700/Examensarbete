@@ -10,6 +10,8 @@ import { TokenModel } from "nativescript-ui-autocomplete";
 import { County } from '../models/county'
 import { Observable } from 'tns-core-modules/ui/page/page';
 
+import { DataShareService } from '../services/data-share.service';
+
 import {knownFolders} from "tns-core-modules/file-system";
 //import countys from './countys.json'
 
@@ -33,14 +35,12 @@ export class StartScreenComponent implements OnInit {
     autocompleteRoads: ObservableArray<TokenModel>;
     autocounty: ObservableArray<TokenModel>;
 
-    destination = "";
-    chosenDestination = "";
+    destination: number;
     county = "";
-    chosenCounty = "";
     road = "";
-    chosenRoad = "";
+    direction = "";
 
-    constructor(private router: RouterExtensions) {
+    constructor(private router: RouterExtensions, public dataShareService: DataShareService) {
 
         this.autocompleteCounties = new ObservableArray<TokenModel>();
         countyList.forEach((county) => {
@@ -51,26 +51,6 @@ export class StartScreenComponent implements OnInit {
         roadList.forEach((road) => {
             this.autocompleteRoads.push(new TokenModel(road, undefined));
         });
-
-        /*this.autocounty = new ObservableArray<TokenModel>();
-        countyCollection.forEach((count) => {
-            this.autocounty.push(new TokenModel(count, undefined));
-        });
-        console.log(this.autocounty);*/
-  }
-
-  setValues(){
-      this.chosenDestination = this.destination;
-      this.chosenRoad = this.road;
-      this.chosenCounty = this.county;
-
-      let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "chosenDestination": this.chosenDestination,
-            "chosenRoad": this.chosenRoad,
-            "chosenCounty": this.chosenCounty
-            }
-        };
   }
 
   ngOnInit() {
@@ -79,17 +59,7 @@ export class StartScreenComponent implements OnInit {
 
   toDashboard(){
 
-    this.chosenDestination = this.destination;
-    this.chosenRoad = this.road;
-    this.chosenCounty = this.county;
-
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "chosenDestination": this.destination,
-            "chosenRoad": "64",
-            "chosenCounty": "Jämtlands län"
-            }
-        };
+    this.dataShareService.serviceDestination = this.destination;
 
     dialogs.action({
         message: "Din riktning",
@@ -97,33 +67,12 @@ export class StartScreenComponent implements OnInit {
         actions: ["Med", "Mot"]
     }).then(result => {
         if(result == "Med"){
+            this.dataShareService.serviceDirection = "Med";
             this.router.navigate(['/dashboard'], {clearHistory: true});
         }else if(result == "Mot"){
-            this.router.navigate(['/dashboard'], navigationExtras);
+            this.dataShareService.serviceDirection = "Mot";
+            this.router.navigate(['/dashboard'], {clearHistory: true});
         }
     });
   }
-
-  showListCounty(){
-    if (this.isVisibleCounty) {
-        this.isVisibleCounty = false;
-    } else  {
-        this.isVisibleCounty = true;
-        this.isVisibleRoad = false;
-    }
-  }
-  showListRoad(){
-    if (this.isVisibleRoad) {
-        this.isVisibleRoad = false;
-    } else  {
-        this.isVisibleRoad = true;
-        this.isVisibleCounty = false;
-    }
-  }
-
-
-
-
-
-
 }
