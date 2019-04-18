@@ -27,7 +27,16 @@ export class PavingComponent implements OnInit {
       ) { }
 
   ngOnInit() {
+    this.currentPaving = new PavementData({
+        StartContinuousLength:80,
+        EndContinuousLength:1000,
+        Length:20,
+        PavementType:"Y1B - Enkel ytbehandling på bituminöst underlag",
+        PavementDate:"2008-07-20T00:00:00"
+
+    })
     //Gets array of pavement data for selected road
+
     this.apiService.getPavementDataForRoad(this.selectedRoad).subscribe(
         data => {
             this.pavings = data;
@@ -38,18 +47,19 @@ export class PavingComponent implements OnInit {
         //Starts reading stream of current continuous length
         this.subscription = this.clService.continuousLength$.subscribe(cl => {
             this.currentContinuousLength = cl;
+            this.setProgressbarWidth(this.setTraveledPercentage());
+
         });
         //Test-data
-        this.currentPaving = new PavementData({
-            StartContinuousLength:80,
-            EndContinuousLength:17491,
-            Length:17491,
-            PavementType:"Y1B - Enkel ytbehandling på bituminöst underlag",
-            PavementDate:"2008-07-20T00:00:00"
 
-        })
-        this.setProgressbarWidth(this.setTraveledPercentage());
 
+  }
+
+  private checkIfPavingEnded(percent: number){
+      if(percent >= 100){
+          //Set new paving object here later
+          console.log("paving ended!")
+      }
   }
 
   setTraveledPercentage(){
@@ -59,6 +69,7 @@ export class PavingComponent implements OnInit {
       return currentPerc * 100;
   }
   setProgressbarWidth(percent) {
+    this.checkIfPavingEnded(percent);
     this.pbColumns = percent + "*," + (100 - percent) + "*";
   }
 

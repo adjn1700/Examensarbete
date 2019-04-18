@@ -13,7 +13,7 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 export class ContinuousLengthService {
   public isOffline: boolean = false;
   private currentLocation: Location;
-  private locations: Location[];
+
 
   private continuousLengthSource = new BehaviorSubject<number>(0);
   continuousLength$ = this.continuousLengthSource.asObservable();
@@ -28,6 +28,12 @@ export class ContinuousLengthService {
           loc => {
               this.currentLocation = loc;
             });
+      //TEST for offline distance calc, service is NOT connected to api
+      this.locationService.startWatchingDistanceTravelled();
+      this.locationService.distanceTravelled$.subscribe(
+          dt =>{
+              this.continuousLengthSource.next(dt);
+          })
         /*
         //Code for fetching continuous length in intervals
        interval(1000).pipe(
