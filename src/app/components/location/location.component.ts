@@ -28,13 +28,11 @@ export class LocationComponent implements OnInit, OnDestroy {
             this.loSubscription = this.locationService.location$.subscribe(
                 loc => {
                     this.location = loc;
-                }
-            )
+                });
             this.clSubscription = this.clService.continuousLength$.subscribe(
                 cl => {
                     this.currentContinuousLength = cl;
-                }
-            )
+                });
         }
 
     ngOnInit(){

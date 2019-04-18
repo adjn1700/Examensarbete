@@ -47,7 +47,8 @@ export class ApiService {
         .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
     }
 
-    getCurrentContinuousLength(){
+    getCurrentContinuousLength(): Observable<number>{
+        //Not done, returns predefined continuous length of 18000
         let customRequest = `
         <REQUEST>
             <LOGIN authenticationkey="${this.authKey}" />
@@ -57,9 +58,11 @@ export class ApiService {
                             <EQ name="County" value="0" />
                         </AND>
                 </FILTER>
-                <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(23, 14, 0, 2, 521405.8, 6957743.1)" />
+                <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(23, 14, 0, 1, 521405.8, 6957743.1)" />
             </QUERY>
         </REQUEST>`
+        return this.postData(customRequest)
+            .pipe(map(res => res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd));;
     }
 
     private createRequest() {

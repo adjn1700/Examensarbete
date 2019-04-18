@@ -9,6 +9,7 @@ import { Location } from '../models/location';
 export class LocationService {
     //observable location source
     private locationSource = new BehaviorSubject<Location>(new Location({longitude:0, latitude:0}));
+    private locations = [];
     private watchId: number;
 
     //observable location stream
