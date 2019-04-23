@@ -7,15 +7,15 @@ import { Location } from '../models/location';
   providedIn: 'root'
 })
 export class LocationService {
-    //observable location source
     private locationSource = new BehaviorSubject<Location>(new Location({longitude:0, latitude:0}));
     private distanceTravelledSource = new BehaviorSubject<number>(0);
+
     private locations = [];
     private totalDistanceTravelled: number = 0;
     private watchId: number;
     public isWatchingDistance: boolean = false;
 
-    //observable location stream
+    //observable location streams for location and device movement
     location$ = this.locationSource.asObservable();
     distanceTravelled$ = this.distanceTravelledSource.asObservable();
 
@@ -51,10 +51,12 @@ export class LocationService {
         this.watchId = Geolocation.watchLocation(location => {
             if(location) {
                 this.zone.run(() => {
+                    //For calculating device movement
                     if(this.isWatchingDistance){
                         this.locations.push(location)
                         this.calcDistanceTravelled();
                     }
+
                     let loc = new Location();
                     loc.latitude = location.latitude;
                     loc.longitude = location.longitude;
@@ -89,14 +91,17 @@ export class LocationService {
         if (locationCount >= 2) {
             let previousLocation = this.locations[locationCount - 2]
             let currentLocation = this.locations[locationCount - 1]
-            var distance = Math.round(Geolocation.distance(previousLocation, currentLocation)); // get the distance between the last two locations
+            // get the distance between the last two locations
+            var distance = Math.round(Geolocation.distance(previousLocation, currentLocation));
             // add the current distance to the overall distance travelled
             this.totalDistanceTravelled = this.totalDistanceTravelled + distance;
+            // update observable stream with distance
             this.distanceTravelledSource.next(this.totalDistanceTravelled);
             this.reduceDistanceArraySize();
         }
     }
 
+    //Keeps array size minimal for performance
     private reduceDistanceArraySize(){
         if(this.locations.length > 2){
             this.locations.splice(0,1);

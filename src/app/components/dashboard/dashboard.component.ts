@@ -7,6 +7,7 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 import { LocationService } from '../../services/location.service';
 import {ActivatedRoute} from "@angular/router";
 import { DataShareService } from '../../services/data-share.service';
+import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 
 @Component({
   selector: 'ns-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
     public road: string;
     public selectedRoad: SelectedRoad;
     public direction: string;
+    public isOnSelectedRoad: boolean = false;
 
     constructor(
 
@@ -28,7 +30,8 @@ export class DashboardComponent implements OnInit {
         private router: RouterExtensions,
         private locationService: LocationService,
         private route: ActivatedRoute,
-        public dataShareService: DataShareService
+        private dataShareService: DataShareService,
+        private clService: ContinuousLengthService
         ) {
             /*
             this.county = dataShareService.serviceCounty;
@@ -56,6 +59,17 @@ export class DashboardComponent implements OnInit {
         this.locationService.updateCurrentLocation();
         //starts the stream of location service to connected child components
         this.locationService.startWatchingLocation();
+    }
+
+    public async checkIfOnSelectedRoad(){
+        try{
+            //Do later to confirm with API if on selected road
+            //await this.clService.startService();
+            this.isOnSelectedRoad = true;
+        }
+        catch(error){
+            console.log(error);
+        }
     }
 
     //Alert

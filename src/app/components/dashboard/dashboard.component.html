@@ -1,5 +1,14 @@
 <ActionBar title="{{ selectedRoad.road }} - {{ selectedRoad.county }}"></ActionBar>
-<GridLayout class="page" rows="*, auto">
+<StackLayout *ngIf="!isOnSelectedRoad">
+    <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+        <StackLayout class="cardContent">
+            <Label text="Verktyget är redo att användas!" class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
+            <Label text="Tryck på knappen nedan när du befinner dig på vald väg." textWrap="true"></Label>
+            <Button class="btn btn-success btn-rounded-sm btn-primary" text="Aktivera" (tap)="checkIfOnSelectedRoad()"></Button>
+        </StackLayout>
+    </CardView>
+</StackLayout>
+<GridLayout *ngIf="isOnSelectedRoad" class="page" rows="*, auto">
     <StackLayout row="0" class="p-10">
         <ns-destination></ns-destination>
         <ns-location></ns-location>

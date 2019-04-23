@@ -52,6 +52,10 @@
   font-size: 30;
 }
 
+.fontBold{
+  font-weight: bold;
+}
+
 .page{
   background-color: rgb(237, 237, 237);
 }

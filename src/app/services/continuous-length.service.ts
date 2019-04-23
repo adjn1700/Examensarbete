@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { LocationService } from './location.service';
 import { Location } from '../models/location'
 import { ApiService } from './api.service';
@@ -10,10 +10,13 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 @Injectable({
   providedIn: 'root'
 })
-export class ContinuousLengthService {
+export class ContinuousLengthService implements OnDestroy{
+
   public isOffline: boolean = false;
   private currentLocation: Location;
-
+  private currentOfflineContinuousLength: number;
+  private locSubscription: Subscription;
+  private clSubscription: Subscription;
 
   private continuousLengthSource = new BehaviorSubject<number>(0);
   continuousLength$ = this.continuousLengthSource.asObservable();
@@ -22,26 +25,46 @@ export class ContinuousLengthService {
       private locationService: LocationService,
       private apiService: ApiService
       ) {
-      //TEST-data
-      //this.continuousLengthSource.next(3100);
-      this.locationService.location$.subscribe(
-          loc => {
-              this.currentLocation = loc;
-            });
-      //TEST for offline distance calc, service is NOT connected to api
-      this.locationService.startWatchingDistanceTravelled();
-      this.locationService.distanceTravelled$.subscribe(
-          dt =>{
-              this.continuousLengthSource.next(dt);
-          })
+        //TEST-data
+        this.locSubscription = this.locationService.location$.subscribe(
+        loc => {
+            this.currentLocation = loc;
+        });
+        //TEST for offline distance calc, service is NOT connected to api
+        this.locationService.startWatchingDistanceTravelled();
+        this.clSubscription = this.locationService.distanceTravelled$.subscribe(
+            dt =>{
+                this.currentOfflineContinuousLength = this.currentOfflineContinuousLength + dt;
+                //Only here for test, link to API later
+                this.continuousLengthSource.next(dt);
+            })
         /*
         //Code for fetching continuous length in intervals
-       interval(1000).pipe(
-           switchMap(() => this.apiService.getCurrentContinuousLength())
-           ).subscribe(cl => this.continuousLengthSource.next(cl));
-       */
-      this.apiService.getCurrentContinuousLength().subscribe(data => this.continuousLengthSource.next(data));
+        interval(1000).pipe(
+            switchMap(() => this.apiService.getCurrentContinuousLength())
+            ).subscribe(cl => this.continuousLengthSource.next(cl));
+        */
+
     }
+
+    ngOnDestroy(): void {
+        this.locSubscription.unsubscribe;
+        this.clSubscription.unsubscribe;
+    }
+
+    /*
+    private async getContinuousLengthForStartup(): Promise<number>{
+        return this.apiService.getCurrentContinuousLength().toPromise();
+
+    }
+
+    public async startService(){
+        const currentCL = await this.getContinuousLengthForStartup();
+        this.continuousLengthSource.next(currentCL);
+        this.currentOfflineContinuousLength = currentCL;
+    }
+    */
+
 
 
 }
