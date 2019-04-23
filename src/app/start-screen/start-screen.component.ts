@@ -13,6 +13,7 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 import { DataShareService } from '../services/data-share.service';
 
 import {knownFolders} from "tns-core-modules/file-system";
+import { ConversionService } from '~/app/services/conversion.service';
 //import countys from './countys.json'
 
 const countyList = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
@@ -40,7 +41,7 @@ export class StartScreenComponent implements OnInit {
     road = "";
     direction = "";
 
-    constructor(private router: RouterExtensions, public dataShareService: DataShareService) {
+    constructor(private router: RouterExtensions, public dataShareService: DataShareService, public coversionService: ConversionService) {
 
         this.autocompleteCounties = new ObservableArray<TokenModel>();
         countyList.forEach((county) => {
@@ -51,6 +52,8 @@ export class StartScreenComponent implements OnInit {
         roadList.forEach((road) => {
             this.autocompleteRoads.push(new TokenModel(road, undefined));
         });
+
+        this.coversionService.convertWgsToSweref(16, 40);
   }
 
   ngOnInit() {

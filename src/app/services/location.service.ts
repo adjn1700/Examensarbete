@@ -15,6 +15,7 @@ export class LocationService {
     private watchId: number;
     public isWatchingDistance: boolean = false;
 
+
     //observable location stream
     location$ = this.locationSource.asObservable();
     distanceTravelled$ = this.distanceTravelledSource.asObservable();

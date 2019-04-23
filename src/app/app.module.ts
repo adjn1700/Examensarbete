@@ -12,6 +12,7 @@ import { StartScreenComponent } from '~/app/start-screen/start-screen.component'
 import { DestinationComponent } from '~/app/components/destination/destination.component';
 import { ApiService } from "~/app/services/api.service";
 import { DataShareService } from './services/data-share.service';
+import { ConversionService } from './services/conversion.service'
 
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
