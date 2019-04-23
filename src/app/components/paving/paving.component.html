@@ -19,8 +19,8 @@
             <Label [text]="currentPaving.PavementType" horizontalAlignment="center"
                 class="font-weight-bold"></Label>
         </StackLayout>
-        <StackLayout id="nextPavingContainer" class=" m-t-5">
-            <Label horizontalAlignment="center" text="Nästa: 735m" class="h2"></Label>
+        <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5">
+            <Label horizontalAlignment="center" text="Nästa: {{nextPaving.StartContinuousLength}}m" class="h2"></Label>
         </StackLayout>
     </StackLayout>
 </CardView>

@@ -16,7 +16,7 @@ export class ContinuousLengthService implements OnDestroy{
   private currentLocation: Location;
   private currentOfflineContinuousLength: number;
   private locSubscription: Subscription;
-  private clSubscription: Subscription;
+  private distSubscription: Subscription;
 
   private continuousLengthSource = new BehaviorSubject<number>(0);
   continuousLength$ = this.continuousLengthSource.asObservable();
@@ -32,7 +32,7 @@ export class ContinuousLengthService implements OnDestroy{
         });
         //TEST for offline distance calc, service is NOT connected to api
         this.locationService.startWatchingDistanceTravelled();
-        this.clSubscription = this.locationService.distanceTravelled$.subscribe(
+        this.distSubscription = this.locationService.distanceTravelled$.subscribe(
             dt =>{
                 this.currentOfflineContinuousLength = this.currentOfflineContinuousLength + dt;
                 //Only here for test, link to API later
@@ -49,7 +49,7 @@ export class ContinuousLengthService implements OnDestroy{
 
     ngOnDestroy(): void {
         this.locSubscription.unsubscribe;
-        this.clSubscription.unsubscribe;
+        this.distSubscription.unsubscribe;
     }
 
     /*

@@ -92,8 +92,6 @@ export class ConversionService {
         x_y[1] = Math.round(y * 1000.0) / 1000.0;
     //	x_y[0] = x;
     //	x_y[1] = y;
-            console.log(x_y[0]);
-            console.log(x_y[1]);
         return x_y;
     }
 

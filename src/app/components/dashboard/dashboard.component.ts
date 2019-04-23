@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ApiService } from '~/app/services/api.service';
 import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
@@ -15,7 +15,8 @@ import { ContinuousLengthService } from '~/app/services/continuous-length.servic
   styleUrls: ['./dashboard.component.css'],
   moduleId: module.id
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+
 
     public destination: number;
     public county: string;
@@ -55,21 +56,30 @@ export class DashboardComponent implements OnInit {
         this.selectedRoad.direction = this.direction;
         this.selectedRoad.subroadId=0;
 
-        //updates current location and asks device permission if not granted
-        this.locationService.updateCurrentLocation();
-        //starts the stream of location service to connected child components
-        this.locationService.startWatchingLocation();
     }
+    ngOnDestroy(): void {
+        this.endCurrentSession();
+        }
 
     public async checkIfOnSelectedRoad(){
         try{
             //Do later to confirm with API if on selected road
             //await this.clService.startService();
+
+            //updates current location and asks device permission if not granted
+            this.locationService.updateCurrentLocation();
+            //starts the stream of location service to connected child components
+            this.locationService.startWatchingLocation();
             this.isOnSelectedRoad = true;
         }
         catch(error){
             console.log(error);
         }
+    }
+
+    private endCurrentSession(){
+        this.locationService.stopWatchingLocation();
+        this.locationService.resetDistanceTravelled();
     }
 
     //Alert
@@ -89,7 +99,7 @@ export class DashboardComponent implements OnInit {
 
   //Navigering
   backToStart(){
-    this.locationService.stopWatchingLocation();
+    this.endCurrentSession();
     this.router.navigate(['/start-screen'], {
         clearHistory: true,
         animated: true, transition: {

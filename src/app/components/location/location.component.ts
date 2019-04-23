@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import * as Geolocation from "nativescript-geolocation";
 import { Subscription } from 'rxjs';
 import { LocationService } from '../../services/location.service';
 import { Location } from '../../models/location'
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
+import { ConversionService } from '~/app/services/conversion.service';
 
 
 @Component({
@@ -16,18 +16,21 @@ export class LocationComponent implements OnInit, OnDestroy {
 
     public currentContinuousLength: number;
     public location: Location;
-    loSubscription: Subscription;
-    clSubscription: Subscription;
+    private loSubscription: Subscription;
+    private clSubscription: Subscription;
 
     public constructor(
         private zone: NgZone,
         private locationService: LocationService,
-        private clService: ContinuousLengthService
+        private clService: ContinuousLengthService,
+        private conversionService: ConversionService
         )
         {
             this.loSubscription = this.locationService.location$.subscribe(
                 loc => {
-                    this.location = loc;
+                    const convertedLoc = this.conversionService.convertWgsToSweref(loc.latitude, loc.longitude);
+                    this.location = new Location({latitude:convertedLoc[0], longitude:convertedLoc[1]});
+                    //this.location = loc;
                 });
             this.clSubscription = this.clService.continuousLength$.subscribe(
                 cl => {

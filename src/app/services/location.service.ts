@@ -85,6 +85,11 @@ export class LocationService {
         this.locations = [];
     }
 
+    public resetDistanceTravelled(){
+        this.totalDistanceTravelled = 0;
+        this.locations = [];
+    }
+
     private calcDistanceTravelled(){
         let locationCount = this.locations.length;
 
