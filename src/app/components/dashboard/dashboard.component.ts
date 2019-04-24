@@ -34,14 +34,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private dataShareService: DataShareService,
         private clService: ContinuousLengthService
         ) {
-            /*
+
             this.county = dataShareService.serviceCounty;
-            this.road = dataShareService.serviceRoad;*/
+            this.road = dataShareService.serviceRoad;
             this.destination = dataShareService.serviceDestination;
             this.direction = dataShareService.serviceDirection;
-
-            this.county = "Jämtlands län";
-            this.road = "1002";
 
          }
 

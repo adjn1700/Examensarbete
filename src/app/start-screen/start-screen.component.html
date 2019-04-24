@@ -4,11 +4,11 @@
         <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
         <StackLayout class="input-field">
             <Label text="Välj län" class="label m-b-5"></Label>
-            <RadAutoCompleteTextView [items]="autocompleteCounties" suggestMode="Suggest" displayMode="Plain">
+            <RadAutoCompleteTextView [items]="autocompleteCounties" suggestMode="Suggest" displayMode="Plain" (didAutoComplete)="onDidAutoCompleteCounty($event)">
                 <SuggestionView tkAutoCompleteSuggestionView>
                     <ng-template tkSuggestionItemTemplate let-item="item">
                         <GridLayout columns="auto, *">
-                            <Label col="1" [text]="item.text" class="p-l-5"></Label>
+                            <Label col="1" [text]="item.text" class="p-l-5" ></Label>
                         </GridLayout>
                     </ng-template>
                 </SuggestionView>
@@ -17,7 +17,7 @@
         </StackLayout>
         <StackLayout class="input-field m-t-10" >
             <Label text="Välj väg" class="label m-b-5"></Label>
-            <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest" displayMode="Plain">
+            <RadAutoCompleteTextView [items]="autocompleteRoads" suggestMode="Suggest" displayMode="Plain" (didAutoComplete)="onDidAutoCompleteRoad($event)">
                 <SuggestionView tkAutoCompleteSuggestionView>
                     <ng-template tkSuggestionItemTemplate let-item="item">
                         <GridLayout columns="auto, *">
