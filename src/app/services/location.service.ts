@@ -11,7 +11,6 @@ export class LocationService {
     private distanceTravelledSource = new BehaviorSubject<number>(0);
 
     private locations = [];
-    private totalDistanceTravelled: number = 0;
     private watchId: number;
     public isWatchingDistance: boolean = false;
 
@@ -34,12 +33,11 @@ export class LocationService {
         });
     }
 
-    private getDeviceLocation(): Promise<any> {
+    public async getDeviceLocation(): Promise<any> {
         return new Promise((resolve, reject) => {
             Geolocation.enableLocationRequest().then(() => {
                 Geolocation.getCurrentLocation({timeout: 10000}).then(location => {
                     resolve(location);
-                    console.log(location);
                 }).catch(error => {
                     reject(error);
                 });
@@ -51,15 +49,14 @@ export class LocationService {
         this.watchId = Geolocation.watchLocation(location => {
             if(location) {
                 this.zone.run(() => {
-                    //For calculating device movement
-                    if(this.isWatchingDistance){
-                        this.locations.push(location)
-                        this.calcDistanceTravelled();
-                    }
+                //For calculating device movement
+                    this.locations.push(location)
+                    this.calcDistanceTravelled();
 
                     let loc = new Location();
                     loc.latitude = location.latitude;
                     loc.longitude = location.longitude;
+                    //console.log(loc);
                     this.locationSource.next(loc);
                 });
             }
@@ -72,43 +69,27 @@ export class LocationService {
         if(this.watchId) {
             Geolocation.clearWatch(this.watchId);
             this.watchId = null;
-
+            this.locations = [];
         }
-    }
-
-    public startWatchingDistanceTravelled(){
-        this.isWatchingDistance = true;
-    }
-
-    public stopWatchingDistanceTravelled(){
-        this.isWatchingDistance = false;
-        this.locations = [];
-    }
-
-    public resetDistanceTravelled(){
-        this.totalDistanceTravelled = 0;
-        this.locations = [];
     }
 
     private calcDistanceTravelled(){
         let locationCount = this.locations.length;
-
         if (locationCount >= 2) {
             let previousLocation = this.locations[locationCount - 2]
             let currentLocation = this.locations[locationCount - 1]
             // get the distance between the last two locations
             var distance = Math.round(Geolocation.distance(previousLocation, currentLocation));
-            // add the current distance to the overall distance travelled
-            this.totalDistanceTravelled = this.totalDistanceTravelled + distance;
+            console.log(distance)
             // update observable stream with distance
-            this.distanceTravelledSource.next(this.totalDistanceTravelled);
+            this.distanceTravelledSource.next(distance);
             this.reduceDistanceArraySize();
         }
     }
 
     //Keeps array size minimal for performance
     private reduceDistanceArraySize(){
-        if(this.locations.length > 2){
+        if(this.locations.length >= 2){
             this.locations.splice(0,1);
         }
     }

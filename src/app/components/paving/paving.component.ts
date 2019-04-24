@@ -29,6 +29,7 @@ export class PavingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       //Test-data
+      /*
         this.currentPaving = new PavementData({
         StartContinuousLength:80,
         EndContinuousLength:1000,
@@ -36,11 +37,14 @@ export class PavingComponent implements OnInit, OnDestroy {
         PavementType:"Y1B - Enkel ytbehandling på bituminöst underlag",
         PavementDate:"2008-07-20T00:00:00"
         })
+        */
      //Starts reading stream of current continuous length
      this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         console.log(cl);
         this.currentContinuousLength = cl;
-        this.setProgressbarWidth(this.setTraveledPercentage());
+        if(this.pavings){
+            this.setProgressbarWidth(this.setTraveledPercentage());
+        }
     });
 
     //Gets array of pavement data for selected road

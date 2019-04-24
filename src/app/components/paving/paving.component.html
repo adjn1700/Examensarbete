@@ -1,18 +1,14 @@
-
+<!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <StackLayout class="cardContent">
-        <StackLayout>
+        <Label *ngIf="!currentPaving" text="Inga tidigare beläggningar tillgängliga"></Label>
+        <StackLayout *ngIf="currentPaving">
             <Label class="h2" text="Senaste beläggning" horizontalAlignment="center"></Label>
             <GridLayout rows="auto" columns="*, auto, *">
                 <Label col="0" [text]="currentPaving.StartContinuousLength" class="h3"></Label>
                 <Label col="1" [text]="currentPaving.PavementDate | date:'yyyy/MM/dd'" class="h2"></Label>
                 <Label col="2" [text]="currentPaving.EndContinuousLength" class="h3" horizontalAlignment="right"></Label>
             </GridLayout>
-            <!--
-                <GridLayout columns="3*, *" class="progressbar m-y-3">
-                <StackLayout col="0" class="progressbar-value"></StackLayout>
-                </GridLayout>
-            -->
             <GridLayout [columns]="pbColumns" class="progressbar m-y-3">
                 <StackLayout col="0" class="progressbar-value"></StackLayout>
             </GridLayout>
@@ -24,7 +20,7 @@
         </StackLayout>
     </StackLayout>
 </CardView>
-
+-->
 <!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <StackLayout>

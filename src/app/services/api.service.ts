@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SelectedRoad } from '../models/selectedRoad';
 import { PavementData } from '../models/pavementData';
+import { Location } from '~/app/models/location';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class ApiService {
         .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
     }
 
-    getCurrentContinuousLength(): Observable<number>{
+    getCurrentContinuousLength(currentLocation: Location): Observable<number>{
         //Not done, returns predefined continuous length of 18000
         let customRequest = `
         <REQUEST>

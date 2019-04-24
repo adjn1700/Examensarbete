@@ -14,7 +14,9 @@ export class ContinuousLengthService implements OnDestroy{
 
   public isOffline: boolean = false;
   private currentLocation: Location;
+  private startupContinuousLength: number;
   private currentOfflineContinuousLength: number;
+
   private locSubscription: Subscription;
   private distSubscription: Subscription;
 
@@ -26,18 +28,8 @@ export class ContinuousLengthService implements OnDestroy{
       private apiService: ApiService
       ) {
         //TEST-data
-        this.locSubscription = this.locationService.location$.subscribe(
-        loc => {
-            this.currentLocation = loc;
-        });
-        //TEST for offline distance calc, service is NOT connected to api
-        this.locationService.startWatchingDistanceTravelled();
-        this.distSubscription = this.locationService.distanceTravelled$.subscribe(
-            dt =>{
-                this.currentOfflineContinuousLength = this.currentOfflineContinuousLength + dt;
-                //Only here for test, link to API later
-                this.continuousLengthSource.next(dt);
-            })
+
+
         /*
         //Code for fetching continuous length in intervals
         interval(1000).pipe(
@@ -52,19 +44,36 @@ export class ContinuousLengthService implements OnDestroy{
         this.distSubscription.unsubscribe;
     }
 
-    /*
-    private async getContinuousLengthForStartup(): Promise<number>{
-        return this.apiService.getCurrentContinuousLength().toPromise();
+    private setCurrentOfflineContinuousLength(distance: number){
+        this.currentOfflineContinuousLength = this.currentOfflineContinuousLength + distance;
+        //Only here for test, link to API later
+        this.continuousLengthSource.next(this.currentOfflineContinuousLength);
+    }
+
+    public async getContinuousLengthForStartup(currentLocation: Location): Promise<number>{
+        return this.apiService.getCurrentContinuousLength(currentLocation).toPromise();
 
     }
 
-    public async startService(){
-        const currentCL = await this.getContinuousLengthForStartup();
-        this.continuousLengthSource.next(currentCL);
-        this.currentOfflineContinuousLength = currentCL;
+    public startWatchingContinuousLength(startupCl: number){
+            this.startupContinuousLength = startupCl;
+            this.currentOfflineContinuousLength = startupCl;
+            //TEST for offline distance calc, service is NOT connected to api
+            this.locSubscription = this.locationService.location$.subscribe(
+                loc => {
+                    this.currentLocation = loc;
+                });
+            this.distSubscription = this.locationService.distanceTravelled$.subscribe(
+                dt =>{
+                    this.setCurrentOfflineContinuousLength(dt);
+                })
     }
-    */
 
+    stopWatchingContinuousLength(){
+        this.distSubscription.unsubscribe();
+        this.locSubscription.unsubscribe();
+        this.currentOfflineContinuousLength = null;
+    }
 
 
 }

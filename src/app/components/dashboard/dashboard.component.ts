@@ -8,6 +8,8 @@ import { LocationService } from '../../services/location.service';
 import {ActivatedRoute} from "@angular/router";
 import { DataShareService } from '../../services/data-share.service';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
+import { ConversionService } from '~/app/services/conversion.service';
+import { Location } from '~/app/models/location';
 
 @Component({
   selector: 'ns-dashboard',
@@ -27,12 +29,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     constructor(
 
-        private myapiService: ApiService,
+        private apiService: ApiService,
         private router: RouterExtensions,
         private locationService: LocationService,
         private route: ActivatedRoute,
         private dataShareService: DataShareService,
-        private clService: ContinuousLengthService
+        private clService: ContinuousLengthService,
+        private conversionService: ConversionService
         ) {
             /*
             this.county = dataShareService.serviceCounty;
@@ -56,20 +59,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.selectedRoad.direction = this.direction;
         this.selectedRoad.subroadId=0;
 
+        //updates current location and asks device permission if not granted
+        //this.locationService.updateCurrentLocation();
+
+
     }
     ngOnDestroy(): void {
         this.endCurrentSession();
         }
 
     public async checkIfOnSelectedRoad(){
-        try{
-            //Do later to confirm with API if on selected road
-            //await this.clService.startService();
+        //Checks users current coordinates
+        let currentLocation: Location;
+        await this.locationService.getDeviceLocation().then(result => {
+            currentLocation = new Location();
+            currentLocation.latitude = result.latitude;
+            currentLocation.longitude = result.longitude;
+        }, error => {
+            console.error(error);
+        });
 
-            //updates current location and asks device permission if not granted
-            this.locationService.updateCurrentLocation();
+        try{
+            //Checks with API if on selected road, gets current CL if true
+            const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
+
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
+            //Starts service to get continuous length to connected child components
+            this.clService.startWatchingContinuousLength(Number(startupCl));
             this.isOnSelectedRoad = true;
         }
         catch(error){
@@ -79,7 +96,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private endCurrentSession(){
         this.locationService.stopWatchingLocation();
-        this.locationService.resetDistanceTravelled();
+        this.clService.stopWatchingContinuousLength();
     }
 
     //Alert
