@@ -5,4 +5,8 @@ export class SelectedRoad{
     roadId: number;
     subroadId: number;
     direction: string;
+
+    public constructor(init?:Partial<SelectedRoad>) {
+        Object.assign(this, init);
+    }
 }
