@@ -7,10 +7,10 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { TokenModel } from "nativescript-ui-autocomplete";
-import { County } from '../models/county'
+import { County } from '../../models/county'
 import { Observable } from 'tns-core-modules/ui/page/page';
 
-import { DataShareService } from '../services/data-share.service';
+import { DataShareService } from '../../services/data-share.service';
 
 import {knownFolders} from "tns-core-modules/file-system";
 import { ConversionService } from '~/app/services/conversion.service';

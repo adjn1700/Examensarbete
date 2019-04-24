@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes, NavigationExtras } from "@angular/router";
 
-import { StartScreenComponent } from './start-screen/start-screen.component';
+import { StartScreenComponent } from './components/start-screen/start-screen.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
 

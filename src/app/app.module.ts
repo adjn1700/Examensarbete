@@ -8,7 +8,7 @@ import { AppRoutingModule } from "~/app/app-routing.module";
 import { AppComponent } from "~/app/app.component";
 import { LocationComponent } from '~/app/components/location/location.component';
 import { DashboardComponent } from '~/app/components/dashboard/dashboard.component';
-import { StartScreenComponent } from '~/app/start-screen/start-screen.component';
+import { StartScreenComponent } from '~/app/components/start-screen/start-screen.component';
 import { DestinationComponent } from '~/app/components/destination/destination.component';
 import { ApiService } from "~/app/services/api.service";
 import { DataShareService } from './services/data-share.service';
