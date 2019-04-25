@@ -29,7 +29,7 @@ export class ContinuousLengthService implements OnDestroy{
       ) {
         //TEST-data
 
-
+        //Fix getting continuous length from API later, and also adding current speed adjustment
         /*
         //Code for fetching continuous length in intervals
         interval(1000).pipe(
