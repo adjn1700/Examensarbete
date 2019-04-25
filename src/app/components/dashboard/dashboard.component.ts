@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
-            this.clService.startWatchingContinuousLength(Number(startupCl));
+            this.clService.startContinuousLengthService(Number(startupCl));
             this.isOnSelectedRoad = true;
         }
         catch(error){
