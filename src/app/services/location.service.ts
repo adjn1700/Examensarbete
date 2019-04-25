@@ -59,6 +59,7 @@ export class LocationService {
                         let loc = new Location();
                         loc.latitude = location.latitude;
                         loc.longitude = location.longitude;
+                        loc.speed = location.speed;
                         //console.log(loc);
                         this.locationSource.next(loc);
                     }
