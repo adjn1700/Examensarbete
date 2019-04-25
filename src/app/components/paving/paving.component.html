@@ -1,8 +1,7 @@
-<!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <StackLayout class="cardContent">
-        <Label *ngIf="!currentPaving" text="Inga tidigare beläggningar tillgängliga"></Label>
-        <StackLayout *ngIf="currentPaving">
+        <Label *ngIf="!isDataAvailable" text="Inga tidigare beläggningar tillgängliga"></Label>
+        <StackLayout *ngIf="isDataAvailable">
             <Label class="h2" text="Senaste beläggning" horizontalAlignment="center"></Label>
             <GridLayout rows="auto" columns="*, auto, *">
                 <Label col="0" [text]="currentPaving.StartContinuousLength" class="h3"></Label>
@@ -14,13 +13,12 @@
             </GridLayout>
             <Label [text]="currentPaving.PavementType" horizontalAlignment="center"
                 class="font-weight-bold"></Label>
-        </StackLayout>
-        <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5">
-            <Label horizontalAlignment="center" text="Nästa: {{nextPaving.StartContinuousLength}}m" class="h2"></Label>
+            <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5">
+                <Label horizontalAlignment="center" text="Nästa: {{nextPaving.StartContinuousLength}}m" class="h2"></Label>
+            </StackLayout>
         </StackLayout>
     </StackLayout>
 </CardView>
--->
 <!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <StackLayout>

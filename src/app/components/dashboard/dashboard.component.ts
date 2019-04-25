@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.isOnSelectedRoad = true;
         }
         catch(error){
-            console.log(error);
+            console.error(error);
         }
     }
 
