@@ -15,6 +15,7 @@ import { DataShareService } from '../../services/data-share.service';
 import {knownFolders} from "tns-core-modules/file-system";
 import { ConversionService } from '~/app/services/conversion.service';
 import countys from './countys.json'
+import roadnumbers from './roadnumbers.json';
 
 const countyList = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
 const roadList = ["101.00", "1002.01", "230.00", "122.10", "722.01", "522.01", "562.00"];

@@ -10,6 +10,8 @@ import { DataShareService } from '../../services/data-share.service';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { ConversionService } from '~/app/services/conversion.service';
 import { Location } from '~/app/models/location';
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "tns-core-modules/application";
 
 @Component({
   selector: 'ns-dashboard',
@@ -123,4 +125,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     } );
   }
+
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+}
+
 }
