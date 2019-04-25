@@ -33,8 +33,6 @@ export class ContinuousLengthService implements OnDestroy{
       ) {}
 
     ngOnDestroy(): void {
-        this.locSubscription.unsubscribe();
-        this.apiClSubscription.unsubscribe();
     }
 
 
@@ -60,8 +58,13 @@ export class ContinuousLengthService implements OnDestroy{
     }
     stopWatchingContinuousLength(){
         this.locSubscription.unsubscribe();
-        this.apiClSubscription.unsubscribe();
         this.offlineClService.stopWatchingOfflineContinuousLength();
+        if(this.apiClSubscription){
+            this.apiClSubscription.unsubscribe();
+        }
+        if(this.offlineClSubscription){
+            this.offlineClSubscription.unsubscribe();
+        }
     }
 
     private setCurrentOnlineContinuousLength(input: number){

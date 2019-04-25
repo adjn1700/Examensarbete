@@ -21,7 +21,6 @@ export class OfflineContinuousLength implements OnDestroy{
   constructor( private locationService: LocationService) {}
 
     ngOnDestroy(): void {
-        this.distSubscription.unsubscribe();
     }
     private setCurrentOfflineContinuousLength(distance: number){
         this.totalOfflineDistanceTravelled = this.totalOfflineDistanceTravelled + distance;
