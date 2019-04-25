@@ -60,7 +60,7 @@ export class LocationService {
                         loc.latitude = location.latitude;
                         loc.longitude = location.longitude;
                         loc.speed = location.speed;
-                        //console.log(loc);
+                        loc.timestamp = location.timestamp;
                         this.locationSource.next(loc);
                     }
                     this.locationCount++;
