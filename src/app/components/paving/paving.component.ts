@@ -14,13 +14,14 @@ import { Subscription } from 'rxjs';
 export class PavingComponent implements OnInit, OnDestroy {
 
   @Input() selectedRoad: SelectedRoad;
-  public pbColumns;
+  public pbColumns: string = "0";
   public pavings: PavementData[];
   public currentContinuousLength: number;
   public currentPaving: PavementData;
   public nextPaving: PavementData;
   public test: string;
   private clSubscription: Subscription;
+  public isDataAvailable: boolean = false;
 
   constructor(
       private apiService: ApiService,
@@ -28,17 +29,6 @@ export class PavingComponent implements OnInit, OnDestroy {
       ) { }
 
   ngOnInit() {
-      //Test-data
-      /*
-        this.currentPaving = new PavementData({
-        StartContinuousLength:80,
-        EndContinuousLength:1000,
-        Length:20,
-        PavementType:"Y1B - Enkel ytbehandling på bituminöst underlag",
-        PavementDate:"2008-07-20T00:00:00"
-        })
-        */
-     //Starts reading stream of current continuous length
      this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         console.log(cl);
         this.currentContinuousLength = cl;
@@ -46,15 +36,7 @@ export class PavingComponent implements OnInit, OnDestroy {
             this.setProgressbarWidth(this.setTraveledPercentage());
         }
     });
-
-    //Gets array of pavement data for selected road
-    this.apiService.getPavementDataForRoad(this.selectedRoad).subscribe(
-        data => {
-            this.pavings = data;
-            this.setCurrentAndNextPaving();
-        },
-        (error) => {console.log(error)}
-        );
+    this.setNewPavementDataForRoad();
 
   }
 
@@ -63,17 +45,41 @@ export class PavingComponent implements OnInit, OnDestroy {
   }
 
   private setCurrentAndNextPaving(){
-      //Fix later
-      this.currentPaving = this.pavings[0];
-      this.nextPaving = this.pavings[1];
+      let numberOfPavings = this.pavings.length;
+
+          if(numberOfPavings === 2){
+            this.currentPaving = this.pavings[0];
+            this.nextPaving = this.pavings[1];
+          }
+          else if(numberOfPavings === 1){
+              this.currentPaving = this.pavings[0];
+              this.nextPaving = null;
+          }
+          else{
+              this.currentPaving = null;
+              this.nextPaving = null;
+          }
+  }
+
+  private setNewPavementDataForRoad(){
+    this.apiService.getPavementDataForRoad(this.selectedRoad, this.currentContinuousLength).toPromise().then(data => {
+        this.pavings = data;
+        //Check if any pavings received
+        if(this.pavings){
+            this.setCurrentAndNextPaving();
+            this.isDataAvailable = true;
+        }
+        else{
+            this.isDataAvailable = false;
+        }
+    }, error => {
+        console.error(error);
+    });
   }
 
   private checkIfPavingEnded(percent: number){
       if(percent >= 100){
-          //this.setCurrentAndNextPaving()
-          //Set new paving object here later
-          this.currentPaving = this.pavings[1];
-          this.nextPaving = this.pavings[2];
+          this.setNewPavementDataForRoad()
           console.log("paving ended!")
       }
   }

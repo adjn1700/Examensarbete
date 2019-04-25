@@ -23,16 +23,17 @@ export class ApiService {
     }
 
 
-    public getPavementDataForRoad(selectedRoad: SelectedRoad): Observable<PavementData[]>{
+    public getPavementDataForRoad(selectedRoad: SelectedRoad, currentContinuousLength: number): Observable<PavementData[]>{
         let customRequest = `<REQUEST>
         <LOGIN authenticationkey="${this.authKey}" />
-            <QUERY objecttype="PavementData" schemaversion="1">
+            <QUERY objecttype="PavementData" schemaversion="1" limit="2">
                 <FILTER>
                     <AND>
                         <EQ name="County" value="${selectedRoad.countyId}" />
                         <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
                         <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
                         <EQ name="Direction.Value" value="${selectedRoad.direction}" />
+                        <GT name="EndContinuousLength" value="${currentContinuousLength}" />
                     </AND>
                 </FILTER>
                 <INCLUDE>StartContinuousLength</INCLUDE>
