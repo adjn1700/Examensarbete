@@ -1,4 +1,6 @@
 export class County{
-    id: number;
-    name: string;
+    CountyCode: number;
+    RegionId: number;
+    CountyName: string;
+    CountyLetter: string;
 }

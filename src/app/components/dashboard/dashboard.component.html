@@ -1,4 +1,10 @@
-<ActionBar title="{{ selectedRoad.road }} - {{ selectedRoad.county }}"></ActionBar>
+<ActionBar title="{{ selectedRoad.road }} - {{ selectedRoad.county }}" class="action-bar">
+    <ActionItem>
+		<StackLayout>
+			<Button class="fas" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
+		</StackLayout>
+	</ActionItem>
+</ActionBar>
 <StackLayout *ngIf="!isOnSelectedRoad">
     <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
         <StackLayout class="cardContent">
