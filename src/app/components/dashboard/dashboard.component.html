@@ -9,8 +9,10 @@
     <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
         <StackLayout class="cardContent">
             <Label text="Verktyget är redo att användas!" class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
-            <Label text="När du har anlänt till vald väg, stanna bilen på ett säkert ställe och aktivera verktyget genom att trycka på knappen nedan." horizontalAlignment="center"  textWrap="true"></Label>
+            <Label text="När du har anlänt till vald väg, aktivera verktyget genom att trycka på knappen nedan." horizontalAlignment="center"  textWrap="true"></Label>
             <Button class="btn btn-success btn-rounded-sm btn-primary" text="Aktivera" (tap)="checkIfOnSelectedRoad()"></Button>
+            <Label text="{{ testResponse }}" horizontalAlignment="center"  textWrap="true"></Label>
+            <Button class="btn btn-success btn-rounded-sm btn-danger" text="TEST" (tap)="testGetFromApi()"></Button>
         </StackLayout>
     </CardView>
 </StackLayout>

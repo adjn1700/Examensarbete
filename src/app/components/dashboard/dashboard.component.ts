@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public direction: string;
     public isOnSelectedRoad: boolean = false;
 
+    public testResponse: number;
+
     constructor(
 
         private apiService: ApiService,
@@ -66,6 +68,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.endCurrentSession();
         }
+
+    public testGetFromApi(){
+        this.clService.getContinuousLengthForStartup(new Location()).then(result => this.testResponse = result);
+    }
 
     public async checkIfOnSelectedRoad(){
         //Checks users current coordinates

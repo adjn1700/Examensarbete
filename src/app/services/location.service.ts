@@ -55,6 +55,7 @@ export class LocationService {
                         //For calculating device movement
                         this.locations.push(location)
                         this.calcDistanceTravelled();
+                        console.log("location skickad");
 
                         let loc = new Location();
                         loc.latitude = location.latitude;
