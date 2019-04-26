@@ -75,16 +75,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public async checkIfOnSelectedRoad(){
         //Checks users current coordinates
-        let currentLocation: Location;
-        await this.locationService.getDeviceLocation().then(result => {
-            currentLocation = new Location();
+        let currentLocation: Location = new Location();
+        try{
+            let result = await this.locationService.getDeviceLocation();
+            console.log(result);
             currentLocation.latitude = result.latitude;
             currentLocation.longitude = result.longitude;
-        }, error => {
-            console.error(error);
-        });
 
-        try{
             //Checks with API if on selected road, gets current CL if true
             const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
 
