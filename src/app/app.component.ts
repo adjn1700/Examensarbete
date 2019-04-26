@@ -17,13 +17,17 @@ registerElement('CardView', () => CardView as any);
     moduleId: module.id,
     templateUrl: "./app.component.html"
 })
-export class AppComponent{
+
+export class AppComponent implements AfterViewInit{
 
     constructor(
         private router: RouterExtensions,
         private locationService: LocationService,
         private clService: ContinuousLengthService
     ){
+    }
+
+    ngAfterViewInit(){
 
     }
 
