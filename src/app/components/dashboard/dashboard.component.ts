@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public selectedRoad: SelectedRoad;
     public direction: string;
     public isOnSelectedRoad: boolean = false;
+    public isBusy = false;
 
     public testResponse: number;
 
@@ -76,6 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public async checkIfOnSelectedRoad(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
+        this.isBusy = true;
         try{
             let result = await this.locationService.getDeviceLocation();
             console.log(result);
@@ -91,9 +93,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthService(Number(startupCl));
             this.isOnSelectedRoad = true;
+            this.isBusy = false;
         }
         catch(error){
             console.error(error);
+            this.isBusy = false;
         }
     }
 
