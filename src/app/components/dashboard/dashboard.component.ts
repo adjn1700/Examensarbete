@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
 
             //starts the stream of location service to connected child components
+            this.locationService.updateCurrentLocation();
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthService(Number(startupCl));
