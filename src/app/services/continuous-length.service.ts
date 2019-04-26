@@ -56,9 +56,22 @@ export class ContinuousLengthService implements OnDestroy{
                     this.currentLocation = loc;
                 });
     }
+
+    public testContinuousLengthServiceWithApiConnection(startupCl: number){
+        this.startupContinuousLength = startupCl;
+        this.locSubscription = this.locationService.location$.subscribe(
+            loc => {
+                this.currentLocation = loc;
+            });
+
+        this.startGettingOnlineContinuousLength();
+    }
+
     stopWatchingContinuousLength(){
-        this.locSubscription.unsubscribe();
         this.offlineClService.stopWatchingOfflineContinuousLength();
+        if(this.locSubscription){
+            this.locSubscription.unsubscribe();
+        }
         if(this.apiClSubscription){
             this.apiClSubscription.unsubscribe();
         }
@@ -67,6 +80,8 @@ export class ContinuousLengthService implements OnDestroy{
         }
     }
 
+    //Currently not working, fix later
+    /*
     private getDifferenceInSeconds(startDate:Date, endDate:Date): number{
 
         let diff = endDate.getTime() - startDate.getTime();
@@ -76,8 +91,7 @@ export class ContinuousLengthService implements OnDestroy{
         return diffInSeconds;
     }
 
-    //Currently not working, fix later
-    /*
+
     private addSpeedAdjustment(input: number): number{
         //Adjusts continuous length according to current speed and then sets value, fix later
         let currentSpeed = this.currentLocation.speed;
@@ -109,6 +123,15 @@ export class ContinuousLengthService implements OnDestroy{
                     this.setCurrentOnlineContinuousLength(Number(result));
                 }, error => {console.error(error)});
         */
+
+        //Only added for TEST, does not add length adjustment according to speed//
+       this.apiClSubscription = timer(0, 2000).pipe(
+        switchMap(() => this.apiService.getCurrentContinuousLength(this.currentLocation)))
+            .subscribe(result => {
+                this.continuousLengthSource.next(result);
+                console.log("Ny löpande längd hämtad från API:et")
+                console.log(result);
+            }, error => {console.error(error)});
     }
 
     private startGettingOfflineContinuousLength(){

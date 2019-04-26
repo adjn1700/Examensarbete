@@ -42,24 +42,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private clService: ContinuousLengthService,
         private conversionService: ConversionService
         ) {
-
+            //Add later when startup lists works correctly
+            /*
             this.county = dataShareService.serviceCounty;
             this.road = dataShareService.serviceRoad;
             this.destination = dataShareService.serviceDestination;
             this.direction = dataShareService.serviceDirection;
-
+            */
          }
 
     ngOnInit() {
         //TEST-data
         //När det funkar byt ut hårdkodad data mot "this.county" och "this.road";
         this.selectedRoad = new SelectedRoad();
-        this.selectedRoad.county = this.county;
+        this.selectedRoad.county = "Jämtland (Z)";
         this.selectedRoad.countyId = 23;
-        this.selectedRoad.road = this.road;
-        this.selectedRoad.roadId = 14;
-        this.selectedRoad.direction = this.direction;
+        this.selectedRoad.road = "605";
+        this.selectedRoad.roadId = 605;
         this.selectedRoad.subroadId=0;
+        this.selectedRoad.direction = "Mot";
+        this.selectedRoad.directionId = 2;
+
+        this.dataShareService.selectedRoad = this.selectedRoad;
 
         //updates current location and asks device permission if not granted
         //this.locationService.updateCurrentLocation();
@@ -70,11 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.endCurrentSession();
         }
 
-    public testGetFromApi(){
-        this.clService.getContinuousLengthForStartup(new Location()).then(result => this.testResponse = result);
-    }
-
-    public async checkIfOnSelectedRoad(){
+    public async testGetFromApi(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
         this.isBusy = true;
@@ -89,6 +89,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
             //starts the stream of location service to connected child components
             this.locationService.updateCurrentLocation();
+            this.locationService.startWatchingLocation();
+            //Starts service to get continuous length to connected child components
+            this.clService.testContinuousLengthServiceWithApiConnection(Number(startupCl));
+            this.isOnSelectedRoad = true;
+            this.isBusy = false;
+        }
+        catch(error){
+            console.error(error);
+            this.isBusy = false;
+        }
+    }
+
+    public async checkIfOnSelectedRoad(){
+        //Checks users current coordinates
+        let currentLocation: Location = new Location();
+        this.isBusy = true;
+        try{
+            let result = await this.locationService.getDeviceLocation();
+            console.log(result);
+            currentLocation.latitude = result.latitude;
+            currentLocation.longitude = result.longitude;
+
+            //Checks with API if on selected road, gets current CL if true, ADD LATER
+            //const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
+            const startupCl = 18000;
+
+            //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthService(Number(startupCl));

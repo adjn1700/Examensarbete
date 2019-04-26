@@ -43,7 +43,9 @@ export class OfflineContinuousLength implements OnDestroy{
     }
 
     stopWatchingOfflineContinuousLength(){
-        this.distSubscription.unsubscribe();
+        if(this.distSubscription){
+            this.distSubscription.unsubscribe();
+        }
         this.totalOfflineDistanceTravelled = null;
     }
 

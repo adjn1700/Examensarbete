@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { SelectedRoad } from '../models/selectedRoad';
 import { PavementData } from '../models/pavementData';
 import { Location } from '~/app/models/location';
+import { ConversionService } from './conversion.service';
+import { DataShareService } from './data-share.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,12 @@ export class ApiService {
     private apiUrl = 'https://api.trafikinfo.trafikverket.se/v1.3/data.json';
     private authKey = '8ccbb37be31d48adbaf3009f14a45141'
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private conversionService: ConversionService,
+        private dataShareService: DataShareService
+        ) {
+
     }
 
     //Post data api
@@ -24,7 +31,8 @@ export class ApiService {
 
 
     public getPavementDataForRoad(selectedRoad: SelectedRoad, currentContinuousLength: number): Observable<PavementData[]>{
-        let customRequest = `<REQUEST>
+        let customRequest = `
+        <REQUEST>
         <LOGIN authenticationkey="${this.authKey}" />
             <QUERY objecttype="PavementData" schemaversion="1" limit="2">
                 <FILTER>
@@ -50,19 +58,43 @@ export class ApiService {
     }
 
     getCurrentContinuousLength(currentLocation: Location): Observable<number>{
-        //Not done, returns predefined continuous length of 18000
-        let customRequest = `
-        <REQUEST>
-            <LOGIN authenticationkey="${this.authKey}" />
-            <QUERY objecttype="PavementData" schemaversion="1">
-                <FILTER>
-                        <AND>
-                            <EQ name="County" value="0" />
-                        </AND>
-                </FILTER>
-                <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(23, 14, 0, 1, 521405.8, 6957743.1)" />
-            </QUERY>
-        </REQUEST>`
+       let selectedRoad = this.dataShareService.selectedRoad;
+       //Use this code later to send correct coordinates
+        /*
+        let currentSwerefCoordinatesArray = this.conversionService.convertWgsToSweref(currentLocation.latitude, currentLocation.longitude);
+
+       let customRequest = `
+            <REQUEST>
+                <LOGIN authenticationkey="${this.authKey}" />
+                <QUERY objecttype="PavementData" schemaversion="1">
+                    <FILTER>
+                            <AND>
+                                <EQ name="County" value="0" />
+                            </AND>
+                    </FILTER>
+                    <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(23, 14, 0, 1, ${currentSwerefCoordinatesArray[0]}, ${currentSwerefCoordinatesArray[1]}" />
+                </QUERY>
+            </REQUEST>`
+            */
+
+         //Predefined TEST with set coordinates
+            let currentSwerefCoordinatesArray = this.conversionService.convertWgsToSweref(currentLocation.latitude, currentLocation.longitude);
+            let coordinateNorthSouth = currentSwerefCoordinatesArray[0];
+            let coordinateEastWest = currentSwerefCoordinatesArray[1];
+
+            let customRequest = `
+            <REQUEST>
+                <LOGIN authenticationkey="${this.authKey}" />
+                <QUERY objecttype="PavementData" schemaversion="1">
+                    <FILTER>
+                            <AND>
+                                <EQ name="County" value="0" />
+                            </AND>
+                    </FILTER>
+                    <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(${selectedRoad.countyId}, ${selectedRoad.roadId}, ${selectedRoad.subroadId}, ${selectedRoad.directionId}, ${coordinateEastWest}, ${coordinateNorthSouth}" />
+                </QUERY>
+            </REQUEST>`
+
         return this.postData(customRequest)
             .pipe(map(res => res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd));;
     }

@@ -50,27 +50,27 @@ export class PavingComponent implements OnInit, OnDestroy {
           if(numberOfPavings === 2){
             this.currentPaving = this.pavings[0];
             this.nextPaving = this.pavings[1];
+            this.isDataAvailable = true;
+
           }
           else if(numberOfPavings === 1){
               this.currentPaving = this.pavings[0];
               this.nextPaving = null;
+              this.isDataAvailable = true;
           }
           else{
               this.currentPaving = null;
               this.nextPaving = null;
+              this.isDataAvailable = false;
           }
   }
 
   private setNewPavementDataForRoad(){
     this.apiService.getPavementDataForRoad(this.selectedRoad, this.currentContinuousLength).toPromise().then(data => {
-        this.pavings = data;
-        //Check if any pavings received
-        if(this.pavings){
+        if(data.length > 0){
+            console.log(data);
+            this.pavings = data;
             this.setCurrentAndNextPaving();
-            this.isDataAvailable = true;
-        }
-        else{
-            this.isDataAvailable = false;
         }
     }, error => {
         console.error(error);

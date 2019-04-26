@@ -10,9 +10,10 @@
         <StackLayout class="cardContent">
             <Label text="Verktyget är redo att användas!" class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
             <Label text="När du har anlänt till vald väg, aktivera verktyget genom att trycka på knappen nedan." horizontalAlignment="center"  textWrap="true"></Label>
-            <Button class="btn btn-success btn-rounded-sm btn-primary" text="Aktivera" (tap)="checkIfOnSelectedRoad()"></Button>
+            <Button class="btn btn-success btn-rounded-sm btn-primary" text="Aktivera (Offline)" (tap)="checkIfOnSelectedRoad()"></Button>
             <Label text="{{ testResponse }}" horizontalAlignment="center"  textWrap="true"></Label>
-            <Button class="btn btn-success btn-rounded-sm btn-danger" text="TEST" (tap)="testGetFromApi()"></Button>
+            <Button class="btn btn-success btn-rounded-sm" text="TEST (API)" (tap)="testGetFromApi()"></Button>
+            <Button class="btn btn-danger btn-rounded-sm" text="Avbryt" (tap)="cancelAlert()"></Button>
         </StackLayout>
     </CardView>
     <ActivityIndicator width="100" height="100" row="0" rowSpan="5" colSpan="2" #activityIndicator [busy]="isBusy" class="activity-indicator"></ActivityIndicator>
