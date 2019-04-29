@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ApiService } from '~/app/services/api.service';
 import { PavementData } from '~/app/models/pavementData';
-import { SelectedRoad } from '~/app/models/selectedRoad';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +12,6 @@ import { Subscription } from 'rxjs';
 })
 export class PavingComponent implements OnInit, OnDestroy {
 
-  @Input() selectedRoad: SelectedRoad;
   public pbColumns: string = "0";
   public pavings: PavementData[];
   public currentContinuousLength: number;
@@ -30,7 +28,6 @@ export class PavingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
-        console.log(cl);
         this.currentContinuousLength = cl;
         if(this.pavings){
             this.setProgressbarWidth(this.setTraveledPercentage());
@@ -66,9 +63,8 @@ export class PavingComponent implements OnInit, OnDestroy {
   }
 
   private setNewPavementDataForRoad(){
-    this.apiService.getPavementDataForRoad(this.selectedRoad, this.currentContinuousLength).toPromise().then(data => {
+    this.apiService.getPavementDataForRoad(this.currentContinuousLength).toPromise().then(data => {
         if(data.length > 0){
-            console.log(data);
             this.pavings = data;
             this.setCurrentAndNextPaving();
         }
@@ -80,7 +76,6 @@ export class PavingComponent implements OnInit, OnDestroy {
   private checkIfPavingEnded(percent: number){
       if(percent >= 100){
           this.setNewPavementDataForRoad()
-          console.log("paving ended!")
       }
   }
 
@@ -93,11 +88,5 @@ export class PavingComponent implements OnInit, OnDestroy {
   setProgressbarWidth(percent) {
     this.checkIfPavingEnded(percent);
     this.pbColumns = percent + "*," + (100 - percent) + "*";
-  }
-
-  testTap(){
-      console.log(this.pavings[0]);
-      console.log(this.currentContinuousLength);
-      console.log(this.currentPaving);
   }
 }

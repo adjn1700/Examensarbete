@@ -7,7 +7,7 @@ import { Location } from '../models/location';
   providedIn: 'root'
 })
 export class LocationService {
-    private locationSource = new BehaviorSubject<Location>(new Location({longitude:0, latitude:0}));
+    private locationSource = new BehaviorSubject<Location>(new Location());
     private distanceTravelledSource = new BehaviorSubject<number>(0);
 
     private locations = [];
@@ -24,7 +24,7 @@ export class LocationService {
 
     //Sets a single updated location and adds it to the stream
     public updateCurrentLocation() {
-        this.getDeviceLocation().then(result => {
+        this.getAndSetDeviceLocation().then(result => {
             let loc = new Location();
             loc.latitude = result.latitude;
             loc.longitude = result.longitude;
@@ -34,10 +34,11 @@ export class LocationService {
         });
     }
 
-    public getDeviceLocation(): Promise<any> {
+    public getAndSetDeviceLocation(): Promise<any> {
         return new Promise((resolve, reject) => {
             Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({}).then(location => {
+                Geolocation.getCurrentLocation({maximumAge:2000}).then(location => {
+                    this.locationSource.next(location);
                     resolve(location);
                 }).catch(error => {
                     reject(error);
@@ -50,7 +51,7 @@ export class LocationService {
         this.watchId = Geolocation.watchLocation(location => {
             if(location) {
                 this.zone.run(() => {
-                    //Skipping first coordinate to exclude location data storedx from previous session
+                    //Skipping first coordinate to exclude location data stored from previous session
                     if(this.locationCount >= 1){
                         //For calculating device movement
                         this.locations.push(location)
@@ -90,7 +91,6 @@ export class LocationService {
             let currentLocation = this.locations[locationCount - 1]
             // get the distance between the last two locations
             var distance = Math.round(Geolocation.distance(previousLocation, currentLocation));
-            console.log(distance)
             // update observable stream with distance
             this.distanceTravelledSource.next(distance);
             this.reduceDistanceArraySize();

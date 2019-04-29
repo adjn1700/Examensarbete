@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         let currentLocation: Location = new Location();
         this.isBusy = true;
         try{
-            let result = await this.locationService.getDeviceLocation();
+            let result = await this.locationService.getAndSetDeviceLocation();
             console.log(result);
             currentLocation.latitude = result.latitude;
             currentLocation.longitude = result.longitude;
@@ -88,10 +88,43 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
 
             //starts the stream of location service to connected child components
-            this.locationService.updateCurrentLocation();
             this.locationService.startWatchingLocation();
+
+            //TEST for speed calc
+            this.clService.isAdjustingToSpeed = false;
+
             //Starts service to get continuous length to connected child components
-            this.clService.testContinuousLengthServiceWithApiConnection(Number(startupCl));
+            this.clService.testContinuousLengthServiceWithApiConnection(startupCl);
+            this.isOnSelectedRoad = true;
+            this.isBusy = false;
+        }
+        catch(error){
+            console.error(error);
+            this.isBusy = false;
+        }
+    }
+
+    public async testGetFromApiWithSpeedCalc(){
+        //Checks users current coordinates
+        let currentLocation: Location = new Location();
+        this.isBusy = true;
+        try{
+            let result = await this.locationService.getAndSetDeviceLocation();
+            console.log(result);
+            currentLocation.latitude = result.latitude;
+            currentLocation.longitude = result.longitude;
+
+            //Checks with API if on selected road, gets current CL if true
+            const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
+
+            //starts the stream of location service to connected child components
+            this.locationService.startWatchingLocation();
+
+            //TEST for speed calc
+            this.clService.isAdjustingToSpeed = true;
+
+            //Starts service to get continuous length to connected child components
+            this.clService.testContinuousLengthServiceWithApiConnection(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
         }
@@ -106,7 +139,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         let currentLocation: Location = new Location();
         this.isBusy = true;
         try{
-            let result = await this.locationService.getDeviceLocation();
+            let result = await this.locationService.getAndSetDeviceLocation();
             currentLocation.latitude = result.latitude;
             currentLocation.longitude = result.longitude;
 
@@ -117,7 +150,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
-            this.clService.startContinuousLengthService(Number(startupCl));
+            this.clService.startContinuousLengthService(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
         }

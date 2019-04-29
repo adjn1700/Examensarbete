@@ -30,7 +30,8 @@ export class ApiService {
     }
 
 
-    public getPavementDataForRoad(selectedRoad: SelectedRoad, currentContinuousLength: number): Observable<PavementData[]>{
+    public getPavementDataForRoad(currentContinuousLength: number): Observable<PavementData[]>{
+        let selectedRoad = this.dataShareService.selectedRoad;
         let customRequest = `
         <REQUEST>
         <LOGIN authenticationkey="${this.authKey}" />
@@ -97,7 +98,7 @@ export class ApiService {
             </REQUEST>`
 
         return this.postData(customRequest)
-            .pipe(map(res => res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd));;
+            .pipe(map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)));
     }
 
     private createRequest() {
