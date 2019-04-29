@@ -19,6 +19,7 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
 import { PavingComponent } from './components/paving/paving.component';
+import { ContinuousLengthComponent } from './continuous-length/continuous-length.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -47,7 +48,8 @@ import { PavingComponent } from './components/paving/paving.component';
         StartScreenComponent,
         DestinationComponent,
         DestinationAddComponent,
-        PavingComponent
+        PavingComponent,
+        ContinuousLengthComponent
     ],
     providers: [],
     schemas: [
