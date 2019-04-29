@@ -1,128 +1,128 @@
 [
   {
-    "LanKod": 1,
-    "RegionKod": 4,
-    "Namn": "Stockholm (AB)",
-    "LanBokstav": "AB"
+    "CountyCode": 1,
+    "RegionId": 4,
+    "CountyName": "Stockholm (AB)",
+    "CountyLetter": "AB"
   },
   {
-    "LanKod": 3,
-    "RegionKod": 3,
-    "Namn": "Uppsala (C)",
-    "LanBokstav": "C"
+    "CountyCode": 3,
+    "RegionId": 3,
+    "CountyName": "Uppsala (C)",
+    "CountyLetter": "C"
   },
   {
-    "LanKod": 4,
-    "RegionKod": 3,
-    "Namn": "Södermanland (D)",
-    "LanBokstav": "D"
+    "CountyCode": 4,
+    "RegionId": 3,
+    "CountyName": "Södermanland (D)",
+    "CountyLetter": "D"
   },
   {
-    "LanKod": 5,
-    "RegionKod": 3,
-    "Namn": "Östergötland (E)",
-    "LanBokstav": "E"
+    "CountyCode": 5,
+    "RegionId": 3,
+    "CountyName": "Östergötland (E)",
+    "CountyLetter": "E"
   },
   {
-    "LanKod": 6,
-    "RegionKod": 6,
-    "Namn": "Jönköping (F)",
-    "LanBokstav": "F"
+    "CountyCode": 6,
+    "RegionId": 6,
+    "CountyName": "Jönköping (F)",
+    "CountyLetter": "F"
   },
   {
-    "LanKod": 7,
-    "RegionKod": 6,
-    "Namn": "Kronoberg (G)",
-    "LanBokstav": "G"
+    "CountyCode": 7,
+    "RegionId": 6,
+    "CountyName": "Kronoberg (G)",
+    "CountyLetter": "G"
   },
   {
-    "LanKod": 8,
-    "RegionKod": 6,
-    "Namn": "Kalmar (H)",
-    "LanBokstav": "H"
+    "CountyCode": 8,
+    "RegionId": 6,
+    "CountyName": "Kalmar (H)",
+    "CountyLetter": "H"
   },
   {
-    "LanKod": 9,
-    "RegionKod": 4,
-    "Namn": "Gotland (I)",
-    "LanBokstav": "I"
+    "CountyCode": 9,
+    "RegionId": 4,
+    "CountyName": "Gotland (I)",
+    "CountyLetter": "I"
   },
   {
-    "LanKod": 10,
-    "RegionKod": 6,
-    "Namn": "Blekinge (K)",
-    "LanBokstav": "K"
+    "CountyCode": 10,
+    "RegionId": 6,
+    "CountyName": "Blekinge (K)",
+    "CountyLetter": "K"
   },
   {
-    "LanKod": 12,
-    "RegionKod": 6,
-    "Namn": "Skåne (M)",
-    "LanBokstav": "M"
+    "CountyCode": 12,
+    "RegionId": 6,
+    "CountyName": "Skåne (M)",
+    "CountyLetter": "M"
   },
   {
-    "LanKod": 13,
-    "RegionKod": 5,
-    "Namn": "Halland (N)",
-    "LanBokstav": "N"
+    "CountyCode": 13,
+    "RegionId": 5,
+    "CountyName": "Halland (N)",
+    "CountyLetter": "N"
   },
   {
-    "LanKod": 14,
-    "RegionKod": 5,
-    "Namn": "Västra Götaland (O)",
-    "LanBokstav": "O"
+    "CountyCode": 14,
+    "RegionId": 5,
+    "CountyName": "Västra Götaland (O)",
+    "CountyLetter": "O"
   },
   {
-    "LanKod": 17,
-    "RegionKod": 5,
-    "Namn": "Värmland (S)",
-    "LanBokstav": "S"
+    "CountyCode": 17,
+    "RegionId": 5,
+    "CountyName": "Värmland (S)",
+    "CountyLetter": "S"
   },
   {
-    "LanKod": 18,
-    "RegionKod": 3,
-    "Namn": "Örebro (T)",
-    "LanBokstav": "T"
+    "CountyCode": 18,
+    "RegionId": 3,
+    "CountyName": "Örebro (T)",
+    "CountyLetter": "T"
   },
   {
-    "LanKod": 19,
-    "RegionKod": 3,
-    "Namn": "Västmanland (U)",
-    "LanBokstav": "U"
+    "CountyCode": 19,
+    "RegionId": 3,
+    "CountyName": "Västmanland (U)",
+    "CountyLetter": "U"
   },
   {
-    "LanKod": 20,
-    "RegionKod": 2,
-    "Namn": "Dalarna (W)",
-    "LanBokstav": "W"
+    "CountyCode": 20,
+    "RegionId": 2,
+    "CountyName": "Dalarna (W)",
+    "CountyLetter": "W"
   },
   {
-    "LanKod": 21,
-    "RegionKod": 2,
-    "Namn": "Gävleborg (X)",
-    "LanBokstav": "X"
+    "CountyCode": 21,
+    "RegionId": 2,
+    "CountyName": "Gävleborg (X)",
+    "CountyLetter": "X"
   },
   {
-    "LanKod": 22,
-    "RegionKod": 2,
-    "Namn": "Västernorrland (Y)",
-    "LanBokstav": "Y"
+    "CountyCode": 22,
+    "RegionId": 2,
+    "CountyName": "Västernorrland (Y)",
+    "CountyLetter": "Y"
   },
   {
-    "LanKod": 23,
-    "RegionKod": 2,
-    "Namn": "Jämtland (Z)",
-    "LanBokstav": "Z"
+    "CountyCode": 23,
+    "RegionId": 2,
+    "CountyName": "Jämtland (Z)",
+    "CountyLetter": "Z"
   },
   {
-    "LanKod": 24,
-    "RegionKod": 1,
-    "Namn": "Västerbotten (AC)",
-    "LanBokstav": "AC"
+    "CountyCode": 24,
+    "RegionId": 1,
+    "CountyName": "Västerbotten (AC)",
+    "CountyLetter": "AC"
   },
   {
-    "LanKod": 25,
-    "RegionKod": 1,
-    "Namn": "Norrbotten (BD)",
-    "LanBokstav": "BD"
+    "CountyCode": 25,
+    "RegionId": 1,
+    "CountyName": "Norrbotten (BD)",
+    "CountyLetter": "BD"
   }
 ]

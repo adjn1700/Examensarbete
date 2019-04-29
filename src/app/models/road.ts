@@ -1,5 +1,6 @@
 export class Road{
-    RoadNumber: number;
-    RoadUnderNumber: string;
+    RoadMainNumber: number;
+    RoadSubNumber: number;
     CountyCode: number;
+
 }

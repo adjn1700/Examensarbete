@@ -14,7 +14,7 @@ import { ApiService } from "~/app/services/api.service";
 import { DataShareService } from './services/data-share.service';
 import { ConversionService } from './services/conversion.service'
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives'
-
+import { DropDownModule } from "nativescript-drop-down/angular";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
@@ -38,7 +38,8 @@ import { PavingComponent } from './components/paving/paving.component';
         NativeScriptHttpClientModule,
         NativeScriptUIAutoCompleteTextViewModule,
         NativeScriptFormsModule,
-        NativeScriptUISideDrawerModule
+        NativeScriptUISideDrawerModule,
+        DropDownModule
     ],
     declarations: [
         AppComponent,
