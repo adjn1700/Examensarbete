@@ -15,10 +15,14 @@ import { DataShareService } from './services/data-share.service';
 import { ConversionService } from './services/conversion.service'
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives'
 import { DropDownModule } from "nativescript-drop-down/angular";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
 import { PavingComponent } from './components/paving/paving.component';
+import { ContinuousLengthComponent } from './components/continuous-length/continuous-length.component';
+import { GraphValueComponent } from './components/graph-value/graph-value.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -39,7 +43,8 @@ import { PavingComponent } from './components/paving/paving.component';
         NativeScriptUIAutoCompleteTextViewModule,
         NativeScriptFormsModule,
         NativeScriptUISideDrawerModule,
-        DropDownModule
+        DropDownModule,
+        NativeScriptUIChartModule
     ],
     declarations: [
         AppComponent,
@@ -48,7 +53,10 @@ import { PavingComponent } from './components/paving/paving.component';
         StartScreenComponent,
         DestinationComponent,
         DestinationAddComponent,
-        PavingComponent
+        PavingComponent,
+        ContinuousLengthComponent,
+        GraphValueComponent,
+        GraphComponent
     ],
     providers: [],
     schemas: [

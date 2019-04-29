@@ -27,6 +27,7 @@
     "nativescript-geolocation": "^5.0.0",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-ui-autocomplete": "^4.0.0",
+    "nativescript-ui-chart": "^4.0.2",
     "nativescript-ui-sidedrawer": "^6.0.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.3.0",
