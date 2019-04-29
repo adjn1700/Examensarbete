@@ -77,10 +77,11 @@ export class ApiService {
             </REQUEST>`
             */
 
-         //Predefined TEST with set coordinates
+
             let currentSwerefCoordinatesArray = this.conversionService.convertWgsToSweref(currentLocation.latitude, currentLocation.longitude);
             let coordinateNorthSouth = currentSwerefCoordinatesArray[0];
             let coordinateEastWest = currentSwerefCoordinatesArray[1];
+
 
             let customRequest = `
             <REQUEST>
@@ -91,7 +92,7 @@ export class ApiService {
                                 <EQ name="County" value="0" />
                             </AND>
                     </FILTER>
-                    <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(${selectedRoad.countyId}, ${selectedRoad.roadId}, ${selectedRoad.subroadId}, ${selectedRoad.directionId}, ${coordinateEastWest}, ${coordinateNorthSouth}" />
+                    <EVAL alias="LopandeLangd" function="$function.PMS_v1.CalcContinousLengthFromCoordinate(${selectedRoad.countyId}, ${selectedRoad.roadId}, ${selectedRoad.subroadId}, ${selectedRoad.directionId}, ${coordinateEastWest}, ${coordinateNorthSouth})" />
                 </QUERY>
             </REQUEST>`
 

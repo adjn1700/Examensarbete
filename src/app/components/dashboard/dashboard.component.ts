@@ -107,7 +107,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.isBusy = true;
         try{
             let result = await this.locationService.getDeviceLocation();
-            console.log(result);
             currentLocation.latitude = result.latitude;
             currentLocation.longitude = result.longitude;
 
