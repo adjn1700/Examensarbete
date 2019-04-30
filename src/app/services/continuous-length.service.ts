@@ -102,14 +102,14 @@ export class ContinuousLengthService implements OnDestroy{
         let currentTimeStamp = new Date();
         let timeDiff = this.getDifferenceInSeconds(locTimeStamp, currentTimeStamp);
 
-        let adjustment = currentSpeed * timeDiff;
+        let adjustment = Math.floor(currentSpeed * timeDiff);
         console.log("justerad siffra " + adjustment);
         let total = adjustment + input;
         return total;
     }
 
     private setCurrentOnlineContinuousLength(input: number){
-        if(this.isAdjustingToSpeed && this.locSentToApi){
+        if(this.isAdjustingToSpeed && this.locSentToApi && this.locSentToApi.speed >= 30){
             let adjustedCl = this.addSpeedAdjustment(input);
             console.log("justerat utifrån speed " + adjustedCl);
 
