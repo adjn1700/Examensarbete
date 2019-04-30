@@ -64,11 +64,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.selectedRoad.directionId = 2;
 
         this.dataShareService.selectedRoad = this.selectedRoad;
-
-        //updates current location and asks device permission if not granted
-        //this.locationService.updateCurrentLocation();
-
-
     }
     ngOnDestroy(): void {
         this.endCurrentSession();
@@ -99,6 +94,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.isBusy = false;
         }
         catch(error){
+            let alertOptions = {
+                title: "Något gick fel",
+                message: "Kunde inte starta applikationen. Felkod: " + error.message,
+                okButtonText: "Ok"
+            };
             console.error(error);
             this.isBusy = false;
         }

@@ -1,24 +1,17 @@
 import { Component, OnInit, NgModule, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Routes, NavigationExtras } from "@angular/router";
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { SelectedIndexChangedEventData, itemsProperty } from "nativescript-drop-down";
 import { ValueList } from "nativescript-drop-down";
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
-
-import { ObservableArray } from "tns-core-modules/data/observable-array";
-import { TokenModel } from "nativescript-ui-autocomplete";
 import { County } from '../../models/county'
-import { Observable } from 'tns-core-modules/ui/page/page';
 
 import { DataShareService } from '../../services/data-share.service';
-
-import {knownFolders} from "tns-core-modules/file-system";
-import { ConversionService } from '~/app/services/conversion.service';
 import countysFromFile from './countys.json'
 import roadsFromFile from './roads.json';
 import { Road } from '~/app/models/road';
+import { SelectedRoad } from '~/app/models/selectedRoad';
 
 //const countyItems = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
 //const roadItems = ["101.00", "1002.01", "230.00", "122.10", "722.01", "522.01", "562.00"];
@@ -32,14 +25,14 @@ import { Road } from '~/app/models/road';
 })
 export class StartScreenComponent implements OnInit, AfterViewInit {
 
-    private destination: number;
-    private county: string;
-    private countyId: number;
-    private road: string;
-    private roadId: number;
-    private subRoadId: number;
-    private direction: string;
-    private directionId: number;
+    private selectedDestination: number;
+    private selectedCounty: string;
+    private selectedCountyId: number;
+    private selectedRoad: string;
+    private selectedRoadId: number;
+    private selectedSubRoadId: number;
+    private selectedDirection: string;
+    private selectedDirectionId: number;
 
     public countyItems: County[];
     public roadItems: Road[];
@@ -88,7 +81,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     public selectedCountyIndex = 0;
     public selectedRoadIndex = 0;
     public countyItemSource = new ValueList<String>();
-    public roadItemSource = new ValueList<String>();
+    public roadItemSource: ValueList<String>;
 
     constructor(
         private dataShareService: DataShareService,
@@ -116,15 +109,18 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     }
 
     private setRoadsToDropDown(selectedCountyCode: number){
+
         console.log("anrop för att uppdatera väglista")
         let roadDD = this.roadDropDown.nativeElement;
-        this.countyItemSource.push([{value:"0", display:"Välj vägnummer"}]);
         let filteredRoads = this.roadItems.filter(road => road.CountyCode === selectedCountyCode);
+        this.roadItemSource = new ValueList<String>();
+        this.roadItemSource.push([{value:"0", display:"Välj vägnummer"}]);
         filteredRoads.forEach(filteredRoad => {
             this.roadItemSource.push([{value:this.getCombinedNumbersForMainAndSubroadForDropDown(filteredRoad),
                 display:this.getNameForMainAndSubroad(filteredRoad)}]);
         });
         roadDD.items = this.roadItemSource;
+        roadDD.selectedIndex = 0;
     }
 
     getNameForMainAndSubroad(road: Road){
@@ -150,10 +146,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     public onCountyChange(args: SelectedIndexChangedEventData) {
         console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
-        let selecedCountyNumber = this.countyDropDown.nativeElement.selectedIndex;
-        console.log("selected county number:" + selecedCountyNumber)
-        console.log(this.countyItemSource.getValue(selecedCountyNumber));
-        this.setRoadsToDropDown(selecedCountyNumber);
+        let selectedCountyIndex = this.countyDropDown.nativeElement.selectedIndex;
+        let selectedCountyCode = Number(this.countyItemSource.getValue(selectedCountyIndex));
+        this.setRoadsToDropDown(selectedCountyCode);
     }
 
     public onCountyOpen() {
@@ -166,6 +161,8 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     public onRoadChange(args: SelectedIndexChangedEventData) {
         console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
+        let selectedRoadIndex = this.roadDropDown.nativeElement.selectedIndex;
+
     }
 
     public onRoadOpen() {
@@ -179,7 +176,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     toDashboard(){
 
-        this.dataShareService.serviceDestination = this.destination;
+        this.dataShareService.selectedDestination = this.selectedDestination;
 
         dialogs.action({
             message: "Din riktning",
@@ -187,13 +184,13 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
             actions: ["Med", "Mot"]
         }).then(direction => {
             if(direction == "Med"){
-                this.dataShareService.selectedRoad.direction = direction;
-                this.dataShareService.selectedRoad.directionId = 1;
+                this.selectedDirection = direction;
+                this.selectedDirectionId = 1;
                 this.setSelectedRoadToService();
                 this.router.navigate(['/dashboard'], {clearHistory: true});
             }else if(direction == "Mot"){
-                this.dataShareService.selectedRoad.direction = direction;
-                this.dataShareService.selectedRoad.directionId = 2;
+                this.selectedDirection = direction;
+                this.selectedDirectionId = 2;
                 this.setSelectedRoadToService();
                 this.router.navigate(['/dashboard'], {clearHistory: true});
             }
@@ -201,10 +198,17 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     }
 
     private setSelectedRoadToService(){
-        this.dataShareService.selectedRoad.county = this.county;
-        this.dataShareService.selectedRoad.countyId = this.countyId;
-        this.dataShareService.selectedRoad.road = this.road;
-        this.dataShareService.selectedRoad.roadId = this.roadId;
-        this.dataShareService.selectedRoad.subroadId = this.subRoadId;
+        if(this.selectedCountyId && this.selectedRoadId){
+            let sr = new SelectedRoad;
+            sr.county = this.selectedCounty;
+            sr.countyId = this.selectedCountyId;
+            sr.road = this.selectedRoad;
+            sr.roadId = this.selectedRoadId;
+            sr.subroadId = this.selectedSubRoadId;
+            sr.direction = this.selectedDirection;
+            this.dataShareService.selectedRoad = sr;
+            console.log(sr);
+        }
+
     }
 }
