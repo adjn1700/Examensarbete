@@ -1,8 +1,8 @@
 import { Component, OnInit, NgModule, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { Routes, NavigationExtras } from "@angular/router";
 import { SelectedIndexChangedEventData, itemsProperty } from "nativescript-drop-down";
 import { ValueList } from "nativescript-drop-down";
+import { alert } from "tns-core-modules/ui/dialogs";
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { County } from '../../models/county'
@@ -151,26 +151,14 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         this.setRoadsToDropDown(selectedCountyCode);
     }
 
-    public onCountyOpen() {
-        console.log("Drop Down opened.");
-    }
-
-    public onCountyClose() {
-        console.log("Drop Down closed.");
-    }
-
     public onRoadChange(args: SelectedIndexChangedEventData) {
         console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
         let selectedRoadIndex = this.roadDropDown.nativeElement.selectedIndex;
-
     }
 
-    public onRoadOpen() {
-        console.log("Drop Down opened.");
-    }
-
-    public onRoadClose() {
-        console.log("Drop Down closed.");
+    private setCountyFromSelection(countyName: string, countyId: number){
+        this.selectedCounty = countyName;
+        this.selectedCountyId = countyId;
     }
 
 
@@ -206,9 +194,22 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
             sr.roadId = this.selectedRoadId;
             sr.subroadId = this.selectedSubRoadId;
             sr.direction = this.selectedDirection;
+            sr.directionId = this.selectedDirectionId;
             this.dataShareService.selectedRoad = sr;
             console.log(sr);
         }
+        /*
+        else{
+            let alertOptions = {
+                title: "Ett fel uppstod",
+                message:"Välj län och väg innan du går vidare",
+                okButtonText: "OK"
+            };
+            alert(alertOptions).then(() => {
+                console.log("Fel vid vidareskickning")
+            })
+        }
+        */
 
     }
 }
