@@ -22,7 +22,7 @@ export class DestinationComponent implements OnInit {
         private dataShareService: DataShareService,
         private clService: ContinuousLengthService
         ) {
-        this.destinationValue = this.dataShareService.serviceDestination;
+        this.destinationValue = this.dataShareService.selectedDestination;
         this.isDestinationActive();
         this.subscription = this.clService.continuousLength$.subscribe(cl => {
             this.currentContinuousLength = cl

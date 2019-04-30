@@ -6,9 +6,6 @@ import { SelectedRoad } from '../models/selectedRoad'
   })
 
 export class DataShareService {
-    serviceCounty: string;
-    serviceRoad: string;
-    serviceDestination: number;
-    serviceDirection: string;
+    selectedDestination: number;
     selectedRoad: SelectedRoad;
 }
