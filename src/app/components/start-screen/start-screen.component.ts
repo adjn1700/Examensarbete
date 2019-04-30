@@ -231,10 +231,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
                 message:"Välj län och väg innan du går vidare",
                 okButtonText: "OK"
             };
-            alert(alertOptions).then(() => {
-                console.log("Fel vid vidareskickning")
-            })
-
+            alert(alertOptions);
 
 
     }

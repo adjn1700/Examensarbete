@@ -24,11 +24,7 @@ import { keepAwake } from "nativescript-insomnia";
 export class DashboardComponent implements OnInit, OnDestroy {
 
 
-    public destination: number;
-    public county: string;
-    public road: string;
     public selectedRoad: SelectedRoad;
-    public direction: string;
     public isOnSelectedRoad: boolean = false;
     public isBusy = false;
 
@@ -56,15 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         //TEST-data
         //När det funkar byt ut hårdkodad data mot "this.county" och "this.road";
-        this.selectedRoad = new SelectedRoad();
-        this.selectedRoad.county = "Jämtland (Z)";
-        this.selectedRoad.countyId = 23;
-        this.selectedRoad.roadId = 605;
-        this.selectedRoad.subroadId=0;
-        this.selectedRoad.direction = "Mot";
-        this.selectedRoad.directionId = 2;
-
-        this.dataShareService.selectedRoad = this.selectedRoad;
+        this.selectedRoad = this.dataShareService.selectedRoad;
 
         keepAwake().then(function() {
             console.log("Insomnia is active");
