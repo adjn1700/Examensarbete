@@ -39,8 +39,7 @@
             <GridLayout rows="auto, auto"
                 columns="auto, *">
                     <DropDown #countyDD backroundColor="red" [(ngModel)]="selectedCountyIndex"
-                        (selectedIndexChanged)="onCountyChange($event)" (opened)="onCountyOpen()" (closed)="onCountyClose()"
-                        row="0" colSpan="2"></DropDown>
+                        (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
                     <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"></Label>
                     <TextField [text]="selectedCountyIndex" row="1" col="1"></TextField>
             </GridLayout>
@@ -49,8 +48,7 @@
         <GridLayout rows="auto, auto"
                 columns="auto, *">
                     <DropDown #roadDD backroundColor="red" [(ngModel)]="selectedRoadIndex"
-                        (selectedIndexChanged)="onRoadChange($event)" (opened)="onRoadOpen()" (closed)="onRoadClose()"
-                        row="0" colSpan="2"></DropDown>
+                        (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
                     <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"></Label>
                     <TextField [text]="selectedRoadIndex" row="1" col="1"></TextField>
             </GridLayout>

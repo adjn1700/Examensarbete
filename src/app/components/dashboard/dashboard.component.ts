@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ApiService } from '~/app/services/api.service';
-import { confirm, ConfirmOptions } from "tns-core-modules/ui/dialogs";
+import { confirm, ConfirmOptions, alert } from "tns-core-modules/ui/dialogs";
 import {SelectedRoad} from '../../models/selectedRoad'
 import { Observable } from 'tns-core-modules/ui/page/page';
 import { LocationService } from '../../services/location.service';
@@ -75,6 +75,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.endCurrentSession();
         }
 
+    private showErrorMessage(errorMessage: string){
+        let alertOptions = {
+            title: "Ett fel uppstod",
+            message:"Felkod: " + errorMessage,
+            okButtonText: "OK"
+        };
+        alert(alertOptions).then(() => {
+            console.log("Fel vid vidareskickning")
+        })
+    }
+
     public async testGetFromApi(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
@@ -100,12 +111,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.isBusy = false;
         }
         catch(error){
-            let alertOptions = {
-                title: "Något gick fel",
-                message: "Kunde inte starta applikationen. Felkod: " + error.message,
-                okButtonText: "Ok"
-            };
             console.error(error);
+            this.showErrorMessage(error.message);
             this.isBusy = false;
         }
 
@@ -137,6 +144,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
         catch(error){
             console.error(error);
+            this.showErrorMessage(error.message);
             this.isBusy = false;
         }
     }
@@ -163,6 +171,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
         catch(error){
             console.error(error);
+            this.showErrorMessage(error.message);
             this.isBusy = false;
         }
     }
