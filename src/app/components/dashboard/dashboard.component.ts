@@ -12,6 +12,8 @@ import { ConversionService } from '~/app/services/conversion.service';
 import { Location } from '~/app/models/location';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
+import { keepAwake } from "nativescript-insomnia";
+
 
 @Component({
   selector: 'ns-dashboard',
@@ -63,6 +65,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.selectedRoad.directionId = 2;
 
         this.dataShareService.selectedRoad = this.selectedRoad;
+
+        keepAwake().then(function() {
+            console.log("Insomnia is active");
+        });
     }
     ngOnDestroy(): void {
         this.endCurrentSession();
@@ -108,6 +114,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.showErrorMessage(error.message);
             this.isBusy = false;
         }
+
     }
 
     public async testGetFromApiWithSpeedCalc(){

@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule, ViewChild, ElementRef, AfterViewInit } fro
 import { RouterExtensions } from 'nativescript-angular/router';
 import { SelectedIndexChangedEventData, itemsProperty } from "nativescript-drop-down";
 import { ValueList } from "nativescript-drop-down";
-import { alert } from "tns-core-modules/ui/dialogs";
+import { allowSleepAgain } from "nativescript-insomnia";
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { County } from '../../models/county'
@@ -91,7 +91,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         }
 
     ngOnInit() {
-
+        allowSleepAgain().then(function() {
+            console.log("Insomnia is inactive, good night!");
+        });
     }
 
     ngAfterViewInit(): void {
