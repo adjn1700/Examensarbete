@@ -34,30 +34,24 @@
 
     </StackLayout>
 -->
-<GridLayout class="page" rows="*,*, auto" width="100%">
-    <Stacklayout row="0">
-            <GridLayout rows="auto, auto"
-                columns="auto, *">
-                    <DropDown #countyDD backroundColor="red" [(ngModel)]="selectedCountyIndex"
-                        (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
-                    <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"></Label>
-                    <TextField [text]="selectedCountyIndex" row="1" col="1"></TextField>
-            </GridLayout>
-    </Stacklayout>
-    <StackLayout row="1">
-        <GridLayout rows="auto, auto"
-                columns="auto, *">
-                    <DropDown #roadDD backroundColor="red" [(ngModel)]="selectedRoadIndex"
-                        (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
-                    <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"></Label>
-                    <TextField [text]="selectedRoadIndex" row="1" col="1"></TextField>
-            </GridLayout>
+
+
+<GridLayout class="page p-y-20 p-x-10" rows="auto,auto,auto,auto" width="100%">
+    <StackLayout row="0">
+        <Image src="res://mylogo" stretch="fill" class="logoimg"></Image>
+    </StackLayout>
+    <StackLayout class="form m-b-20" row="1">
+        <DropDown #countyDD class="input input-border m-x-15 countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
+            (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
+    </StackLayout>
+    <StackLayout class="form m-b-30" row="2">
+        <DropDown #roadDD class="input input-border m-x-15 roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
+            (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
     </StackLayout>
 
-
-    <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
-    <StackLayout #bottomElt row="2">
-        <Button row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm" (tap)="toDashboardWithTestValues()" style="margin-bottom: 10" clearHistory="true"></Button>
-        <Button row="1" text="Bekräfta" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20" clearHistory="true"></Button>
+    <StackLayout #bottomElt row="3">
+        <Button row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm" (tap)="toDashboardWithTestValues()" clearHistory="true"></Button>
+        <Button row="1" text="Bekräfta" class="btn btn-success btn-rounded-sm" (tap)="toDashboard()" clearHistory="true"></Button>
     </StackLayout>
 </GridLayout>
+

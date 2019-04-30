@@ -2,10 +2,7 @@
 ListPicker{
     border: 1;
 }
-Button{
-    height: 60;
-    font-size: 25;
-}
+
 
 .logoimg{
     height: 100;
@@ -37,4 +34,15 @@ RadAutoCompleteTextView{
 
 .destlbl{
     margin-top: 50;
+}
+
+.countyDropdown{
+    font-size: 20;
+    text-align:center;
+
+}
+
+.roadDropdown{
+    font-size: 16;
+    text-align:center;
 }
