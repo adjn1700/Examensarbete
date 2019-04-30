@@ -234,6 +234,5 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
             alert(alertOptions);
 
 
-
     }
 }
