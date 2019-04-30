@@ -2,11 +2,7 @@ import { Component, OnInit, NgModule, ViewChild, ElementRef, AfterViewInit } fro
 import { RouterExtensions } from 'nativescript-angular/router';
 import { SelectedIndexChangedEventData, itemsProperty } from "nativescript-drop-down";
 import { ValueList } from "nativescript-drop-down";
-<<<<<<< HEAD
 import { allowSleepAgain } from "nativescript-insomnia";
-=======
-import { alert } from "tns-core-modules/ui/dialogs";
->>>>>>> 33a6ea08e6ff47446e5ec57dfb7c59408302895c
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { County } from '../../models/county'
