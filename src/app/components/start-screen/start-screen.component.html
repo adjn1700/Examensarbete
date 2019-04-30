@@ -57,6 +57,7 @@
 
     <!-- YOUR BOTTOM BAR (StackLayout). Don't forget to add row="1" -->
     <StackLayout #bottomElt row="2">
+        <Button row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm" (tap)="toDashboardWithTestValues()" style="margin-bottom: 10" clearHistory="true"></Button>
         <Button row="1" text="Bekräfta" class="btn btn-primary btn-rounded-sm" (tap)="toDashboard()" style="margin-bottom: 20" clearHistory="true"></Button>
     </StackLayout>
 </GridLayout>

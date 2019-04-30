@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.selectedRoad = new SelectedRoad();
         this.selectedRoad.county = "Jämtland (Z)";
         this.selectedRoad.countyId = 23;
-        this.selectedRoad.road = "605";
         this.selectedRoad.roadId = 605;
         this.selectedRoad.subroadId=0;
         this.selectedRoad.direction = "Mot";

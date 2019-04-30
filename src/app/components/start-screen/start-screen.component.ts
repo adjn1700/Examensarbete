@@ -28,7 +28,6 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     private selectedDestination: number;
     private selectedCounty: string;
     private selectedCountyId: number;
-    private selectedRoad: string;
     private selectedRoadId: number;
     private selectedSubRoadId: number;
     private selectedDirection: string;
@@ -80,8 +79,8 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     public selectedCountyIndex = 0;
     public selectedRoadIndex = 0;
-    public countyItemSource = new ValueList<String>();
-    public roadItemSource: ValueList<String>;
+    public countyItemSource = new ValueList<string>();
+    public roadItemSource: ValueList<string>;
 
     constructor(
         private dataShareService: DataShareService,
@@ -110,10 +109,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     private setRoadsToDropDown(selectedCountyCode: number){
 
-        console.log("anrop för att uppdatera väglista")
         let roadDD = this.roadDropDown.nativeElement;
         let filteredRoads = this.roadItems.filter(road => road.CountyCode === selectedCountyCode);
-        this.roadItemSource = new ValueList<String>();
+        this.roadItemSource = new ValueList<string>();
         this.roadItemSource.push([{value:"0", display:"Välj vägnummer"}]);
         filteredRoads.forEach(filteredRoad => {
             this.roadItemSource.push([{value:this.getCombinedNumbersForMainAndSubroadForDropDown(filteredRoad),
@@ -134,9 +132,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         return result;
     }
     /** Returns array where 0 is RoadMainNumber and 1 is RoadSubNumber */
-    decodeCombinedNumbersForMainAndSubroadForDropDown(value: string): number[]{
+    decodeCombinedNumbersForMainAndSubroad(value: string): number[]{
         let resultArray = value.split(" ", 2);
-        let convertedArray: number[];
+        let convertedArray: number[] = [];
         resultArray.forEach(roadId => {
             convertedArray.push(Number(roadId));
         });
@@ -145,20 +143,31 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
 
     public onCountyChange(args: SelectedIndexChangedEventData) {
-        console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
         let selectedCountyIndex = this.countyDropDown.nativeElement.selectedIndex;
         let selectedCountyCode = Number(this.countyItemSource.getValue(selectedCountyIndex));
+        let selectedCountyName = this.countyItemSource.getDisplay(selectedCountyIndex);
+
+        this.setCountyFromSelection(selectedCountyName, selectedCountyCode);
         this.setRoadsToDropDown(selectedCountyCode);
     }
 
     public onRoadChange(args: SelectedIndexChangedEventData) {
-        console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
         let selectedRoadIndex = this.roadDropDown.nativeElement.selectedIndex;
+        let selectedRoadValues = this.roadItemSource.getValue(selectedRoadIndex);
+
+        let decodedRoadValues = this.decodeCombinedNumbersForMainAndSubroad(selectedRoadValues);
+        this.setRoadFromSelection(decodedRoadValues[0], decodedRoadValues[1]);
+
     }
 
     private setCountyFromSelection(countyName: string, countyId: number){
         this.selectedCounty = countyName;
         this.selectedCountyId = countyId;
+    }
+
+    private setRoadFromSelection(roadNumber: number, roadSubNumber:number){
+        this.selectedRoadId = roadNumber;
+        this.selectedSubRoadId = roadSubNumber;
     }
 
 
@@ -175,31 +184,46 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
                 this.selectedDirection = direction;
                 this.selectedDirectionId = 1;
                 this.setSelectedRoadToService();
-                this.router.navigate(['/dashboard'], {clearHistory: true});
             }else if(direction == "Mot"){
                 this.selectedDirection = direction;
                 this.selectedDirectionId = 2;
                 this.setSelectedRoadToService();
-                this.router.navigate(['/dashboard'], {clearHistory: true});
             }
         });
     }
 
+    toDashboardWithTestValues(){
+        let sr = new SelectedRoad();
+        sr.county = "Jämtland (Z)";
+        sr.countyId = 23;
+        sr.roadId = 605;
+        sr.subroadId=0;
+        sr.direction = "Mot";
+        sr.directionId = 2;
+
+        this.dataShareService.selectedRoad = sr;
+        this.router.navigate(['/dashboard'], {clearHistory: true});
+    }
+
     private setSelectedRoadToService(){
-        if(this.selectedCountyId && this.selectedRoadId){
+        if(this.selectedRoadId  && this.selectedRoadId != 0){
             let sr = new SelectedRoad;
             sr.county = this.selectedCounty;
             sr.countyId = this.selectedCountyId;
-            sr.road = this.selectedRoad;
             sr.roadId = this.selectedRoadId;
             sr.subroadId = this.selectedSubRoadId;
             sr.direction = this.selectedDirection;
             sr.directionId = this.selectedDirectionId;
             this.dataShareService.selectedRoad = sr;
             console.log(sr);
+            this.router.navigate(['/dashboard'], {clearHistory: true});
         }
-        /*
         else{
+           this.showErrorMessage();
+        }
+    }
+
+        private showErrorMessage(){
             let alertOptions = {
                 title: "Ett fel uppstod",
                 message:"Välj län och väg innan du går vidare",
@@ -208,8 +232,8 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
             alert(alertOptions).then(() => {
                 console.log("Fel vid vidareskickning")
             })
-        }
-        */
+
+
 
     }
 }
