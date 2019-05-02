@@ -1,0 +1,37 @@
+<ActionBar title="{{ selectedRoad.roadId }} - {{ selectedRoad.county }} - {{ selectedRoad.direction }}" class="action-bar">
+    <ActionItem>
+		<StackLayout>
+			<Button class="fas" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
+		</StackLayout>
+	</ActionItem>
+</ActionBar>
+<StackLayout *ngIf="!isOnSelectedRoad">
+    <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+        <StackLayout class="cardContent">
+            <Label text="Avvaktar..." class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
+            <Label text="{{ testResponse }}" horizontalAlignment="center"  textWrap="true"></Label>
+            <Button class="btn btn-success btn-rounded-sm" text="KÖR TEST" (tap)="testCLOnlineAndOffline()"></Button>
+        </StackLayout>
+    </CardView>
+    <ActivityIndicator width="100" height="100" row="0" rowSpan="5" colSpan="2" #activityIndicator [busy]="isBusy" class="activity-indicator"></ActivityIndicator>
+</StackLayout>
+<GridLayout *ngIf="isOnSelectedRoad" class="page">
+
+<StackLayout row="1" >
+        <Label text="SpeedCorr" style="text-align: center"></Label>
+        <Switch class="m-15" checked="true" (checkedChange)="onSwitchChange($event)"></Switch>
+        <Label text="Hastighet:" style="text-align: center"></Label>
+        <Label text="{{ currentSpeed }}" class="bigBoldText" style="text-align: center"></Label>
+        <Label text="Offline löpande längd:" style="text-align: center"></Label>
+        <Label text = "{{ offlineLength }}" class="bigBoldText" style="text-align: center"></Label>
+        <Label text="Online löpande längd:" style="text-align: center"></Label>
+        <ns-continuous-length></ns-continuous-length>
+        <ns-location></ns-location>
+        <ns-paving [selectedRoad]="selectedRoad"></ns-paving>
+        <StackLayout class="connection-status-bar">
+            <Label class="title" text="{{(internetConnectionService.connectionStatus$ | async) ? 'Appen är online nu' : 'Appen är offline nu'}}"></Label>
+        </StackLayout>
+</StackLayout>
+
+
+</GridLayout>
