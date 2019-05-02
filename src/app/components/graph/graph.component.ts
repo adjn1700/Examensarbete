@@ -36,6 +36,23 @@ export class GraphComponent implements OnInit {
         { TimeStamp: new Date(2015, 9, 1).getTime(), Amount: 2 },
         { TimeStamp: new Date(2015, 10, 3).getTime(), Amount: 6 },
     ];
+}
+
+getIri(): any[] {
+    return [
+        { Value: 6, LopandeLangd: 1000},
+        { Value: 6.4, LopandeLangd: 1100},
+        { Value: 7, LopandeLangd: 1200},
+        { Value: 8, LopandeLangd: 1300},
+        { Value: 8.1, LopandeLangd: 1400},
+        { Value: 7.5, LopandeLangd: 1500},
+        { Value: 7, LopandeLangd: 1600},
+        { Value: 7, LopandeLangd: 1700},
+        { Value: 7.6, LopandeLangd: 1800},
+        { Value: 7, LopandeLangd: 1900},
+        { Value: 6, LopandeLangd: 2000}
+
+    ];
 
     }
 }
