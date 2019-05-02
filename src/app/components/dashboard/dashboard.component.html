@@ -44,7 +44,7 @@
     </StackLayout>
 
     <StackLayout class="connection-status-bar" row="1">
-            <Label class="title-internet" text="{{(internetConnectionService.connectionStatus$ | async) ? 'Appen är online nu' : 'Appen är offline nu'}}"></Label>
+            <Label class="title-internet" text="{{(internetConnectionService.connectionStatus$ | async) ? 'Appen är online' : 'Appen är offline'}}"></Label>
     </StackLayout>
 
 </GridLayout>
