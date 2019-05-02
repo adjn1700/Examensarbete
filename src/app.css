@@ -38,6 +38,11 @@
   color: black;
 }
 
+.btn-large{
+  font-size: 20;
+  height:50;
+}
+
 .cardStyle{
   background-color: #fff;
   color: rgb(43, 43, 43);

@@ -10,6 +10,9 @@ import { LocationComponent } from '~/app/components/location/location.component'
 import { DashboardComponent } from '~/app/components/dashboard/dashboard.component';
 import { StartScreenComponent } from '~/app/components/start-screen/start-screen.component';
 import { DestinationComponent } from '~/app/components/destination/destination.component';
+import { PavingComponent } from './components/paving/paving.component';
+import { TestpageComponent } from './components/testpage/testpage.component';
+
 import { ApiService } from "~/app/services/api.service";
 import { DataShareService } from './services/data-share.service';
 import { ConversionService } from './services/conversion.service';
@@ -20,7 +23,6 @@ import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
-import { PavingComponent } from './components/paving/paving.component';
 import { ContinuousLengthComponent } from './components/continuous-length/continuous-length.component';
 import { GraphValueComponent } from './components/graph-value/graph-value.component';
 import { GraphComponent } from './components/graph/graph.component';
@@ -57,7 +59,8 @@ import { GraphComponent } from './components/graph/graph.component';
         PavingComponent,
         ContinuousLengthComponent,
         GraphValueComponent,
-        GraphComponent
+        GraphComponent,
+        TestpageComponent
     ],
     providers: [],
     schemas: [

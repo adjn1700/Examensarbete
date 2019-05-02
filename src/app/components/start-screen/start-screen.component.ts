@@ -207,6 +207,19 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/dashboard'], {clearHistory: true});
     }
 
+    toTestpageWithTestValues(){
+        let sr = new SelectedRoad();
+        sr.county = "Jämtland (Z)";
+        sr.countyId = 23;
+        sr.roadId = 605;
+        sr.subroadId=0;
+        sr.direction = "Mot";
+        sr.directionId = 2;
+
+        this.dataShareService.selectedRoad = sr;
+        this.router.navigate(['/testpage'], {clearHistory: true});
+    }
+
     private setSelectedRoadToService(){
         if(this.selectedRoadId  && this.selectedRoadId != 0){
             let sr = new SelectedRoad;
