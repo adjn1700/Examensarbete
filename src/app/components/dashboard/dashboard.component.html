@@ -44,7 +44,7 @@
     </StackLayout>
 
     <StackLayout class="connection-status-bar" row="1" *ngIf="!connectionStatus">
-            <Label class="title-internet" text="{{(internetConnectionService.connectionStatus$ | async) ? 'Appen är online' : 'Appen är offline'}}"></Label>
+            <Label class="title-internet" text="{{(internetConnectionService.connectionStatus$ | async) ? 'App är online' : 'Appen är offline'}}"></Label>
     </StackLayout>
 
 </GridLayout>
