@@ -41,17 +41,17 @@
         <Image src="res://applogo" class="logoimg"></Image>
     </StackLayout>
     <StackLayout class="form m-b-20" row="1">
-        <DropDown #countyDD class="input input-border m-x-15 countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
+        <DropDown #countyDD class="input input-border countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
             (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
     </StackLayout>
     <StackLayout class="form m-b-30" row="2">
-        <DropDown #roadDD class="input input-border m-x-15 roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
+        <DropDown #roadDD class="input input-border roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
             (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
     </StackLayout>
 
     <StackLayout #bottomElt row="3">
         <Button row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm btn-large" (tap)="toDashboardWithTestValues()" clearHistory="true"></Button>
-        <Button row="1" text="TEST-VY" class="btn btn-success btn-rounded-sm btn-large" (tap)="toTestpageWithTestValues()" clearHistory="true"></Button>
+        <Button row="1" text="TEST-VY" class="btn btn-success btn-rounded-sm btn-large" (tap)="toTestpageWithRealValues()" clearHistory="true"></Button>
         <Button row="1" text="BEKRÄFTA" class="btn btn-success btn-rounded-sm btn-large" (tap)="toDashboard()" clearHistory="true"></Button>
     </StackLayout>
 </GridLayout>

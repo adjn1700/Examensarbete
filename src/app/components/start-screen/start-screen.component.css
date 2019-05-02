@@ -5,7 +5,7 @@ ListPicker{
 
 
 .logoimg{
-    height: 250;
+    height: 200;
     width: 250;
 }
 
@@ -40,10 +40,13 @@ RadAutoCompleteTextView{
     font-size: 20;
     text-align:center;
     height: 60;
+    width: 90%;
 }
 
 .roadDropdown{
     font-size: 16;
     text-align:center;
     height: 60;
+    width: 90%;
+
 }

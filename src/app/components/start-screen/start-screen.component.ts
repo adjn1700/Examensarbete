@@ -207,18 +207,42 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/dashboard'], {clearHistory: true});
     }
 
-    toTestpageWithTestValues(){
-        let sr = new SelectedRoad();
-        sr.county = "Jämtland (Z)";
-        sr.countyId = 23;
-        sr.roadId = 605;
-        sr.subroadId=0;
-        sr.direction = "Mot";
-        sr.directionId = 2;
-
-        this.dataShareService.selectedRoad = sr;
-        this.router.navigate(['/testpage'], {clearHistory: true});
+    toTestpageWithRealValues(){
+        dialogs.action({
+            message: "Din riktning",
+            cancelButtonText: "Avbryt",
+            actions: ["Med", "Mot"]
+        }).then(direction => {
+            if(direction == "Med"){
+                this.selectedDirection = direction;
+                this.selectedDirectionId = 1;
+                this.setTestSelectedRoadToService();
+            }else if(direction == "Mot"){
+                this.selectedDirection = direction;
+                this.selectedDirectionId = 2;
+                this.setTestSelectedRoadToService();
+            }
+        });
     }
+
+    private setTestSelectedRoadToService(){
+        if(this.selectedRoadId  && this.selectedRoadId != 0){
+            let sr = new SelectedRoad;
+            sr.county = this.selectedCounty;
+            sr.countyId = this.selectedCountyId;
+            sr.roadId = this.selectedRoadId;
+            sr.subroadId = this.selectedSubRoadId;
+            sr.direction = this.selectedDirection;
+            sr.directionId = this.selectedDirectionId;
+            this.dataShareService.selectedRoad = sr;
+            console.log(sr);
+            this.router.navigate(['/testpage'], {clearHistory: true});
+        }
+        else{
+           this.showErrorMessage();
+        }
+    }
+
 
     private setSelectedRoadToService(){
         if(this.selectedRoadId  && this.selectedRoadId != 0){

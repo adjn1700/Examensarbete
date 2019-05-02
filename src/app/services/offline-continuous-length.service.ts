@@ -28,10 +28,6 @@ export class OfflineContinuousLength implements OnDestroy{
         this.offlineContinuousLengthSource.next(this.totalOfflineDistanceTravelled);
     }
 
-    private adjustCurrentOfflineContinuousLength(onlineContinuousLength: number){
-        //Add later to make adjustments according continuous length collected from api, for precision
-    }
-
     public startWatchingOfflineContinuousLength(startupCl: number){
             //Set starting value which offline distance will be added to
             this.totalOfflineDistanceTravelled = startupCl;

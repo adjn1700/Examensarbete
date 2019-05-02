@@ -1,13 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, interval, Subscription, timer } from 'rxjs';
+import { BehaviorSubject, interval, Subscription, timer, empty } from 'rxjs';
 import { LocationService } from './location.service';
 import { Location } from '../models/location'
 import { ApiService } from './api.service';
 import { OfflineContinuousLength } from './offline-continuous-length.service';
-import * as Geolocation from "nativescript-geolocation";
-import { switchMap } from 'rxjs/operators';
-import { Observable } from 'tns-core-modules/ui/page/page';
-import { formatDate } from '@angular/common';
+import { switchMap, catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +17,14 @@ export class ContinuousLengthService implements OnDestroy{
   private locSentToApi: Location;
   private currentContinuousLength: number;
   public isAdjustingToSpeed: boolean = false;
+  private apiCallFrequency: number = 1000;
+  private numberOfFailedApiCalls: number = 0;
 
   private locSubscription: Subscription;
   private apiClSubscription: Subscription;
   private offlineClSubscription: Subscription;
+  private distSubscription: Subscription;
+
 
   private continuousLengthSource = new BehaviorSubject<number>(0);
   continuousLength$ = this.continuousLengthSource.asObservable();
@@ -47,7 +49,7 @@ export class ContinuousLengthService implements OnDestroy{
             this.offlineClService.startWatchingOfflineContinuousLength(startupCl);
 
             //Remove when API-connection working
-            this.startGettingOfflineContinuousLength();
+            this.startSettingOfflineContinuousLength();
 
             //Add when working to get from API
             //this.startGettingOnlineContinuousLength();
@@ -77,7 +79,7 @@ export class ContinuousLengthService implements OnDestroy{
             this.apiClSubscription.unsubscribe();
         }
         if(this.offlineClSubscription){
-            this.stopGettingOfflineContinuousLength();
+            this.stopSettingOfflineContinuousLength();
         }
     }
 
@@ -124,23 +126,42 @@ export class ContinuousLengthService implements OnDestroy{
     }
 
     private startGettingOnlineContinuousLength(){
-        this.apiClSubscription = timer(0, 1000).pipe(
+        this.apiClSubscription = timer(0, this.apiCallFrequency).pipe(
             switchMap(() => {
                 this.locSentToApi = this.currentLocation;
-                return this.apiService.getCurrentContinuousLength(this.currentLocation);
+                return this.apiService.getCurrentContinuousLength(this.currentLocation).pipe(
+                    catchError((error) => this.handleApiRequestError(error)));
             }))
                 .subscribe(result => {
+                    this.numberOfFailedApiCalls = 0;
+                    this.isOffline = false;
                     this.setCurrentOnlineContinuousLength(Number(result));
                 }, error => {console.error(error)});
     }
 
-    private startGettingOfflineContinuousLength(){
+    private handleApiRequestError(error: HttpErrorResponse){
+        console.log("fel vid api-request " + error.message);
+        this.numberOfFailedApiCalls++;
+        if(this.numberOfFailedApiCalls >= 1){
+            this.isOffline = true;
+            this.addDeviceMovementForApiFail();
+        }
+        return empty();
+    }
+
+    private addDeviceMovementForApiFail(){
+        let currentSpeed = Math.floor(this.locSentToApi.speed);
+        this.currentContinuousLength = this.currentContinuousLength + currentSpeed;
+        this.continuousLengthSource.next(this.currentContinuousLength);
+    }
+
+    private startSettingOfflineContinuousLength(){
         this.offlineClSubscription = this.offlineClService.offlineContinuousLength$.subscribe(cl => {
             this.continuousLengthSource.next(cl);
         });
     }
 
-    private stopGettingOfflineContinuousLength(){
+    private stopSettingOfflineContinuousLength(){
         this.offlineClService.stopWatchingOfflineContinuousLength();
         this.offlineClSubscription.unsubscribe();
     }
