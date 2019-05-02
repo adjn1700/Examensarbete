@@ -34,8 +34,12 @@
                 </GridLayout>
                 <ns-location></ns-location>
                 <ns-paving [selectedRoad]="selectedRoad"></ns-paving>
+                <StackLayout class="connection-status-bar">
+                    <Label class="title" text="{{(internetConnectionService.connectionStatus$ | async) ? 'Appen är online nu' : 'Appen är offline nu'}}"></Label>
+                </StackLayout>
         </StackLayout>
 
     </StackLayout>
+
 
 </GridLayout>

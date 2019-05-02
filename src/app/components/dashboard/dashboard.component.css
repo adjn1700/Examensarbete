@@ -1,2 +1,5 @@
 /* Add mobile styles for the component here.  */
 
+.connection-status-bar{
+    text-align: center;
+  }
