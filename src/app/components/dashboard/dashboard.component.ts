@@ -13,6 +13,7 @@ import { Location } from '~/app/models/location';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { keepAwake } from "nativescript-insomnia";
+import { InternetConnectionService } from '../../services/internet-connection.service';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public selectedRoad: SelectedRoad;
     public isOnSelectedRoad: boolean = false;
     public isBusy = false;
+    connectionStatus: boolean = true;
+    connection$;
 
     public testResponse: number;
 
@@ -38,7 +41,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private dataShareService: DataShareService,
         private clService: ContinuousLengthService,
-        private conversionService: ConversionService
+        private conversionService: ConversionService,
+        private internetConnectionService: InternetConnectionService
+
         ) {
             //Add later when startup lists works correctly
             /*
@@ -57,6 +62,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         keepAwake().then(function() {
             console.log("Insomnia is active");
         });
+
+        this.connection$ = this.internetConnectionService.connectionStatus$.subscribe(data => {
+            this.connectionStatus = data.valueOf();
+        });
     }
     ngOnDestroy(): void {
         this.endCurrentSession();
@@ -71,6 +80,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         alert(alertOptions).then(() => {
             console.log("Fel vid vidareskickning")
         })
+
+        if (this.connection$){
+            this.connection$.unsubscribe();
+        }
     }
 
     public async testGetFromApi(){

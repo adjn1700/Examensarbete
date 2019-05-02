@@ -82,7 +82,8 @@ export class PavingComponent implements OnInit, OnDestroy {
   setTraveledPercentage(){
       let x = this.currentContinuousLength;
       let y = this.currentPaving.EndContinuousLength;
-      let currentPerc = x/y;
+      let z = this.currentPaving.StartContinuousLength;
+      let currentPerc = (x-z)/(y-z);
       return currentPerc * 100;
   }
   setProgressbarWidth(percent) {

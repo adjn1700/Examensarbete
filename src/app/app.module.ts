@@ -12,7 +12,8 @@ import { StartScreenComponent } from '~/app/components/start-screen/start-screen
 import { DestinationComponent } from '~/app/components/destination/destination.component';
 import { ApiService } from "~/app/services/api.service";
 import { DataShareService } from './services/data-share.service';
-import { ConversionService } from './services/conversion.service'
+import { ConversionService } from './services/conversion.service';
+import { InternetConnectionService } from './services/internet-connection.service';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives'
 import { DropDownModule } from "nativescript-drop-down/angular";
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
