@@ -1,5 +1,11 @@
 /* Add mobile styles for the component here.  */
 
 .connection-status-bar{
-    text-align: center;
-  }
+  background-color: #6672ff;
+  padding: 3px 0px;
+  text-align: center;
+}
+
+.title-internet{
+    color: #f2f2f2;
+}
