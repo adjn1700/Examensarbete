@@ -5,8 +5,8 @@ ListPicker{
 
 
 .logoimg{
-    height: 300;
-    width: 300;
+    height: 250;
+    width: 250;
 }
 
 Label{
@@ -39,10 +39,11 @@ RadAutoCompleteTextView{
 .countyDropdown{
     font-size: 20;
     text-align:center;
-
+    height: 60;
 }
 
 .roadDropdown{
     font-size: 16;
     text-align:center;
+    height: 60;
 }

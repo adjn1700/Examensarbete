@@ -13,7 +13,7 @@ export class LocationService {
     private locations = [];
     private watchId: number;
     public isWatchingDistance: boolean = false;
-    private locationCount: number = 0;
+    private isFirstLocation: boolean = true;
 
     //observable location streams for location and device movement
     location$ = this.locationSource.asObservable();
@@ -48,11 +48,12 @@ export class LocationService {
     }
 
     public startWatchingLocation() {
+
         this.watchId = Geolocation.watchLocation(location => {
             if(location) {
                 this.zone.run(() => {
                     //Skipping first coordinate to exclude location data stored from previous session
-                    if(this.locationCount >= 1){
+                    if(!this.isFirstLocation){
                         //For calculating device movement
                         this.locations.push(location)
                         this.calcDistanceTravelled();
@@ -65,7 +66,7 @@ export class LocationService {
                         loc.timestamp = location.timestamp;
                         this.locationSource.next(loc);
                     }
-                    this.locationCount++;
+                    this.isFirstLocation = false;
 
                 });
             }
@@ -79,7 +80,7 @@ export class LocationService {
             Geolocation.clearWatch(this.watchId);
             this.watchId = null;
             this.locations = [];
-            this.locationCount = 0;
+            this.isFirstLocation = true;
             this.distanceTravelledSource.next(0);
         }
     }
