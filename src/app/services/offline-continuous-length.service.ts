@@ -12,6 +12,8 @@ import { Observable } from 'tns-core-modules/ui/page/page';
 })
 export class OfflineContinuousLength implements OnDestroy{
 
+  ///////THIS SERVICE IS FOR TESTING ONLY, NOT ACCURATE FOR REAL USAGE ///////
+
   private totalOfflineDistanceTravelled: number;
   private distSubscription: Subscription;
 

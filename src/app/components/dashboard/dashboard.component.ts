@@ -14,6 +14,7 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { keepAwake } from "nativescript-insomnia";
 import { InternetConnectionService } from '../../services/internet-connection.service';
+import { TextField } from "tns-core-modules/ui/text-field";
 
 
 @Component({
@@ -28,8 +29,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public selectedRoad: SelectedRoad;
     public isOnSelectedRoad: boolean = false;
     public isBusy = false;
-    connectionStatus: boolean = true;
+    public isOnline: boolean = true;
     connection$;
+    public startupClForTest: number = 0;
 
     public testResponse: number;
 
@@ -40,18 +42,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private locationService: LocationService,
         private route: ActivatedRoute,
         private dataShareService: DataShareService,
-        private clService: ContinuousLengthService,
+        public clService: ContinuousLengthService,
         private conversionService: ConversionService,
-        private internetConnectionService: InternetConnectionService
+        public internetConnectionService: InternetConnectionService
 
         ) {
-            //Add later when startup lists works correctly
-            /*
-            this.county = dataShareService.serviceCounty;
-            this.road = dataShareService.serviceRoad;
-            this.destination = dataShareService.serviceDestination;
-            this.direction = dataShareService.serviceDirection;
-            */
          }
 
     ngOnInit() {
@@ -64,7 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
 
         this.connection$ = this.internetConnectionService.connectionStatus$.subscribe(data => {
-            this.connectionStatus = data.valueOf();
+            this.isOnline = data.valueOf();
         });
     }
     ngOnDestroy(): void {
@@ -86,39 +81,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     }
 
-    public async testGetFromApi(){
-        //Checks users current coordinates
-        let currentLocation: Location = new Location();
-        this.isBusy = true;
-        try{
-            let result = await this.locationService.getAndSetDeviceLocation();
-            console.log(result);
-            currentLocation.latitude = result.latitude;
-            currentLocation.longitude = result.longitude;
-
-            //Checks with API if on selected road, gets current CL if true
-            const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
-
-            //starts the stream of location service to connected child components
-            this.locationService.startWatchingLocation();
-
-            //TEST for speed calc
-            this.clService.isAdjustingToSpeed = false;
-
-            //Starts service to get continuous length to connected child components
-            this.clService.testContinuousLengthServiceWithApiConnection(startupCl);
-            this.isOnSelectedRoad = true;
-            this.isBusy = false;
-        }
-        catch(error){
-            console.error(error);
-            this.showErrorMessage(error.message);
-            this.isBusy = false;
-        }
-
+    public onTestTextChange(args) {
+        let textField = <TextField>args.object;
+        this.startupClForTest = Number(textField.text);
     }
 
-    public async testGetFromApiWithSpeedCalc(){
+
+    public async startUsingDashboard(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
         this.isBusy = true;
@@ -128,17 +97,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
             currentLocation.latitude = result.latitude;
             currentLocation.longitude = result.longitude;
 
-            //Checks with API if on selected road, gets current CL if true
+            //Gets current CL
             const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
 
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
 
-            //TEST for speed calc
+            //Speed calc activation
             this.clService.isAdjustingToSpeed = true;
 
             //Starts service to get continuous length to connected child components
-            this.clService.testContinuousLengthServiceWithApiConnection(startupCl);
+            this.clService.startContinuousLengthServiceWithApiConnection(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
         }
@@ -149,7 +118,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     }
 
-    public async checkIfOnSelectedRoad(){
+    public async startUsingDashboardWithOfflineContinuousLength(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
         this.isBusy = true;
@@ -160,12 +129,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
             //Checks with API if on selected road, gets current CL if true, ADD LATER
             //const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
-            const startupCl = 18000;
+            const startupCl = this.startupClForTest;
 
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
-            this.clService.startContinuousLengthService(startupCl);
+            this.clService.startContinuousLengthServiceOfflineForTest(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
         }

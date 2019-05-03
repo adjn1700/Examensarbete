@@ -1,1 +1,9 @@
 /* Add mobile styles for the component here.  */
+
+.offlineCardColor{
+    background-color: #CE3743;
+}
+
+.offlineCardTextColor{
+    color:white;
+}

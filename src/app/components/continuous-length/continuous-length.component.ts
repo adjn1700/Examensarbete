@@ -13,7 +13,7 @@ export class ContinuousLengthComponent implements OnInit, OnDestroy {
     private clSubscription: Subscription;
     public currentContinuousLength: number;
 
-  constructor(private clService: ContinuousLengthService) {
+  constructor(public clService: ContinuousLengthService) {
     this.clSubscription = this.clService.continuousLength$.subscribe(
         cl => {
             this.currentContinuousLength = cl;

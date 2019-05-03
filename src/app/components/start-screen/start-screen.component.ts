@@ -13,10 +13,6 @@ import roadsFromFile from './roads.json';
 import { Road } from '~/app/models/road';
 import { SelectedRoad } from '~/app/models/selectedRoad';
 
-//const countyItems = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
-//const roadItems = ["101.00", "1002.01", "230.00", "122.10", "722.01", "522.01", "562.00"];
-//const countyCollection = countys;
-
 @Component({
   selector: 'ns-start-screen',
   templateUrl: './start-screen.component.html',
@@ -35,43 +31,6 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
     public countyItems: County[];
     public roadItems: Road[];
-    //public countyItems = ["Stockholm (AB)", "Uppsala (C)", "Södermanland (D)", "Östergötland (E)", "Jönköping (F)", "Kronoberg (G)", "Kalmar (H)", "Gotland (I)", "Blekinge (K)", "Skåne (M)", "Halland (N)", "Västra Götaland (O)", "Värmland (S)", "Örebro (T)", "Västmanland (U)", "Dalarna (W)", "Gävleborg (X)", "Västernorrland (Y)", "Jämtland (Z)", "Västerbotten (AC)", "Norrbotten (BD)"];
-    //public roadItems = ["101.00", "1002.01", "230.00", "122.10", "722.01", "522.01", "562.00"];
-
-    /*
-    public picked: string;
-    public isVisibleCounty: boolean = false;
-    public isVisibleRoad: boolean = false;
-
-    public allcounty: County[];
-
-    autocompleteCounties: ObservableArray<TokenModel>;
-    autocompleteRoads: ObservableArray<TokenModel>;
-    autocounty: ObservableArray<TokenModel>;
-
-
-    constructor(private router: RouterExtensions, public dataShareService: DataShareService, public coversionService: ConversionService) {
-
-        this.autocompleteCounties = new ObservableArray<TokenModel>();
-        countyList.forEach((county) => {
-            this.autocompleteCounties.push(new TokenModel(county, undefined));
-        });
-
-        this.autocompleteRoads = new ObservableArray<TokenModel>();
-        roadList.forEach((road) => {
-            this.autocompleteRoads.push(new TokenModel(road, undefined));
-        });
-
-    }
-
-    onDidAutoCompleteCounty({ text }) {
-        this.county = text;
-    }
-    onDidAutoCompleteRoad({ text }) {
-        this.road = text;
-        console.log(this.road);
-    }
-    */
 
     @ViewChild('countyDD') countyDropDown: ElementRef;
     @ViewChild('roadDD') roadDropDown: ElementRef;
