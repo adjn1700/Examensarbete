@@ -160,7 +160,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
             //Checks with API if on selected road, gets current CL if true, ADD LATER
             //const startupCl = await this.clService.getContinuousLengthForStartup(currentLocation);
-            const startupCl = 0;
+            const startupCl = 18000;
 
             //starts the stream of location service to connected child components
             this.locationService.startWatchingLocation();

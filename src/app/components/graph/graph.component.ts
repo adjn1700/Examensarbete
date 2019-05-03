@@ -66,6 +66,6 @@ getIri(): any[] {
         }, error => {
             console.error(error);
         });
-      }
+    }
 
 }
