@@ -64,7 +64,6 @@ getIri(): any[] {
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
                 this.graphValues = data;
-                //console.log(this.Iri);
             }
         }, error => {
             console.error(error);
