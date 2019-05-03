@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { observeOn } from 'rxjs/operators';
+import { ApiService } from '~/app/services/api.service';
+import { ContinuousLengthService } from '~/app/services/continuous-length.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ns-graph',
@@ -11,31 +14,29 @@ import { observeOn } from 'rxjs/operators';
 })
 export class GraphComponent implements OnInit {
 
-    private _dateTimeSource: ObservableArray<any>;
+    private _iriData: ObservableArray<any>;
+    private clSubscription: Subscription;
+    public currentContinuousLength: number;
+    public Iri: any[];
 
-  constructor() { }
+  constructor(
+      private apiService: ApiService,
+      private clService: ContinuousLengthService
+  ) { }
 
   ngOnInit() {
-    this._dateTimeSource = new ObservableArray(this.getDateTimeSource());
+    this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
+        this.currentContinuousLength = cl;
+    });
+
+    //Hämta grafdata fron api
+    //this.setGraphData();
+
+    this._iriData = new ObservableArray(this.getIri());
   }
 
-  get dateTimeSource(): ObservableArray<any> {
-    return this._dateTimeSource;
-}
-
-  getDateTimeSource(): any[] {
-    return [
-        { TimeStamp: new Date(2015, 1, 11).getTime(), Amount: 2 },
-        { TimeStamp: new Date(2015, 2, 11).getTime(), Amount: 6 },
-        { TimeStamp: new Date(2015, 3, 1).getTime(), Amount: 1 },
-        { TimeStamp: new Date(2015, 4, 3).getTime(), Amount: 3 },
-        { TimeStamp: new Date(2015, 5, 11).getTime(), Amount: 4 },
-        { TimeStamp: new Date(2015, 6, 1).getTime(), Amount: 7 },
-        { TimeStamp: new Date(2015, 7, 3).getTime(), Amount: 5 },
-        { TimeStamp: new Date(2015, 8, 11).getTime(), Amount: 4 },
-        { TimeStamp: new Date(2015, 9, 1).getTime(), Amount: 2 },
-        { TimeStamp: new Date(2015, 10, 3).getTime(), Amount: 6 },
-    ];
+  get dateIri(): ObservableArray<any> {
+    return this._iriData;
 }
 
 getIri(): any[] {
@@ -55,4 +56,16 @@ getIri(): any[] {
     ];
 
     }
+
+    private setGraphData(){
+        this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
+            if(data.length > 0){
+                this.Iri = data;
+                console.log(this.Iri);
+            }
+        }, error => {
+            console.error(error);
+        });
+    }
+
 }
