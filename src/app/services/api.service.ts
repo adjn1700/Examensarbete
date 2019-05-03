@@ -101,6 +101,36 @@ export class ApiService {
             .pipe(map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)));
     }
 
+    public getGraphData(currentContinuousLength: number): Observable<PavementData[]>{
+        let selectedRoad = this.dataShareService.selectedRoad;
+        let customRequest = `
+        <REQUEST>
+            <LOGIN authenticationkey="${this.authKey}" />
+            <QUERY objecttype="MeasurementData20" schemaversion="1">
+                <FILTER>
+                  <AND>
+                        <EQ name="County" value="${selectedRoad.countyId}" />
+                        <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
+                        <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
+                        <EQ name="Direction.Value" value="${selectedRoad.direction}" />
+                        <GTE name="StartContinuousLength" value="${currentContinuousLength} - 1000" />
+                        <LTE name="EndContinuousLength" value="${currentContinuousLength} + 1000" />
+                  </AND>
+                </FILTER>
+                <INCLUDE>StartContinuousLength</INCLUDE>
+                <INCLUDE>EndContinuousLength</INCLUDE>
+                <INCLUDE>Length</INCLUDE>
+                <INCLUDE>IRIRight</INCLUDE>
+                <INCLUDE>CrossfallRutBottom</INCLUDE>
+                <INCLUDE>RutDepthMax17</INCLUDE>
+                <INCLUDE>EdgeDepth</INCLUDE>
+            </QUERY>
+        </REQUEST>`
+
+    return this.postData(customRequest)
+        .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
+    }
+
     private createRequest() {
         var xmlRequest = `
         <REQUEST>

@@ -16,7 +16,7 @@ export class GraphComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this._dateTimeSource = new ObservableArray(this.getDateTimeSource());
+    this._dateTimeSource = new ObservableArray(this.getIri());
   }
 
   get dateTimeSource(): ObservableArray<any> {
