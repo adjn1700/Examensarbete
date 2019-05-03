@@ -122,7 +122,6 @@ export class ApiService {
                 </FILTER>
                 <INCLUDE>StartContinuousLength</INCLUDE>
                 <INCLUDE>EndContinuousLength</INCLUDE>
-                <INCLUDE>Length</INCLUDE>
                 <INCLUDE>IRIRight</INCLUDE>
                 <INCLUDE>CrossfallRutBottom</INCLUDE>
                 <INCLUDE>RutDepthMax17</INCLUDE>
