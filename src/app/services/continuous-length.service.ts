@@ -102,7 +102,7 @@ export class ContinuousLengthService implements OnDestroy{
     }
 
     private setCurrentOnlineContinuousLength(input: number){
-        if(this.isAdjustingToSpeed && this.locSentToApi && this.locSentToApi.speed >= 30){
+        if(this.isAdjustingToSpeed && this.locSentToApi && this.locSentToApi.speed >= 10){
             let adjustedCl = this.addSpeedAdjustment(input);
             console.log("justerat utifrån speed " + adjustedCl);
 
