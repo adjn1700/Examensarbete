@@ -8,6 +8,7 @@ import { PavementData } from '../models/pavementData';
 import { Location } from '~/app/models/location';
 import { ConversionService } from './conversion.service';
 import { DataShareService } from './data-share.service';
+import { GraphData } from '~/app/models/graphData';
 
 @Injectable({
   providedIn: 'root'
@@ -101,10 +102,10 @@ export class ApiService {
             .pipe(map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)));
     }
 
-    public getGraphData(currentContinuousLength: number): Observable<PavementData[]>{
+    public getGraphData(currentContinuousLength: number): Observable<GraphData[]>{
         let selectedRoad = this.dataShareService.selectedRoad;
-        let startLength = currentContinuousLength - 1000;
-        let endLength = currentContinuousLength + 1000;
+        let startLength = currentContinuousLength - 500;
+        let endLength = currentContinuousLength + 500;
         console.log(endLength);
         let customRequest = `
         <REQUEST>

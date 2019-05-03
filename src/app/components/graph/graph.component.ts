@@ -5,6 +5,7 @@ import { observeOn } from 'rxjs/operators';
 import { ApiService } from '~/app/services/api.service';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { Subscription } from 'rxjs';
+import { GraphData } from '../../models/graphData';
 
 @Component({
   selector: 'ns-graph',
@@ -18,6 +19,7 @@ export class GraphComponent implements OnInit {
     private clSubscription: Subscription;
     public currentContinuousLength: number;
     public Iri: any[];
+    public graphValues: GraphData[];
 
   constructor(
       private apiService: ApiService,
@@ -30,9 +32,10 @@ export class GraphComponent implements OnInit {
     });
 
     //Hämta grafdata fron api
-    //this.setGraphData();
+    this.setGraphData();
 
-    this._iriData = new ObservableArray(this.getIri());
+    //this._iriData = new ObservableArray(this.graphValues);
+    console.log(this.graphValues);
   }
 
   get dateIri(): ObservableArray<any> {
@@ -60,8 +63,8 @@ getIri(): any[] {
     private setGraphData(){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
-                this.Iri = data;
-                console.log(this.Iri);
+                this.graphValues = data;
+                //console.log(this.Iri);
             }
         }, error => {
             console.error(error);
