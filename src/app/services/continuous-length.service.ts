@@ -79,24 +79,24 @@ export class ContinuousLengthService implements OnDestroy{
 
     private getDifferenceInSeconds(startDate:Date, endDate:Date): number{
         let diff = endDate.getTime() - startDate.getTime();
-        console.log("timediff " + diff);
+        //console.log("timediff " + diff);
         let diffInSeconds = diff / 1000;
-        console.log("diffInSeconds " + diffInSeconds)
+        //console.log("diffInSeconds " + diffInSeconds)
         return diffInSeconds;
     }
 
     /** Checks differrence in time between location sent to API and response,
      * then adds decvice movement passed since then (for accuracy) */
     private addSpeedAdjustment(input: number): number{
-        console.log("Location skickad för speed adjust");
-        console.log(this.locSentToApi);
+        //console.log("Location skickad för speed adjust");
+        //console.log(this.locSentToApi);
         let currentSpeed = this.locSentToApi.speed;
         let locTimeStamp = this.locSentToApi.timestamp;
         let currentTimeStamp = new Date();
         let timeDiff = this.getDifferenceInSeconds(locTimeStamp, currentTimeStamp);
 
         let adjustment = Math.floor(currentSpeed * timeDiff);
-        console.log("justerad siffra " + adjustment);
+        //console.log("justerad siffra " + adjustment);
         let total = adjustment + input;
         return total;
     }
@@ -104,7 +104,7 @@ export class ContinuousLengthService implements OnDestroy{
     private setCurrentOnlineContinuousLength(input: number){
         if(this.isAdjustingToSpeed && this.locSentToApi && this.locSentToApi.speed >= 10){
             let adjustedCl = this.addSpeedAdjustment(input);
-            console.log("justerat utifrån speed " + adjustedCl);
+            //console.log("justerat utifrån speed " + adjustedCl);
 
             this.currentContinuousLength = adjustedCl;
             this.continuousLengthSource.next(this.currentContinuousLength);
