@@ -10,10 +10,11 @@
         <StackLayout class="cardContent">
             <Label text="Verktyget är redo att användas!" class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
             <Label text="När du har anlänt till vald väg, aktivera verktyget genom att trycka på knappen nedan." horizontalAlignment="center"  textWrap="true"></Label>
-            <TextField hint="Löpande längd (för offline)" autocorrect="false" (textChange)="onTestTextChange($event)" class="input input-border p-10"></TextField>
-            <Button class="btn btn-success btn-rounded-sm btn-primary" text="TEST (Offline)" (tap)="startUsingDashboardWithOfflineContinuousLength()"></Button>
+            <TextField *ngIf="dataShareService.devmode" hint="Löpande längd (för offline)" autocorrect="false" (textChange)="onTestTextChange($event)" class="input input-border p-10"></TextField>
+            <Button *ngIf="dataShareService.devmode" class="btn btn-success btn-rounded-sm btn-primary" text="TEST (Offline)" (tap)="startUsingDashboardWithOfflineContinuousLength()"></Button>
             <Label text="{{ testResponse }}" horizontalAlignment="center"  textWrap="true"></Label>
-            <Button class="btn btn-success btn-rounded-sm" text="BEKRÄFTA (API + SPEEDCALC)" (tap)="startUsingDashboard()"></Button>
+            <Button *ngIf="dataShareService.devmode" class="btn btn-success btn-rounded-sm" text="BEKRÄFTA (API + SPEEDCALC)" (tap)="startUsingDashboard()"></Button>
+            <Button *ngIf="!dataShareService.devmode" class="btn btn-success btn-rounded-sm" text="STARTA" (tap)="startUsingDashboard()"></Button>
             <Button class="btn btn-danger btn-rounded-sm" text="Avbryt" (tap)="cancelAlert()"></Button>
         </StackLayout>
     </CardView>

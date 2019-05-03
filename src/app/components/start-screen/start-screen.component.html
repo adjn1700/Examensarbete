@@ -36,23 +36,29 @@
 -->
 
 
-<GridLayout class="page p-5" rows="auto,auto,auto,auto" width="100%">
+<GridLayout class="page p-5" rows="*, auto" width="100%">
     <StackLayout row="0">
-        <Image src="res://applogo" class="logoimg"></Image>
-    </StackLayout>
-    <StackLayout class="form m-b-20" row="1">
-        <DropDown #countyDD class="input input-border countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
-            (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
-    </StackLayout>
-    <StackLayout class="form m-b-30" row="2">
-        <DropDown #roadDD class="input input-border roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
-            (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
-    </StackLayout>
+            <StackLayout row="0">
+                    <Image src="res://applogo" class="logoimg"></Image>
+                </StackLayout>
+                <StackLayout class="form m-b-20">
+                    <DropDown #countyDD class="input input-border countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
+                        (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
+                </StackLayout>
+                <StackLayout class="form m-b-30">
+                    <DropDown #roadDD class="input input-border roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
+                        (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
+                </StackLayout>
 
-    <StackLayout #bottomElt row="3">
-        <Button row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm btn-large" (tap)="toDashboardWithTestValues()" clearHistory="true"></Button>
-        <Button row="1" text="TEST-VY" class="btn btn-success btn-rounded-sm btn-large" (tap)="toTestpageWithRealValues()" clearHistory="true"></Button>
-        <Button row="1" text="BEKRÄFTA" class="btn btn-success btn-rounded-sm btn-large" (tap)="toDashboard()" clearHistory="true"></Button>
+                <StackLayout #bottomElt>
+                    <Button *ngIf="dataShareService.devmode" row="1" text="TEST-VÄG" class="btn btn-danger btn-rounded-sm btn-large" (tap)="toDashboardWithTestValues()" clearHistory="true"></Button>
+                    <Button *ngIf="dataShareService.devmode" row="1" text="TEST-VY" class="btn btn-success btn-rounded-sm btn-large" (tap)="toTestpageWithRealValues()" clearHistory="true"></Button>
+                    <Button row="1" text="BEKRÄFTA" class="btn btn-success btn-rounded-sm btn-large" (tap)="toDashboard()" clearHistory="true"></Button>
+                </StackLayout>
     </StackLayout>
+    <GridLayout row="1" rows="auto" columns="*, auto">
+        <Switch col="1" class="m-15" (checked)="true" (checkedChange)="onDevSwitchChange($event)"></Switch>
+    </GridLayout>
+
 </GridLayout>
 

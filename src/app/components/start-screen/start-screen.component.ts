@@ -3,6 +3,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { SelectedIndexChangedEventData, itemsProperty } from "nativescript-drop-down";
 import { ValueList } from "nativescript-drop-down";
 import { allowSleepAgain } from "nativescript-insomnia";
+import { Switch } from "tns-core-modules/ui/switch";
 
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { County } from '../../models/county'
@@ -42,7 +43,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     public roadItemSource: ValueList<string>;
 
     constructor(
-        private dataShareService: DataShareService,
+        public dataShareService: DataShareService,
         private router: RouterExtensions
         ){
             this.countyItems = countysFromFile;
@@ -230,5 +231,15 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
             alert(alertOptions);
 
 
+    }
+
+    public onDevSwitchChange(args){
+        let devswitch = <Switch>args.object;
+        if (devswitch.checked) {
+            this.dataShareService.devmode = true;
+        } else {
+            this.dataShareService.devmode = false;
+
+        }
     }
 }

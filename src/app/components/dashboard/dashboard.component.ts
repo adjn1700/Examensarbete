@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private router: RouterExtensions,
         private locationService: LocationService,
         private route: ActivatedRoute,
-        private dataShareService: DataShareService,
+        public dataShareService: DataShareService,
         public clService: ContinuousLengthService,
         private conversionService: ConversionService,
         public internetConnectionService: InternetConnectionService

@@ -8,4 +8,5 @@ import { SelectedRoad } from '../models/selectedRoad'
 export class DataShareService {
     selectedDestination: number;
     selectedRoad: SelectedRoad;
+    devmode: boolean = true;
 }
