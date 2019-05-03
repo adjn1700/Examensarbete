@@ -105,6 +105,7 @@ export class ApiService {
         let selectedRoad = this.dataShareService.selectedRoad;
         let startLength = currentContinuousLength - 1000;
         let endLength = currentContinuousLength + 1000;
+        console.log(endLength);
         let customRequest = `
         <REQUEST>
             <LOGIN authenticationkey="${this.authKey}" />

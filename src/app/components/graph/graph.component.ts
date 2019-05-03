@@ -29,6 +29,8 @@ export class GraphComponent implements OnInit {
         this.currentContinuousLength = cl;
     });
 
+    //Hämta grafdata fron api
+    //this.setGraphData();
 
     this._iriData = new ObservableArray(this.getIri());
   }
