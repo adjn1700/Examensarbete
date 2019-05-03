@@ -182,7 +182,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     //Alert
-
   cancelAlert(){
     let options: ConfirmOptions = {
         title: "Avsluta",

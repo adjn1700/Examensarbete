@@ -103,6 +103,8 @@ export class ApiService {
 
     public getGraphData(currentContinuousLength: number): Observable<PavementData[]>{
         let selectedRoad = this.dataShareService.selectedRoad;
+        let startLength = currentContinuousLength - 1000;
+        let endLength = currentContinuousLength + 1000;
         let customRequest = `
         <REQUEST>
             <LOGIN authenticationkey="${this.authKey}" />
@@ -113,8 +115,8 @@ export class ApiService {
                         <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
                         <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
                         <EQ name="Direction.Value" value="${selectedRoad.direction}" />
-                        <GTE name="StartContinuousLength" value="${currentContinuousLength} - 1000" />
-                        <LTE name="EndContinuousLength" value="${currentContinuousLength} + 1000" />
+                        <GTE name="StartContinuousLength" value="${startLength}" />
+                        <LTE name="EndContinuousLength" value="${endLength}" />
                   </AND>
                 </FILTER>
                 <INCLUDE>StartContinuousLength</INCLUDE>
@@ -128,7 +130,7 @@ export class ApiService {
         </REQUEST>`
 
     return this.postData(customRequest)
-        .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
+        .pipe(map(res => res["RESPONSE"].RESULT[0].MeasurementData20));
     }
 
     private createRequest() {
