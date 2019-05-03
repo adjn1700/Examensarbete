@@ -23,7 +23,6 @@ export class ContinuousLengthService implements OnDestroy{
   private locSubscription: Subscription;
   private apiClSubscription: Subscription;
   private offlineClSubscription: Subscription;
-  private distSubscription: Subscription;
 
 
   private continuousLengthSource = new BehaviorSubject<number>(0);
@@ -38,21 +37,15 @@ export class ContinuousLengthService implements OnDestroy{
     ngOnDestroy(): void {
     }
 
-
     public getContinuousLengthForStartup(currentLocation: Location): Promise<number>{
         return this.apiService.getCurrentContinuousLength(currentLocation).toPromise();
     }
 
-    public startContinuousLengthService(startupCl: number){
+    /** For testing only */
+    public startContinuousLengthServiceOfflineForTest(startupCl: number){
             this.currentContinuousLength = startupCl;
-            //Starts offline calculation in case of connection loss
             this.offlineClService.startWatchingOfflineContinuousLength(startupCl);
-
-            //Remove when API-connection working
             this.startSettingOfflineContinuousLength();
-
-            //Add when working to get from API
-            //this.startGettingOnlineContinuousLength();
 
             this.locSubscription = this.locationService.location$.subscribe(
                 loc => {
@@ -60,7 +53,7 @@ export class ContinuousLengthService implements OnDestroy{
                 });
     }
 
-    public testContinuousLengthServiceWithApiConnection(startupCl: number){
+    public startContinuousLengthServiceWithApiConnection(startupCl: number){
         this.currentContinuousLength = startupCl;
         this.locSubscription = this.locationService.location$.subscribe(
             loc => {
@@ -83,10 +76,8 @@ export class ContinuousLengthService implements OnDestroy{
         }
     }
 
-    //Currently not working, fix later
 
     private getDifferenceInSeconds(startDate:Date, endDate:Date): number{
-
         let diff = endDate.getTime() - startDate.getTime();
         console.log("timediff " + diff);
         let diffInSeconds = diff / 1000;
@@ -94,9 +85,9 @@ export class ContinuousLengthService implements OnDestroy{
         return diffInSeconds;
     }
 
-
+    /** Checks differrence in time between location sent to API and response,
+     * then adds decvice movement passed since then (for accuracy) */
     private addSpeedAdjustment(input: number): number{
-        //Adjusts continuous length according to current speed and then sets value, fix later
         console.log("Location skickad för speed adjust");
         console.log(this.locSentToApi);
         let currentSpeed = this.locSentToApi.speed;
@@ -142,15 +133,16 @@ export class ContinuousLengthService implements OnDestroy{
     private handleApiRequestError(error: HttpErrorResponse){
         console.log("fel vid api-request " + error.message);
         this.numberOfFailedApiCalls++;
-        if(this.numberOfFailedApiCalls >= 1){
+        if(this.numberOfFailedApiCalls >1){
             this.isOffline = true;
-            this.addDeviceMovementForApiFail();
         }
+        this.addDeviceMovementForApiFail();
         return empty();
     }
 
+    /**In case of API response fail, adds current meters per second travelled as backup until regained connection */
     private addDeviceMovementForApiFail(){
-        let currentSpeed = Math.floor(this.locSentToApi.speed);
+        let currentSpeed = Math.round(this.locSentToApi.speed);
         this.currentContinuousLength = this.currentContinuousLength + currentSpeed;
         this.continuousLengthSource.next(this.currentContinuousLength);
     }

@@ -134,7 +134,7 @@ export class TestpageComponent implements OnInit, OnDestroy {
             this.clService.isAdjustingToSpeed = true;
 
             //Starts service to get continuous length to connected child components
-            this.clService.testContinuousLengthServiceWithApiConnection(startupCl);
+            this.clService.startContinuousLengthServiceWithApiConnection(startupCl);
             this.offlineClService.startWatchingOfflineContinuousLength(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
