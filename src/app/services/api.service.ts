@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
-import { map, catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, catchError, timeout } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { SelectedRoad } from '../models/selectedRoad';
 import { PavementData } from '../models/pavementData';
 import { Location } from '~/app/models/location';
@@ -16,6 +16,7 @@ import { GraphData } from '~/app/models/graphData';
 export class ApiService {
     private apiUrl = 'https://api.trafikinfo.trafikverket.se/v1.3/data.json';
     private authKey = '8ccbb37be31d48adbaf3009f14a45141'
+    public apiTimeoutValue: number = 5000;
 
     constructor(
         private http: HttpClient,
@@ -56,7 +57,10 @@ export class ApiService {
             </QUERY>
         </REQUEST>`
     return this.postData(customRequest)
-        .pipe(map(res => res["RESPONSE"].RESULT[0].PavementData));
+        .pipe(
+            map(res => res["RESPONSE"].RESULT[0].PavementData),
+                catchError(this.handleError)
+            );
     }
 
     getCurrentContinuousLength(currentLocation: Location): Observable<number>{
@@ -99,7 +103,11 @@ export class ApiService {
             </REQUEST>`
 
         return this.postData(customRequest)
-            .pipe(map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)));
+            .pipe(
+                map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)),
+                    timeout(this.apiTimeoutValue),
+                        catchError(this.handleError)
+                );
     }
 
     public getGraphData(currentContinuousLength: number): Observable<GraphData[]>{
@@ -131,7 +139,10 @@ export class ApiService {
         </REQUEST>`
 
     return this.postData(customRequest)
-        .pipe(map(res => res["RESPONSE"].RESULT[0].MeasurementData20));
+        .pipe(
+            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
+                catchError(this.handleError)
+                );
     }
 
     private createRequest() {
@@ -164,6 +175,20 @@ export class ApiService {
         </REQUEST>`
         return xmlRequest;
     }
+
+    handleError(error) {
+        let errorMessage = '';
+        if (error instanceof HttpErrorResponse) {
+            if(error.status === 0){
+                errorMessage = `Servern kunde inte kontaktas. Vänligen kontrollera din internetuppkoppling och försök igen`;
+            }
+            else{
+                errorMessage = `Felkod: ${error.status}\nMeddelande: ${error.message}`;
+            }
+
+        }
+        return throwError(errorMessage);
+      }
 
 
 }
