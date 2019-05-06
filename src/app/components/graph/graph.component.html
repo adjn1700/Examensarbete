@@ -2,6 +2,7 @@
     <StackLayout class="cardContent">
         <Label horizontalAlignment="center" class="h2 fontBold" text="Iri Höger"></Label>
         <RadCartesianChart tkExampleTitle tkToggleNavButton height="180">
+            <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
             <CategoricalAxis tkCartesianHorizontalAxis ></CategoricalAxis>
             <LinearAxis tkCartesianVerticalAxis></LinearAxis>
             <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="IRIRight"></LineSeries>
