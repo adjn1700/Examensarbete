@@ -18,7 +18,6 @@ export class ContinuousLengthService implements OnDestroy{
   private currentContinuousLength: number;
   public isAdjustingToSpeed: boolean = false;
   private apiCallFrequency: number = 1000;
-  private numberOfFailedApiCalls: number = 0;
 
   private locSubscription: Subscription;
   private apiClSubscription: Subscription;
@@ -124,7 +123,6 @@ export class ContinuousLengthService implements OnDestroy{
                     catchError((error) => this.handleApiRequestError(error)));
             }))
                 .subscribe(result => {
-                    this.numberOfFailedApiCalls = 0;
                     this.isOffline = false;
                     this.setCurrentOnlineContinuousLength(Number(result));
                 }, error => {console.error(error)});
@@ -132,10 +130,7 @@ export class ContinuousLengthService implements OnDestroy{
 
     private handleApiRequestError(error: HttpErrorResponse){
         console.log("fel vid api-request " + error.message);
-        this.numberOfFailedApiCalls++;
-        if(this.numberOfFailedApiCalls >1){
-            this.isOffline = true;
-        }
+        this.isOffline = true;
         this.addDeviceMovementForApiFail();
         return empty();
     }

@@ -30,6 +30,7 @@ export class PavingComponent implements OnInit, OnDestroy {
      this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
         if(this.pavings){
+            this.checkIfPavingEnded();
             this.setProgressbarWidth(this.setTraveledPercentage());
         }
     });
@@ -73,7 +74,7 @@ export class PavingComponent implements OnInit, OnDestroy {
     });
   }
 
-  private checkIfPavingEnded(percent: number){
+  private checkIfPavingEnded(){
       if(this.currentContinuousLength >= this.currentPaving.EndContinuousLength){
           this.setNewPavementDataForRoad()
       }
@@ -87,7 +88,6 @@ export class PavingComponent implements OnInit, OnDestroy {
       return currentPerc * 100;
   }
   setProgressbarWidth(percent) {
-    this.checkIfPavingEnded(percent);
     this.pbColumns = percent + "*," + (100 - percent) + "*";
   }
 }
