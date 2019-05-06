@@ -3,8 +3,8 @@
         <Label horizontalAlignment="center" class="h2 fontBold" text="Iri Höger"></Label>
         <RadCartesianChart tkExampleTitle tkToggleNavButton height="180">
             <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
-            <CategoricalAxis tkCartesianHorizontalAxis ></CategoricalAxis>
-            <LinearAxis tkCartesianVerticalAxis></LinearAxis>
+            <CategoricalAxis tkCartesianHorizontalAxis majorTickInterval="6" labelSize="16"></CategoricalAxis>
+            <LinearAxis tkCartesianVerticalAxis labelMargin="" labelLayoutMode="outer" labelSize="14"></LinearAxis>
             <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="IRIRight"></LineSeries>
         </RadCartesianChart>
 

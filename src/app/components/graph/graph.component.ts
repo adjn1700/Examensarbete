@@ -38,28 +38,6 @@ export class GraphComponent implements OnInit {
     console.log(this.graphValues);
   }
 
-  get dateIri(): ObservableArray<any> {
-    return this._iriData;
-}
-
-getIri(): any[] {
-    return [
-        { Value: 6, LopandeLangd: 1000},
-        { Value: 6.4, LopandeLangd: 1100},
-        { Value: 7, LopandeLangd: 1200},
-        { Value: 8, LopandeLangd: 1300},
-        { Value: 8.1, LopandeLangd: 1400},
-        { Value: 7.5, LopandeLangd: 1500},
-        { Value: 7, LopandeLangd: 1600},
-        { Value: 7, LopandeLangd: 1700},
-        { Value: 7.6, LopandeLangd: 1800},
-        { Value: 7, LopandeLangd: 1900},
-        { Value: 6, LopandeLangd: 2000}
-
-    ];
-
-    }
-
     private setGraphData(){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
