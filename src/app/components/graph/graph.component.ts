@@ -42,6 +42,7 @@ export class GraphComponent implements OnInit {
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
                 this.graphValues = data;
+                console.log(this.graphValues);
             }
         }, error => {
             console.error(error);

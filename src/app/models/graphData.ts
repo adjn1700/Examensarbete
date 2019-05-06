@@ -4,6 +4,7 @@ export class GraphData {
     IRIRight: number;
     EdgeDepth: number;
     RutDepthMax17: number;
+    CrossfallRutBottom: number;
 
     public constructor(init?:Partial<GraphData>) {
         Object.assign(this, init);

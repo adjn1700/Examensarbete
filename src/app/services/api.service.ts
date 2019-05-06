@@ -132,9 +132,9 @@ export class ApiService {
                 <INCLUDE>StartContinuousLength</INCLUDE>
                 <INCLUDE>EndContinuousLength</INCLUDE>
                 <INCLUDE>IRIRight</INCLUDE>
-                <INCLUDE>CrossfallRutBottom</INCLUDE>
-                <INCLUDE>RutDepthMax17</INCLUDE>
                 <INCLUDE>EdgeDepth</INCLUDE>
+                <INCLUDE>RutDepthMax17</INCLUDE>
+                <INCLUDE>CrossfallRutBottom</INCLUDE>
             </QUERY>
         </REQUEST>`
 
