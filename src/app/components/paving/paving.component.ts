@@ -74,7 +74,7 @@ export class PavingComponent implements OnInit, OnDestroy {
   }
 
   private checkIfPavingEnded(percent: number){
-      if(percent >= 100){
+      if(this.currentContinuousLength >= this.currentPaving.EndContinuousLength){
           this.setNewPavementDataForRoad()
       }
   }

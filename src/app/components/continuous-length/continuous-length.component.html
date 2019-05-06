@@ -1,6 +1,6 @@
-<CardView [class.offlineMode]="clService.isOffline" class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" row="0" col="0">
+<CardView [class.offlineCardColor]="clService.isOffline" class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" row="0" col="0">
         <StackLayout class="cardContent">
-            <Label [class.offlineMode]="clService.isOffline" horizontalAlignment="center" [text]="currentContinuousLength" class="bigBoldText"></Label>
-            <Label [class.offlineMode]="clService.isOffline" horizontalAlignment="center" class="h2" text="Löpande längd"></Label>
+            <Label [class.offlineCardTextColor]="clService.isOffline" horizontalAlignment="center" [text]="currentContinuousLength" class="bigBoldText"></Label>
+            <Label [class.offlineCardTextColor]="clService.isOffline" horizontalAlignment="center" class="h2" text="Löpande längd"></Label>
         </StackLayout>
 </CardView>
