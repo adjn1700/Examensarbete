@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private showErrorMessage(errorMessage: string){
         let alertOptions = {
             title: "Ett fel uppstod",
-            message:"Felkod: " + errorMessage,
+            message: errorMessage,
             okButtonText: "OK"
         };
         alert(alertOptions).then(() => {
@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
         catch(error){
             console.error(error);
-            this.showErrorMessage(error.message);
+            this.showErrorMessage(error);
             this.isBusy = false;
         }
     }
