@@ -9,8 +9,12 @@ import{ ContinuousLengthService } from './services/continuous-length.service'
 
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
+import { Carousel, CarouselItem } from 'nativescript-carousel';
+
 
 registerElement('CardView', () => CardView as any);
+registerElement('Carousel', () => Carousel);
+registerElement('CarouselItem', () => CarouselItem);
 
 @Component({
     selector: "ns-app",

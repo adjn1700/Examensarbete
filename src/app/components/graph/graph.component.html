@@ -1,3 +1,53 @@
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
+        <ns:Carousel class="cardContent" height="240" width="100%" (pageChanged)="onGraphSwiped($event)" pageTapped="mySelectedEvent"
+            indicatorColor="#000000" finite="true" bounce="false" showIndicator="true" verticalAlignment="top"
+            android:indicatorAnimation="swap" color="white" indicatorOffset="0,5">
+                <ns:CarouselItem id="slide1">
+                    <StackLayout>
+                        <Label class="h2 fontBold" horizontalAlignment="center" text="Spårdjup max17 (20m)"></Label>
+                        <RadCartesianChart tkExampleTitle tkToggleNavButton height="200">
+                            <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
+                            <CategoricalAxis tkCartesianHorizontalAxis majorTickInterval="6" labelSize="16" ></CategoricalAxis>
+                            <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
+                            <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="RutDepthMax17"></LineSeries>
+                        </RadCartesianChart>
+                    </StackLayout>
+                </ns:CarouselItem>
+                <ns:CarouselItem id="slide2">
+                    <StackLayout>
+                        <Label class="h2 fontBold" horizontalAlignment="center" text="IRI höger (20m)"></Label>
+                        <RadCartesianChart tkExampleTitle tkToggleNavButton height="200">
+                            <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
+                            <CategoricalAxis tkCartesianHorizontalAxis majorTickInterval="6" labelSize="16"></CategoricalAxis>
+                            <LinearAxis tkCartesianVerticalAxis labelMargin="" labelLayoutMode="outer" labelSize="12" labelFormat="%.1f"></LinearAxis>
+                            <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="IRIRight"></LineSeries>
+                        </RadCartesianChart>
+                    </StackLayout>
+                </ns:CarouselItem>
+                <ns:CarouselItem id="slide3">
+                    <StackLayout>
+                        <Label class="h2 fontBold" horizontalAlignment="center" text="Kantdjup (20m)"></Label>
+                        <RadCartesianChart tkExampleTitle tkToggleNavButton height="200">
+                            <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
+                            <CategoricalAxis tkCartesianHorizontalAxis majorTickInterval="6" labelSize="16" ></CategoricalAxis>
+                            <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
+                            <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="EdgeDepth"></LineSeries>
+                        </RadCartesianChart>
+                    </StackLayout>
+                </ns:CarouselItem>
+                <ns:CarouselItem id="slide4">
+                    <StackLayout>
+                        <Label class="h2 fontBold" horizontalAlignment="center" text="Spårbottentvärfall"></Label>
+                        <RadCartesianChart tkExampleTitle tkToggleNavButton height="200">
+                            <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
+                            <CategoricalAxis tkCartesianHorizontalAxis majorTickInterval="6" labelSize="16" ></CategoricalAxis>
+                            <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
+                            <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="CrossfallRutBottom"></LineSeries>
+                        </RadCartesianChart>
+                    </StackLayout>
+                </ns:CarouselItem>
+            </ns:Carousel>
+</CardView>
 <!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
     <StackLayout class="cardContent">
@@ -25,7 +75,7 @@
     </StackLayout>
 </CardView>
 -->
-
+<!--
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
     <StackLayout class="cardContent">
         <Label horizontalAlignment="center" class="h2 fontBold" text="Spårdjup max17 (20m)"></Label>
@@ -37,7 +87,7 @@
         </RadCartesianChart>
     </StackLayout>
 </CardView>
-
+-->
 <!-- Fungerar inte pga ingen data från api
 
     <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
