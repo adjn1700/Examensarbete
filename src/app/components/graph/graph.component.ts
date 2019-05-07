@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { observeOn } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { ApiService } from '~/app/services/api.service';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { Subscription } from 'rxjs';
 import { GraphData } from '../../models/graphData';
+import { GraphService } from '~/app/services/graph.service';
 
 @Component({
   selector: 'ns-graph',
@@ -13,7 +14,7 @@ import { GraphData } from '../../models/graphData';
   styleUrls: ['./graph.component.css'],
   moduleId: module.id,
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent implements OnInit, OnDestroy {
 
     private _iriData: ObservableArray<any>;
     private clSubscription: Subscription;
@@ -21,10 +22,12 @@ export class GraphComponent implements OnInit {
     public Iri: any[];
     public graphValues: GraphData[];
     public nextGraphApiCal: number;
+    public graphSub: Subscription;
 
   constructor(
       private apiService: ApiService,
-      private clService: ContinuousLengthService
+      private clService: ContinuousLengthService,
+      private graphService: GraphService
   ) { }
 
   ngOnInit() {
@@ -32,12 +35,22 @@ export class GraphComponent implements OnInit {
         this.currentContinuousLength = cl;
     });
 
-    //Hämta grafdata fron api
-    this.setGraphData();
+    this.graphSub = this.graphService.graphValues$.subscribe(gs => {
+        if(gs.length > 0){
+            this.graphValues = gs;
+            console.log(this.graphValues);
+        }
+    });
+
+    this.graphService.setGraphData();
     //console.log(this.graphValues[this.graphValues.length - 1].EndContinuousLength);
 
     //this._iriData = new ObservableArray(this.graphValues);
   }
+  ngOnDestroy(): void {
+    this.graphSub.unsubscribe();
+    this.clSubscription.unsubscribe();
+    }
 
     private setGraphData(){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {

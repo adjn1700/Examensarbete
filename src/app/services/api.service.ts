@@ -112,7 +112,7 @@ export class ApiService {
 
     public getGraphData(currentContinuousLength: number): Observable<GraphData[]>{
         let selectedRoad = this.dataShareService.selectedRoad;
-        let startLength = currentContinuousLength - 500;
+        let startLength = currentContinuousLength;
         let endLength = currentContinuousLength + 500;
 
         let customRequest = `

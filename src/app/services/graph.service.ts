@@ -8,13 +8,14 @@ import { GraphData } from '../models/graphData';
   providedIn: 'root'
 })
 export class GraphService {
-  public graphValues: GraphData[];
+  private graphValues: GraphData[];
   private clSubscription: Subscription;
   private currentContinuousLength: number;
   private nextGraphApiCal: number;
 
   private graphDataSource = new BehaviorSubject<GraphData[]>([]);
   public graphValues$ = this.graphDataSource.asObservable();
+  public graphName;
 
   constructor(
     private clService: ContinuousLengthService,
@@ -22,10 +23,22 @@ export class GraphService {
     ) {
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
+        if(this.checkIfPassedThreshold()){
+            this.setGraphData();
+        }
     });
   }
 
   private checkIfPassedThreshold(){
+    if(this.currentContinuousLength > this.nextGraphApiCal){
+        return true;
+    }
+    else{
+        return false;
+    }
+  }
+
+  private lopa(){
 
   }
 
