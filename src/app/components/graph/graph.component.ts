@@ -20,6 +20,7 @@ export class GraphComponent implements OnInit {
     public currentContinuousLength: number;
     public Iri: any[];
     public graphValues: GraphData[];
+    public nextGraphApiCal: number;
 
   constructor(
       private apiService: ApiService,
@@ -33,16 +34,17 @@ export class GraphComponent implements OnInit {
 
     //Hämta grafdata fron api
     this.setGraphData();
+    //console.log(this.graphValues[this.graphValues.length - 1].EndContinuousLength);
 
     //this._iriData = new ObservableArray(this.graphValues);
-    console.log(this.graphValues);
   }
 
     private setGraphData(){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
                 this.graphValues = data;
-                console.log(this.graphValues);
+                this.nextGraphApiCal = this.graphValues[this.graphValues.length - 1].EndContinuousLength;
+                console.log(this.nextGraphApiCal);
             }
         }, error => {
             console.error(error);
