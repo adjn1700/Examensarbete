@@ -25,6 +25,7 @@ export class GraphService {
         this.currentContinuousLength = cl;
         if(this.checkIfPassedThreshold()){
             this.setGraphData();
+            console.log("HEj ");
         }
     });
   }

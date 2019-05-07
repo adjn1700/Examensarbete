@@ -38,20 +38,19 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphSub = this.graphService.graphValues$.subscribe(gs => {
         if(gs.length > 0){
             this.graphValues = gs;
-            console.log(this.graphValues);
+            //console.log(this.graphValues);
         }
     });
 
     this.graphService.setGraphData();
-    //console.log(this.graphValues[this.graphValues.length - 1].EndContinuousLength);
 
-    //this._iriData = new ObservableArray(this.graphValues);
   }
   ngOnDestroy(): void {
     this.graphSub.unsubscribe();
     this.clSubscription.unsubscribe();
     }
 
+    //Använder i Graph.service
     private setGraphData(){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
