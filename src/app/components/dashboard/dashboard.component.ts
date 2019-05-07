@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.connection$ = this.internetConnectionService.connectionStatus$.subscribe(data => {
             this.isOnline = data.valueOf();
+            console.log("connection ändrad")
         });
     }
     ngOnDestroy(): void {
