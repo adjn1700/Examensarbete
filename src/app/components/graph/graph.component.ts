@@ -16,13 +16,13 @@ import { GraphService } from '~/app/services/graph.service';
 })
 export class GraphComponent implements OnInit, OnDestroy {
 
-    private _iriData: ObservableArray<any>;
-    private clSubscription: Subscription;
-    public currentContinuousLength: number;
     public Iri: any[];
     public graphValues: GraphData[];
     public nextGraphApiCal: number;
     public graphSub: Subscription;
+    private _iriData: ObservableArray<any>;
+    private clSubscription: Subscription;
+    public currentContinuousLength: number;
 
   constructor(
       private apiService: ApiService,
@@ -35,36 +35,30 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.currentContinuousLength = cl;
     });
 
+
+    //Update graphdata every 500 meter
     this.graphSub = this.graphService.graphValues$.subscribe(gs => {
         if(gs.length > 0){
             this.graphValues = gs;
             //console.log(this.graphValues);
+
         }
     });
 
+    //Display data in graph
     this.graphService.setGraphData();
 
   }
+
   ngOnDestroy(): void {
     this.graphSub.unsubscribe();
     this.clSubscription.unsubscribe();
     }
 
-    //Använder i Graph.service
-    private setGraphData(){
-        this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
-            if(data.length > 0){
-                this.graphValues = data;
-                this.nextGraphApiCal = this.graphValues[this.graphValues.length - 1].EndContinuousLength;
-                console.log(this.nextGraphApiCal);
-            }
-        }, error => {
-            console.error(error);
-        });
-    }
 
     public onGraphSwiped(args){
         console.log("grafen ändrades till sida " + args.index);
     }
+
 
 }

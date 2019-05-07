@@ -17,7 +17,7 @@ import { Carousel, CarouselItem } from 'nativescript-carousel';
   styleUrls: ['./side-drawer.component.css'],
   moduleId: module.id,
 })
-export class SideDrawerComponent implements OnInit, AfterViewInit {
+export class SideDrawerComponent implements OnInit {
     ngOnInit(): void {
         throw new Error("Method not implemented.");
     }
@@ -29,9 +29,6 @@ export class SideDrawerComponent implements OnInit, AfterViewInit {
     ){
     }
 
-    ngAfterViewInit(){
-
-    }
 
     cancelAlert(){
         let options: ConfirmOptions = {
@@ -47,6 +44,11 @@ export class SideDrawerComponent implements OnInit, AfterViewInit {
         });
     }
 
+    private endCurrentSession(){
+        this.locationService.stopWatchingLocation();
+        this.clService.stopWatchingContinuousLength();
+    }
+
     backToStart(){
         this.endCurrentSession();
         this.closeDrawer();
@@ -58,11 +60,6 @@ export class SideDrawerComponent implements OnInit, AfterViewInit {
                 curve: "easeIn"
             }
         } );
-    }
-
-    private endCurrentSession(){
-        this.locationService.stopWatchingLocation();
-        this.clService.stopWatchingContinuousLength();
     }
 
     closeDrawer(): void {

@@ -8,6 +8,7 @@ import { GraphData } from '../models/graphData';
   providedIn: 'root'
 })
 export class GraphService {
+
   private graphValues: GraphData[];
   private clSubscription: Subscription;
   private currentContinuousLength: number;
@@ -21,11 +22,11 @@ export class GraphService {
     private clService: ContinuousLengthService,
     private apiService: ApiService
     ) {
+
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
         if(this.checkIfPassedThreshold()){
             this.setGraphData();
-            console.log("HEj ");
         }
     });
   }
@@ -43,6 +44,16 @@ export class GraphService {
 
   }
 
+  private isThereAnyData(){
+    if(this.graphValues.length == 0){
+        console.log("No data");
+
+    }
+    else {
+
+    }
+}
+
   private setNextApiThreshold(){
     this.nextGraphApiCal = this.graphValues[this.graphValues.length - 1].EndContinuousLength;
   }
@@ -56,6 +67,7 @@ export class GraphService {
         }
     }, error => {
         console.error(error);
-    });
-}
+        });
+    }
+
 }
