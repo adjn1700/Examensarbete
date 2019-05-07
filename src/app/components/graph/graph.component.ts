@@ -51,4 +51,8 @@ export class GraphComponent implements OnInit {
         });
     }
 
+    public onGraphSwiped(args){
+        console.log("grafen ändrades till sida " + args.index);
+    }
+
 }
