@@ -11,12 +11,23 @@ export class GraphService {
 
   private graphValues: GraphData[];
   private clSubscription: Subscription;
+  private graphSubscription: Subscription;
   private currentContinuousLength: number;
   private nextGraphApiCal: number;
 
   private graphDataSource = new BehaviorSubject<GraphData[]>([]);
   public graphValues$ = this.graphDataSource.asObservable();
+  private graphDataSourceCurrent = new BehaviorSubject<GraphData[]>([]);
+  public graphValuesCurrent$ = this.graphDataSourceCurrent.asObservable();
   public graphName;
+
+  private iriSource = new BehaviorSubject<number>(0);
+  iri$ = this.iriSource.asObservable();
+
+  public iriRightCurrent: number;
+  public crossfallRutBottomCurrent: number;
+  public rutDepthMax17Current: number;
+  public edgeDepthCurrent: number;
 
   constructor(
     private clService: ContinuousLengthService,
@@ -28,8 +39,29 @@ export class GraphService {
         if(this.checkIfPassedThreshold()){
             this.setGraphData();
         }
+        if(this.graphValues && this.graphValues.length){
+
+            for (let index = 0; index < this.graphValues.length; index++) {
+
+              if(this.currentContinuousLength >= this.graphValues[index].StartContinuousLength && this.graphValues[index].EndContinuousLength >= this.currentContinuousLength){
+
+                  this.iriRightCurrent = this.graphValues[index].IRIRight;
+                  this.crossfallRutBottomCurrent = this.graphValues[index].CrossfallRutBottom;
+                  this.rutDepthMax17Current = this.graphValues[index].RutDepthMax17;
+                  this.edgeDepthCurrent = this.graphValues[index].EdgeDepth;
+
+                  //console.log(this.rutDepthMax17Current);
+
+                  break;
+              }
+
+            }
+        }
+
     });
+
   }
+
 
   private checkIfPassedThreshold(){
     if(this.currentContinuousLength > this.nextGraphApiCal){
@@ -40,9 +72,6 @@ export class GraphService {
     }
   }
 
-  private lopa(){
-
-  }
 
   private isThereAnyData(){
     if(this.graphValues.length == 0){

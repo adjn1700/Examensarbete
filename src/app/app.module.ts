@@ -3,6 +3,7 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { HttpClientModule } from '@angular/common/http'
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from "~/app/app-routing.module";
 import { AppComponent } from "~/app/app.component";
@@ -48,7 +49,8 @@ import { SideDrawerComponent } from './components/side-drawer/side-drawer.compon
         NativeScriptFormsModule,
         NativeScriptUISideDrawerModule,
         DropDownModule,
-        NativeScriptUIChartModule
+        NativeScriptUIChartModule,
+        CommonModule
     ],
     declarations: [
         AppComponent,

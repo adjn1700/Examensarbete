@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public testResponse: number;
 
+    enteredSlider: number;
+
     constructor(
 
         private apiService: ApiService,
@@ -184,5 +186,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
 }
+
+  onSliderChange(slider: number){
+      this.enteredSlider = slider;
+      console.log("HEj");
+  }
 
 }

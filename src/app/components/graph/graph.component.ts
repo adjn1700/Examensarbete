@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { observeOn } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { ContinuousLengthService } from '~/app/services/continuous-length.servic
 import { Subscription } from 'rxjs';
 import { GraphData } from '../../models/graphData';
 import { GraphService } from '~/app/services/graph.service';
+import { DataShareService } from '../../services/data-share.service';
 
 @Component({
   selector: 'ns-graph',
@@ -24,10 +25,15 @@ export class GraphComponent implements OnInit, OnDestroy {
     private clSubscription: Subscription;
     public currentContinuousLength: number;
 
+    public sliderCurrent: number;
+
+    @Output() currSlide = new EventEmitter<number>();
+
   constructor(
       private apiService: ApiService,
       private clService: ContinuousLengthService,
-      private graphService: GraphService
+      private graphService: GraphService,
+      private dataShareService: DataShareService
   ) { }
 
   ngOnInit() {
@@ -58,7 +64,15 @@ export class GraphComponent implements OnInit, OnDestroy {
 
     public onGraphSwiped(args){
         console.log("grafen ändrades till sida " + args.index);
+        //this.dataShareService.currentSlideService = args.index;
+        this.dataShareService.setData(args.index);
+        this.sliderCurrent = args.index;
+        console.log(this.dataShareService.currentSlideService);
+        this.currSlide.emit(args.index);
     }
 
 
+
 }
+
+

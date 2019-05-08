@@ -189,7 +189,42 @@ export class ApiService {
         }
         error.message = errorMessage
         return throwError(error);
-      }
+    }
+
+    //Get graph value on Current ContinuousLength
+    public getCurrentGraphData(currentContinuousLength: number): Observable<GraphData[]>{
+        let selectedRoad = this.dataShareService.selectedRoad;
+
+        let customRequest = `
+        <REQUEST>
+            <LOGIN authenticationkey="${this.authKey}" />
+            <QUERY objecttype="MeasurementData20" schemaversion="1">
+                <FILTER>
+                  <AND>
+                        <EQ name="County" value="${selectedRoad.countyId}" />
+                        <EQ name="RoadMainNumber" value="${selectedRoad.roadId}" />
+                        <EQ name="RoadSubNumber" value="${selectedRoad.subroadId}" />
+                        <EQ name="Direction.Value" value="${selectedRoad.direction}" />
+                        <LTE name="StartContinuousLength" value="${currentContinuousLength}" />
+                        <GTE name="EndContinuousLength" value="${currentContinuousLength}" />
+                  </AND>
+                </FILTER>
+                <INCLUDE>StartContinuousLength</INCLUDE>
+                <INCLUDE>EndContinuousLength</INCLUDE>
+                <INCLUDE>IRIRight</INCLUDE>
+                <INCLUDE>EdgeDepth</INCLUDE>
+                <INCLUDE>RutDepthMax17</INCLUDE>
+                <INCLUDE>CrossfallRutBottom</INCLUDE>
+            </QUERY>
+        </REQUEST>`
+
+    return this.postData(customRequest)
+        .pipe(
+            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
+                catchError(this.handleError)
+                );
+    }
+
 
 
 }

@@ -1,6 +1,23 @@
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" row="0" col="1">
-        <StackLayout class="cardContent">
-            <Label horizontalAlignment="center" text="{{displayValue}}" class="bigBoldText"></Label>
-            <Label horizontalAlignment="center" class="h2" text="{{displayName}}"></Label>
-        </StackLayout>
+
+    <StackLayout *ngIf="currentSlider == 0" class="cardContent">
+        <Label horizontalAlignment="center" [text]="graphService.rutDepthMax17Current" class="bigBoldText"></Label>
+        <Label horizontalAlignment="center" class="h2" text="Spårdjup"></Label>
+    </StackLayout>
+
+    <StackLayout *ngIf="currentSlider == 1" class="cardContent">
+        <Label horizontalAlignment="center" [text]="graphService.iriRightCurrent" class="bigBoldText"></Label>
+        <Label horizontalAlignment="center" class="h2" text="IRI Höger"></Label>
+    </StackLayout>
+
+    <StackLayout *ngIf="currentSlider == 2" class="cardContent">
+        <Label horizontalAlignment="center" [text]="graphService.edgeDepthCurrent" class="bigBoldText"></Label>
+        <Label horizontalAlignment="center" class="h2" text="Kantdjup"></Label>
+    </StackLayout>
+
+    <StackLayout *ngIf="currentSlider == 3" class="cardContent">
+        <Label horizontalAlignment="center" [text]="graphService.crossfallRutBottomCurrent" class="bigBoldText"></Label>
+        <Label horizontalAlignment="center" class="h2" text="Spårbotten"></Label>
+    </StackLayout>
+
 </CardView>
