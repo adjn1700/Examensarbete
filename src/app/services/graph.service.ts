@@ -17,12 +17,9 @@ export class GraphService {
 
   private graphDataSource = new BehaviorSubject<GraphData[]>([]);
   public graphValues$ = this.graphDataSource.asObservable();
-  private graphDataSourceCurrent = new BehaviorSubject<GraphData[]>([]);
-  public graphValuesCurrent$ = this.graphDataSourceCurrent.asObservable();
-  public graphName;
 
-  private iriSource = new BehaviorSubject<number>(0);
-  iri$ = this.iriSource.asObservable();
+  public currentSlideService: number = 0;
+
 
   public iriRightCurrent: number;
   public crossfallRutBottomCurrent: number;
@@ -40,26 +37,25 @@ export class GraphService {
             this.setGraphData();
         }
         if(this.graphValues && this.graphValues.length){
-
-            for (let index = 0; index < this.graphValues.length; index++) {
-
-              if(this.currentContinuousLength >= this.graphValues[index].StartContinuousLength && this.graphValues[index].EndContinuousLength >= this.currentContinuousLength){
-
-                  this.iriRightCurrent = this.graphValues[index].IRIRight;
-                  this.crossfallRutBottomCurrent = this.graphValues[index].CrossfallRutBottom;
-                  this.rutDepthMax17Current = this.graphValues[index].RutDepthMax17;
-                  this.edgeDepthCurrent = this.graphValues[index].EdgeDepth;
-
-                  //console.log(this.rutDepthMax17Current);
-
-                  break;
-              }
-
-            }
+            this.getCurrentGraphValues();
         }
-
     });
+  }
 
+  private getCurrentGraphValues(){
+    for (let index = 0; index < this.graphValues.length; index++) {
+
+        if(this.currentContinuousLength >= this.graphValues[index].StartContinuousLength && this.graphValues[index].EndContinuousLength >= this.currentContinuousLength){
+
+            this.iriRightCurrent = this.graphValues[index].IRIRight;
+            this.crossfallRutBottomCurrent = this.graphValues[index].CrossfallRutBottom;
+            this.rutDepthMax17Current = this.graphValues[index].RutDepthMax17;
+            this.edgeDepthCurrent = this.graphValues[index].EdgeDepth;
+            //Math.round(this.edgeDepthCurrent * 100 ) / 100;
+            this.graphValues.splice(index, 1);
+            break;
+        }
+      }
   }
 
 
@@ -71,17 +67,6 @@ export class GraphService {
         return false;
     }
   }
-
-
-  private isThereAnyData(){
-    if(this.graphValues.length == 0){
-        console.log("No data");
-
-    }
-    else {
-
-    }
-}
 
   private setNextApiThreshold(){
     this.nextGraphApiCal = this.graphValues[this.graphValues.length - 1].EndContinuousLength;

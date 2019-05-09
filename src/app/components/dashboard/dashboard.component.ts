@@ -52,8 +52,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
          }
 
     ngOnInit() {
-        //TEST-data
-        //När det funkar byt ut hårdkodad data mot "this.county" och "this.road";
         this.selectedRoad = this.dataShareService.selectedRoad;
 
         keepAwake().then(function() {
@@ -185,11 +183,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
-}
+    }
 
-  onSliderChange(slider: number){
-      this.enteredSlider = slider;
-      console.log("HEj");
-  }
 
 }

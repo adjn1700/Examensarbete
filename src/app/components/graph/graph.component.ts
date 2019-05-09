@@ -26,9 +26,6 @@ export class GraphComponent implements OnInit, OnDestroy {
     public currentContinuousLength: number;
 
     public sliderCurrent: number;
-
-    @Output() currSlide = new EventEmitter<number>();
-
   constructor(
       private apiService: ApiService,
       private clService: ContinuousLengthService,
@@ -46,7 +43,7 @@ export class GraphComponent implements OnInit, OnDestroy {
     this.graphSub = this.graphService.graphValues$.subscribe(gs => {
         if(gs.length > 0){
             this.graphValues = gs;
-            //console.log(this.graphValues);
+            console.log(this.graphValues);
 
         }
     });
@@ -63,12 +60,7 @@ export class GraphComponent implements OnInit, OnDestroy {
 
 
     public onGraphSwiped(args){
-        console.log("grafen ändrades till sida " + args.index);
-        //this.dataShareService.currentSlideService = args.index;
-        this.dataShareService.setData(args.index);
-        this.sliderCurrent = args.index;
-        console.log(this.dataShareService.currentSlideService);
-        this.currSlide.emit(args.index);
+        this.graphService.currentSlideService = args.index;
     }
 
 
