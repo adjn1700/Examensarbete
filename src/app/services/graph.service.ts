@@ -50,8 +50,7 @@ export class GraphService {
             this.iriRightCurrent = this.graphValues[index].IRIRight;
             this.crossfallRutBottomCurrent = this.graphValues[index].CrossfallRutBottom;
             this.rutDepthMax17Current = this.graphValues[index].RutDepthMax17;
-            this.edgeDepthCurrent = this.graphValues[index].EdgeDepth;
-            //Math.round(this.edgeDepthCurrent * 100 ) / 100;
+            this.edgeDepthCurrent =  Math.round(this.graphValues[index].EdgeDepth * 100) / 100;
             this.graphValues.splice(index, 1);
             break;
         }
