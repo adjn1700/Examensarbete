@@ -17,14 +17,13 @@ import { DataShareService } from '../../services/data-share.service';
 })
 export class GraphComponent implements OnInit, OnDestroy {
 
-    public Iri: any[];
     public graphValues: GraphData[];
-    public nextGraphApiCal: number;
     public graphSub: Subscription;
-    private _iriData: ObservableArray<any>;
     private clSubscription: Subscription;
     public currentContinuousLength: number;
-    public cuColumns: string = "1*,auto, 99*";
+    //For custom position bar
+    //public cuColumns: string = "1*,auto, 99*";
+
 
 
     public sliderCurrent: number;
@@ -38,9 +37,12 @@ export class GraphComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
+        //For custom position bar
+        /*
         if(this.graphValues && this.graphValues.length){
             this.setCurrentPositionbarWidth(this.setTraveledPercentages());
         }
+        */
     });
 
 
@@ -68,6 +70,8 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.graphService.currentSlideService = args.index;
     }
 
+    //For custom position bar
+    /*
     private setTraveledPercentages(): number[]{
         let firstColumnValue: number = 0;
         let secondColumnValue: number = 0;
@@ -87,10 +91,11 @@ export class GraphComponent implements OnInit, OnDestroy {
         return columns;
     }
 
+
     private setCurrentPositionbarWidth(columns) {
       this.cuColumns = columns[0] + "*," + "auto," + columns[1] + "*";
     }
-
+    */
 }
 
 

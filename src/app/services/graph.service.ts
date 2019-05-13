@@ -24,6 +24,8 @@ export class GraphService {
   public crossfallRutBottomCurrent: number;
   public rutDepthMax17Current: number;
   public edgeDepthCurrent: number;
+  public graphDataStartingLengthCurrent: number;
+  public graphDataEndLengthCurrent: number;
 
   constructor(
     private clService: ContinuousLengthService,
@@ -45,7 +47,8 @@ export class GraphService {
     for (let index = 0; index < this.graphValues.length; index++) {
 
         if(this.currentContinuousLength >= this.graphValues[index].StartContinuousLength && this.graphValues[index].EndContinuousLength >= this.currentContinuousLength){
-
+            this.graphDataStartingLengthCurrent = this.graphValues[index].StartContinuousLength;
+            this.graphDataEndLengthCurrent = this.graphValues[index].EndContinuousLength;
             this.iriRightCurrent = this.graphValues[index].IRIRight;
             this.crossfallRutBottomCurrent = this.graphValues[index].CrossfallRutBottom;
             this.rutDepthMax17Current = this.graphValues[index].RutDepthMax17;
