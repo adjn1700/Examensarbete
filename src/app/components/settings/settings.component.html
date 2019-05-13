@@ -1,1 +1,18 @@
-<Button text="settings works!" class="btn btn-primary"></Button>
+<ActionBar title="Inställningar" class="action-bar">
+</ActionBar>
+<ScrollView>
+    <GridLayout class="p-15" rows="auto, auto, auto, auto, auto" columns="auto,*">
+        <Label row="0" col="0" class="h2" text="Mörkt tema" horizontalAlignment="left"></Label>
+        <Switch row="0" col="1" checked="false" horizontalAlignment="right"></Switch>
+        <StackLayout row="1" col="0" colspan="2" class="hr-light m-10"></StackLayout>
+
+        <GridLayout row="2" rows="auto, auto, auto" columns="auto,*">
+            <Label row="0" col="0" colspan="2" text="Moduler som visas i gränssnittet:" class="h2 m-b-15"></Label>
+            <Label row="1" col="0" text="Graf med fyra mätvärden" class="m-b-15"  horizontalAlignment="left" verticalAlignment="center"></Label>
+            <Switch row="1" col="1"  checked="false" class="m-b-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
+            <Label row="2" col="0" text="Tidigare beläggningsdata" class="m-b-15" horizontalAlignment="left" verticalAlignment="center"></Label>
+            <Switch row="2" col="1"  checked="false" class="m-b-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
+        </GridLayout>
+        <StackLayout row="3" col="0" colspan="2" class="hr-light m-10"></StackLayout>
+    </GridLayout>
+</ScrollView>

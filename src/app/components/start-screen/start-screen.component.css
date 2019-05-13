@@ -50,3 +50,8 @@ RadAutoCompleteTextView{
     width: 90%;
 
 }
+
+#settingButton{
+    color: black;
+    font-size:30;
+}

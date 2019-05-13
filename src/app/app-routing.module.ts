@@ -6,13 +6,15 @@ import { StartScreenComponent } from './components/start-screen/start-screen.com
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DestinationAddComponent } from './components/destination-add/destination-add.component';
 import { TestpageComponent } from "./components/testpage/testpage.component";
+import { SettingsComponent } from "./components/settings/settings.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/start-screen", pathMatch: "full" },
     { path: "start-screen", component: StartScreenComponent },
     { path: "dashboard", component: DashboardComponent },
     { path: "destibation-add", component: DestinationAddComponent },
-    { path: "testpage", component: TestpageComponent}
+    { path: "testpage", component: TestpageComponent},
+    {path: "settings", component: SettingsComponent}
 ];
 
 @NgModule({

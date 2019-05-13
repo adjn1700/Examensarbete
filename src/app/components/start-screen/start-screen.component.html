@@ -1,9 +1,10 @@
 
 <GridLayout class="page p-5" rows="*, auto" width="100%">
     <StackLayout row="0">
-            <StackLayout row="0">
-                    <Image src="res://applogo" class="logoimg"></Image>
-                </StackLayout>
+                <GridLayout row="0" rows="auto" columns="*,auto,*">
+                    <Button id="settingButton" verticalAlignment="top" horizontalAlignment="left" row="0" col="0" class="fas m-l-15" text="&#xf1de;" (tap)="goToSettings()"></Button>
+                    <Image row="0" col="1" src="res://applogo" class="logoimg"></Image>
+                </GridLayout>
                 <StackLayout class="form m-b-20">
                     <DropDown #countyDD class="input input-border countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
                         (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>

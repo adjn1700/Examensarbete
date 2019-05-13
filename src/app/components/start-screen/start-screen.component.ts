@@ -242,4 +242,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
 
         }
     }
+
+    public goToSettings(){
+        console.log("settings clicked")
+        this.router.navigate(['/settings'], {clearHistory: false});
+    }
 }
