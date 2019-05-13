@@ -28,6 +28,7 @@ import { ContinuousLengthComponent } from './components/continuous-length/contin
 import { GraphValueComponent } from './components/graph-value/graph-value.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { SideDrawerComponent } from './components/side-drawer/side-drawer.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -64,7 +65,8 @@ import { SideDrawerComponent } from './components/side-drawer/side-drawer.compon
         GraphValueComponent,
         GraphComponent,
         TestpageComponent,
-        SideDrawerComponent
+        SideDrawerComponent,
+        SettingsComponent
     ],
     providers: [],
     schemas: [
