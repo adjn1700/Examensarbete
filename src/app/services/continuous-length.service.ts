@@ -94,7 +94,7 @@ export class ContinuousLengthService implements OnDestroy{
         let currentTimeStamp = new Date();
         let timeDiff = this.getDifferenceInSeconds(locTimeStamp, currentTimeStamp);
 
-        let adjustment = Math.floor(currentSpeed * timeDiff);
+        let adjustment = Math.floor(currentSpeed * timeDiff * 0.66667);
         //console.log("justerad siffra " + adjustment);
         let total = adjustment + input;
         return total;
