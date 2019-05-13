@@ -24,18 +24,23 @@ export class GraphComponent implements OnInit, OnDestroy {
     private _iriData: ObservableArray<any>;
     private clSubscription: Subscription;
     public currentContinuousLength: number;
+    public cuColumns: string = "1*,auto, 99*";
+
 
     public sliderCurrent: number;
   constructor(
       private apiService: ApiService,
       private clService: ContinuousLengthService,
-      private graphService: GraphService,
+      public graphService: GraphService,
       private dataShareService: DataShareService
   ) { }
 
   ngOnInit() {
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
+        if(this.graphValues && this.graphValues.length){
+            this.setCurrentPositionbarWidth(this.setTraveledPercentages());
+        }
     });
 
 
@@ -63,7 +68,28 @@ export class GraphComponent implements OnInit, OnDestroy {
         this.graphService.currentSlideService = args.index;
     }
 
+    private setTraveledPercentages(): number[]{
+        let firstColumnValue: number = 0;
+        let secondColumnValue: number = 0;
+        let columns: number[] = [];
+        let x = this.currentContinuousLength;
+        let y = this.graphValues[this.graphValues.length - 1].EndContinuousLength;
+        let z = this.graphValues[0].StartContinuousLength;
 
+        let firstColumnPercentage = (x - z)/(y - z);
+        firstColumnValue = firstColumnPercentage * 100;
+
+        columns.push(firstColumnValue);
+
+        secondColumnValue = (100 - firstColumnValue)
+        columns.push(secondColumnValue);
+
+        return columns;
+    }
+
+    private setCurrentPositionbarWidth(columns) {
+      this.cuColumns = columns[0] + "*," + "auto," + columns[1] + "*";
+    }
 
 }
 

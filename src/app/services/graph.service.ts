@@ -19,8 +19,7 @@ export class GraphService {
   public graphValues$ = this.graphDataSource.asObservable();
 
   public currentSlideService: number = 0;
-
-
+  public isGraphDataAvailable: boolean = false;
   public iriRightCurrent: number;
   public crossfallRutBottomCurrent: number;
   public rutDepthMax17Current: number;
@@ -72,15 +71,19 @@ export class GraphService {
   }
 
   public setGraphData(){
-    this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
-        if(data.length > 0){
-            this.graphValues = data;
-            this.graphDataSource.next(data);
-            this.setNextApiThreshold();
+    console.log(this.currentContinuousLength + " skickad till graf-api");
+    if(!this.clService.isOffline){
+        this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
+            if(data.length > 0){
+                this.graphValues = data;
+                this.graphDataSource.next(data);
+                this.setNextApiThreshold();
+                this.isGraphDataAvailable = true;
+            }
+        }, error => {
+            this.isGraphDataAvailable = false
+            console.error(error);
+            });
         }
-    }, error => {
-        console.error(error);
-        });
     }
-
 }

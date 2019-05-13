@@ -1,7 +1,10 @@
 <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
     <StackLayout class="cardContent">
-        <Label *ngIf="!isDataAvailable" text="Inga tidigare beläggningar tillgängliga"></Label>
-        <StackLayout *ngIf="isDataAvailable">
+        <StackLayout *ngIf="!isDataAvailable" class="p-10">
+            <Label *ngIf="!isDataAvailable"  text="Försöker hämta in beläggningsdata..." horizontalAlignment="center"></Label>
+            <ActivityIndicator *ngIf="!isDataAvailable" width="50" height="50" row="0" [busy]="!isDataAvailable" class="activity-indicator"></ActivityIndicator>
+        </StackLayout>
+           <StackLayout *ngIf="isDataAvailable">
             <Label class="h2" text="Senaste beläggning" horizontalAlignment="center"></Label>
             <GridLayout rows="auto" columns="*, auto, *">
                 <Label col="0" [text]="currentPaving.StartContinuousLength" class="h3"></Label>

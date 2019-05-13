@@ -45,7 +45,7 @@ export class PavingComponent implements OnInit, OnDestroy {
   private setCurrentAndNextPaving(){
       let numberOfPavings = this.pavings.length;
 
-          if(numberOfPavings >= 2){
+          if(numberOfPavings === 2){
             this.currentPaving = this.pavings[0];
             this.nextPaving = this.pavings[1];
             this.isDataAvailable = true;
@@ -63,18 +63,22 @@ export class PavingComponent implements OnInit, OnDestroy {
           }
   }
 
-  private setNextPavingAsCurrent(){
+  private setNextPavingAsCurrentIfAvailable(){
       let numberOfPavings = this.pavings.length;
-      if(numberOfPavings >= 2){
+      if(numberOfPavings === 2){
           this.currentPaving = this.pavings[1];
           this.nextPaving = null;
+          this.pavings.shift();
+      }
+      else if(numberOfPavings <= 1){
+          this.isDataAvailable = false;
       }
   }
 
   private setNewPavementDataForRoad(){
     if(this.pavings){
     //Sets next paving before calling api, for performance and backup if api fails
-    this.setNextPavingAsCurrent();
+    this.setNextPavingAsCurrentIfAvailable();
     }
     if(!this.clService.isOffline){
         this.apiService.getPavementDataForRoad(this.currentContinuousLength).toPromise().then(data => {

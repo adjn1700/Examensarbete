@@ -2,3 +2,15 @@
 .graphContainer{
     height:auto;
 }
+.currentPositionBar {
+    height: 160;
+    width:85%;
+    border-radius: 10;
+    vertical-align: top;
+    margin-right: 6;
+}
+.currentPositionBar-value {
+    background: gray;
+    width:18;
+    opacity:0.5;
+}
