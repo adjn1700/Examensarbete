@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.locationService.startWatchingLocation();
 
             //Speed calc activation
-            this.clService.isAdjustingToSpeed = true;
+            //this.clService.isAdjustingToSpeed = true;
 
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthServiceWithApiConnection(startupCl);
@@ -142,6 +142,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.clService.startContinuousLengthServiceOfflineForTest(startupCl);
             this.isOnSelectedRoad = true;
             this.isBusy = false;
+            console.log("dashboard startad med speedcalc satt till: " + this.clService.isAdjustingToSpeed)
+
         }
         catch(error){
             console.error(error);

@@ -1,26 +1,37 @@
 <ActionBar title="Inställningar" class="action-bar">
 </ActionBar>
 <ScrollView>
-    <GridLayout class="p-15" rows="auto, auto, auto, auto, auto, auto, auto" columns="auto,*">
-        <Label row="0" col="0" class="h2" text="Mörkt tema" horizontalAlignment="left"></Label>
-        <Switch row="0" col="1" [checked]="isDarkModeTurnedOn" (checkedChange)="setDarkMode($event)"
-            horizontalAlignment="right" ></Switch>
-        <StackLayout row="1" col="0" colspan="2" class="hr-light m-x-10 m-y-20"></StackLayout>
+    <StackLayout class="p-15">
+        <GridLayout rows="auto,auto" columns="auto,*">
+            <Label row="0" col="0" class="h2" text="Mörkt tema" horizontalAlignment="left" verticalAlignment="center"></Label>
+            <Switch row="0" col="1" [checked]="isDarkModeTurnedOn" (checkedChange)="setDarkMode($event)"
+                horizontalAlignment="right" verticalAlignment="center"></Switch>
+        </GridLayout>
+        <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
 
-        <GridLayout row="2" rows="auto, auto, auto" columns="auto,*">
-            <Label row="0" col="0" colspan="2" text="Moduler som visas i gränssnittet:" class="h2 m-b-20"></Label>
-            <Label row="1" col="0" text="Graf med fyra mätvärden" class="m-b-15"  horizontalAlignment="left" verticalAlignment="center"></Label>
+        <GridLayout rows="auto, auto, auto" columns="auto,*">
+            <Label row="0" col="0" colspan="2" text="Moduler som visas i gränssnittet:" class="h2 m-b-25"></Label>
+            <Label row="1" col="0" text="Graf med fyra mätvärden" class="m-b-15 m-t-15"  horizontalAlignment="left" verticalAlignment="center"></Label>
             <Switch row="1" col="1"  [checked]="isGraphComponentActivated" (checkedChange)="setGraphComponentVisibility($event)"
-                class="m-b-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
+                class="m-b-15 m-t-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
             <Label row="2" col="0" text="Tidigare beläggningsdata" horizontalAlignment="left" verticalAlignment="center"></Label>
             <Switch row="2" col="1"  [checked]="isPavingsComponentActivated" (checkedChange)="setPavingsComponentVisibility($event)"
                  horizontalAlignment="right" verticalAlignment="center"></Switch>
         </GridLayout>
-        <StackLayout row="3" col="0" colspan="2" class="hr-light m-x-10 m-y-20"></StackLayout>
-        <Label row="4" text="Förvald graf-sida:" class="h2 m-b-20"></Label>
-        <StackLayout id="graphValueDDContainer" row="5" col="0" colspan="2" class="form">
-            <DropDown #graphValueDD id="graphValueDropDown" class="input input-border" verticalAlignment="center"
+        <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
+        <Label text="Förvald graf-sida:" class="h2 m-b-25"></Label>
+        <StackLayout row="5" col="0" colspan="2" id="graphValueDDContainer"  class="form m-t-15">
+            <DropDown #graphValueDD id="graphValueDropDown" class="input input-rounded " verticalAlignment="center"
                 (selectedIndexChanged)="onGraphValueChanged($event)" row="0" colSpan="2"></DropDown>
         </StackLayout>
-    </GridLayout>
+        <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
+        <Label  text="Beta-funktioner" class="h2 m-b-15"  horizontalAlignment="left" verticalAlignment="center"></Label>
+        <GridLayout rows="auto" columns="auto,*">
+            <Label row="0" col="0" class="m-b-15" text="Hastighetskorrigera löpande längd" horizontalAlignment="left" verticalAlignment="center"></Label>
+            <Switch row="0" col="1" [checked]="isSpeedCalcActivated" (checkedChange)="setSpeedCalcActivation($event)"
+                class="m-b-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
+        </GridLayout>
+         <Label id="infoText" class="h3" textWrap="true"
+             text="(Om du har problem med att löpande längd-siffran hoppar fram och tillbaka, testa att stänga av denna. Appen måste startas om vid ändring)"></Label>
+    </StackLayout>
 </ScrollView>

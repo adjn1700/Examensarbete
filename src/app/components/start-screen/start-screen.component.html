@@ -6,11 +6,11 @@
                     <Image row="0" col="1" src="res://applogo" class="logoimg"></Image>
                 </GridLayout>
                 <StackLayout class="form m-b-20">
-                    <DropDown #countyDD class="input input-border countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
+                    <DropDown #countyDD class="input input-rounded countyDropdown" [(ngModel)]="selectedCountyIndex" verticalAlignment="center"
                         (selectedIndexChanged)="onCountyChange($event)" row="0" colSpan="2"></DropDown>
                 </StackLayout>
                 <StackLayout class="form m-b-30">
-                    <DropDown #roadDD class="input input-border roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
+                    <DropDown #roadDD class="input input-rounded roadDropdown" [(ngModel)]="selectedRoadIndex" verticalAlignment="center"
                         (selectedIndexChanged)="onRoadChange($event)" row="0" colSpan="2"></DropDown>
                 </StackLayout>
 

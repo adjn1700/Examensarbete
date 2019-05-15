@@ -6,6 +6,7 @@ import { ApiService } from './api.service';
 import { OfflineContinuousLength } from './offline-continuous-length.service';
 import { switchMap, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { getBoolean } from "tns-core-modules/application-settings";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,9 @@ export class ContinuousLengthService implements OnDestroy{
       private locationService: LocationService,
       private apiService: ApiService,
       private offlineClService: OfflineContinuousLength
-      ) {}
+      ) {
+        this.isAdjustingToSpeed = getBoolean("isSpeedCalcActivated", true);
+      }
 
     ngOnDestroy(): void {
     }

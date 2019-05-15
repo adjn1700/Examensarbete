@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   public isDarkModeTurnedOn: boolean;
   public isGraphComponentActivated: boolean;
   public isPavingsComponentActivated: boolean;
+  public isSpeedCalcActivated: boolean;
 
   public selectedGraphValueIndex: number = 0;
   constructor() { }
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.isDarkModeTurnedOn = getBoolean("isDarkModeTurnedOn", false);
     this.isGraphComponentActivated = getBoolean("isGraphComponentActivated", true);
     this.isPavingsComponentActivated = getBoolean("isPavingsComponentActivated", true);
+    this.isSpeedCalcActivated = getBoolean("isSpeedCalcActivated", true)
     console.log("graph activated: " + this.isGraphComponentActivated);
     console.log("pavings activated: " + this.isPavingsComponentActivated)
      }
@@ -97,6 +99,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   private setStartupForGraphValueDropDown(){
     let graphValueDD = this.graphValueDropDown.nativeElement;
     graphValueDD.selectedIndex = getNumber("graphStartupPageValue", 0);
+  }
+
+  public setSpeedCalcActivation(args){
+    let sSwitch = <Switch>args.object;
+    if (sSwitch.checked){
+        this.isSpeedCalcActivated = true;
+        setBoolean("isSpeedCalcActivated", true);
+    }
+    else{
+        this.isSpeedCalcActivated = false;
+        setBoolean("isSpeedCalcActivated", false);
+    }
   }
 
 }
