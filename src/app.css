@@ -43,14 +43,6 @@
   height:50;
 }
 
-.cardStyle{
-  background-color: #fff;
-  color: rgb(43, 43, 43);
-}
-
-.cardContent {
-  padding: 3;
-}
 
 .bigBoldText{
   font-weight: bold;
@@ -61,9 +53,6 @@
   font-weight: bold;
 }
 
-.page{
-  background-color:white;
-}
 
 
 
@@ -123,3 +112,36 @@
   margin-top: 20;
 
 }
+
+
+
+.cardStyle{
+  background-color: #fff;
+  color: rgb(43, 43, 43);
+}
+
+.cardContent {
+  padding: 3;
+}
+
+.page{
+  background-color:white;
+}
+
+/* Dark
+.cardStyle{
+  background-color: #45485C;
+  color: rgb(243, 243, 243);
+  border-color: #707070;
+}
+
+.cardContent {
+  padding: 3;
+}
+
+.page{
+  background-color:#33374B;
+}
+
+*/
+

@@ -72,4 +72,15 @@ export class AppComponent implements AfterViewInit{
         sideDrawer.closeDrawer();
     }
 
+    toSettings(){
+        this.closeDrawer();
+        this.router.navigate(['/settings'], {
+            animated: true, transition: {
+                name: "slideLeft",
+                duration: 200,
+                curve: "easeIn"
+            }
+        } );
+    }
+
 }
