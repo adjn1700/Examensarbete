@@ -118,6 +118,7 @@
 .cardStyle{
   background-color: #fff;
   color: rgb(43, 43, 43);
+
 }
 
 .cardContent {
@@ -129,17 +130,14 @@
 }
 
 /* Dark
-.cardStyle{
+.cardStyleDark{
   background-color: #45485C;
   color: rgb(243, 243, 243);
   border-color: #707070;
 }
 
-.cardContent {
-  padding: 3;
-}
 
-.page{
+.pageDark{
   background-color:#33374B;
 }
 
