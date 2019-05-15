@@ -113,33 +113,76 @@
 
 }
 
+.cardContent {
+  padding: 3;
+}
 
+.cardStyleGraph{
+  background-color: #fff;
+  color: rgb(43, 43, 43);
+}
+
+
+.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
+  color: #fff;
+}
+.sidedrawer .sidedrawer-content{
+  background-color: #fff;
+}
+
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+  background-color: #F8F8F8;
+}
 
 .cardStyle{
   background-color: #fff;
   color: rgb(43, 43, 43);
-
-}
-
-.cardContent {
-  padding: 3;
 }
 
 .page{
   background-color:white;
 }
 
-/* Dark
-.cardStyleDark{
-  background-color: #45485C;
-  color: rgb(243, 243, 243);
-  border-color: #707070;
+/*
+
+
+.cardStyle{
+  background-color: #646464;
+  color: rgb(54, 52, 52);
+  shadow-color: rgb(173, 173, 173);
+}
+
+.cardContent Label{
+  color: white;
+}
+
+.cardStyle h1 h2 h3 h4 {
+  color: white;
+}
+
+.page{
+  background-color:#333335;
+}
+
+.action-bar{
+  background-color:black;
+  color: white;
 }
 
 
-.pageDark{
-  background-color:#33374B;
+.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
+  color: black;
+}
+.sidedrawer .sidedrawer-content{
+  background-color: #333335;
+}
+
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+  background-color: #F8F8F8;
+}
+
+Button{
+  color: white;
 }
 
 */
-

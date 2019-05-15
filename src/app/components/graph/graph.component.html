@@ -1,4 +1,4 @@
-<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
+<CardView class="cardStyleGraph" elevation="40" radius="10" ios:shadowRadius="3" margin="5" >
     <StackLayout *ngIf="!graphService.isGraphDataAvailable" class="p-10">
         <Label *ngIf="!graphService.isGraphDataAvailable" text="Försöker hämta in grafdata..." horizontalAlignment="center"></Label>
         <ActivityIndicator width="50" height="50" row="0"[busy]="!graphService.isGraphDataAvailable" class="activity-indicator"></ActivityIndicator>
