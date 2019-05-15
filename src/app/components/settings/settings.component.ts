@@ -6,6 +6,7 @@ import {
 } from "tns-core-modules/application-settings";
 import { Switch } from 'tns-core-modules/ui/switch/switch';
 import { ValueList } from 'nativescript-drop-down';
+import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 
 @Component({
   selector: 'ns-settings',
@@ -25,7 +26,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   public isSpeedCalcActivated: boolean;
 
   public selectedGraphValueIndex: number = 0;
-  constructor() { }
+  constructor(private clService: ContinuousLengthService) { }
 
   ngOnInit() {
     //sets selected values if any, else defaults
@@ -106,10 +107,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     if (sSwitch.checked){
         this.isSpeedCalcActivated = true;
         setBoolean("isSpeedCalcActivated", true);
+        this.clService.isAdjustingToSpeed = true;
     }
     else{
         this.isSpeedCalcActivated = false;
         setBoolean("isSpeedCalcActivated", false);
+        this.clService.isAdjustingToSpeed = false;
     }
   }
 
