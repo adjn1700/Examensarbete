@@ -15,7 +15,7 @@ import * as app from "tns-core-modules/application";
 import { keepAwake } from "nativescript-insomnia";
 import { InternetConnectionService } from '../../services/internet-connection.service';
 import { TextField } from "tns-core-modules/ui/text-field";
-
+import { getBoolean } from "tns-core-modules/application-settings";
 
 @Component({
   selector: 'ns-dashboard',
@@ -25,7 +25,8 @@ import { TextField } from "tns-core-modules/ui/text-field";
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-
+    public isGraphComponentActivated: boolean;
+    public isPavingsComponentActivated: boolean;
     public selectedRoad: SelectedRoad;
     public isOnSelectedRoad: boolean = false;
     public isBusy = false;
@@ -52,6 +53,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
          }
 
     ngOnInit() {
+        this.isGraphComponentActivated = getBoolean("isGraphComponentActivated", true);
+        this.isPavingsComponentActivated = getBoolean("isPavingsComponentActivated", true);
         this.selectedRoad = this.dataShareService.selectedRoad;
 
         keepAwake().then(function() {

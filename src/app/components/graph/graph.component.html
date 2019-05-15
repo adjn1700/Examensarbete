@@ -3,7 +3,7 @@
         <Label *ngIf="!graphService.isGraphDataAvailable" text="Försöker hämta in grafdata..." horizontalAlignment="center"></Label>
         <ActivityIndicator width="50" height="50" row="0"[busy]="!graphService.isGraphDataAvailable" class="activity-indicator"></ActivityIndicator>
     </StackLayout>
-    <ns:Carousel *ngIf="graphService.isGraphDataAvailable" class="cardContent" height="240" width="100%" (pageChanged)="onGraphSwiped($event)" pageTapped="mySelectedEvent"
+    <ns:Carousel #graphCarousel *ngIf="graphService.isGraphDataAvailable" class="cardContent" height="240" width="100%" (pageChanged)="onGraphSwiped($event)" pageTapped="mySelectedEvent"
             indicatorColor="#000000" finite="true" bounce="false" showIndicator="true" verticalAlignment="top"
             android:indicatorAnimation="swap" color="white" indicatorOffset="0,5">
                 <ns:CarouselItem id="slide1">

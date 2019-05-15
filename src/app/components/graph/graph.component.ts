@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { observeOn } from 'rxjs/operators';
@@ -8,6 +8,9 @@ import { Subscription } from 'rxjs';
 import { GraphData } from '../../models/graphData';
 import { GraphService } from '~/app/services/graph.service';
 import { DataShareService } from '../../services/data-share.service';
+import { Carousel } from 'nativescript-carousel';
+import { getNumber } from "tns-core-modules/application-settings";
+
 
 @Component({
   selector: 'ns-graph',
@@ -15,7 +18,10 @@ import { DataShareService } from '../../services/data-share.service';
   styleUrls: ['./graph.component.css'],
   moduleId: module.id,
 })
-export class GraphComponent implements OnInit, OnDestroy {
+export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
+
+
+    @ViewChild('graphCarousel') graphCarousel: ElementRef;
 
     public graphValues: GraphData[];
     public graphSub: Subscription;
@@ -33,6 +39,19 @@ export class GraphComponent implements OnInit, OnDestroy {
       public graphService: GraphService,
       private dataShareService: DataShareService
   ) { }
+
+  ngAfterViewInit(): void {
+    let userSelectedStartupPage = getNumber("graphStartupPageValue", 0)
+    if(userSelectedStartupPage != 0){
+        setTimeout(() => {
+            let gCarousel = this.graphCarousel.nativeElement as Carousel;
+            gCarousel.selectedPage = userSelectedStartupPage;
+            this.graphService.currentSlideService = userSelectedStartupPage;
+        }, 1000);
+    }
+
+
+  }
 
   ngOnInit() {
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
