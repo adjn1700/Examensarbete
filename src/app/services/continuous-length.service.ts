@@ -66,6 +66,7 @@ export class ContinuousLengthService implements OnDestroy{
     }
 
     stopWatchingContinuousLength(){
+        this.isOffline = false;
         this.currentContinuousLength = 0;
         this.continuousLengthSource.next(0);
         if(this.locSubscription){

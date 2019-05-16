@@ -74,7 +74,6 @@ export class GraphService {
   }
 
   public setGraphData(){
-    console.log(this.currentContinuousLength + " skickad till graf-api");
     if(!this.clService.isOffline){
         this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
             if(data.length > 0){
@@ -87,6 +86,9 @@ export class GraphService {
             this.isGraphDataAvailable = false
             console.error(error);
             });
+        }
+        else{
+            this.isGraphDataAvailable = false;
         }
     }
 }
