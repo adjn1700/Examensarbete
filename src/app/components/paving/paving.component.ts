@@ -3,6 +3,7 @@ import { ApiService } from '~/app/services/api.service';
 import { PavementData } from '~/app/models/pavementData';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { Subscription } from 'rxjs';
+import { getBoolean } from "tns-core-modules/application-settings";
 
 @Component({
   selector: 'ns-paving',
@@ -20,6 +21,7 @@ export class PavingComponent implements OnInit, OnDestroy {
   public test: string;
   private clSubscription: Subscription;
   public isDataAvailable: boolean = false;
+  public isDarkModeActivated: boolean;
 
   constructor(
       private apiService: ApiService,
@@ -27,6 +29,7 @@ export class PavingComponent implements OnInit, OnDestroy {
       ) { }
 
   ngOnInit() {
+    this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
      this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
         if(this.pavings){

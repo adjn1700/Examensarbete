@@ -4,7 +4,7 @@ import { LocationService } from '../../services/location.service';
 import { Location } from '../../models/location'
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { ConversionService } from '~/app/services/conversion.service';
-
+import { getBoolean } from "tns-core-modules/application-settings";
 
 @Component({
   selector: 'ns-location',
@@ -18,6 +18,7 @@ export class LocationComponent implements OnInit, OnDestroy {
     public location: Location;
     private loSubscription: Subscription;
     private clSubscription: Subscription;
+    public isDarkModeActivated: boolean;
 
     public constructor(
         private zone: NgZone,
@@ -39,6 +40,7 @@ export class LocationComponent implements OnInit, OnDestroy {
         }
 
     ngOnInit(){
+        this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
     }
     ngOnDestroy(){
         this.clSubscription.unsubscribe();

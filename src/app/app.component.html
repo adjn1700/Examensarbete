@@ -1,3 +1,5 @@
+
+
 <RadSideDrawer [drawerTransition]="sideDrawerTransition" allowEdgeSwipe="false" >
 	<GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
 
@@ -15,7 +17,7 @@
 
 				<GridLayout columns="auto, *" class="sidedrawer-list-item">
 					<Label col="0" text="&#xf013;" class="fas mylogo"></Label>
-					<Label col="1" text="Inställningar" class="p-r-10" (tap)="toSettings()"></Label>
+					<Label col="1" text="Inställningar" class="p-r-10" ></Label>
 				</GridLayout>
 
 				<StackLayout class="hr-dark seperator"></StackLayout>
@@ -30,4 +32,7 @@
 	</GridLayout>
 
 	<page-router-outlet tkMainContent class="page page-content"></page-router-outlet>
+
 </RadSideDrawer>
+
+

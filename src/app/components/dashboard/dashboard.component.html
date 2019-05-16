@@ -1,11 +1,11 @@
-<ActionBar title="{{ selectedRoad.roadId }} - {{ selectedRoad.county }} - {{ selectedRoad.direction }}" class="action-bar">
+<ActionBar title="{{ selectedRoad.roadId }} - {{ selectedRoad.county }} - {{ selectedRoad.direction }}" class="action-bar" [ngClass] = "{'action-bar-dark':isDarkModeActivated === true}">
     <ActionItem>
 		<StackLayout>
 			<Button class="fas" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
 		</StackLayout>
 	</ActionItem>
 </ActionBar>
-<StackLayout *ngIf="!isOnSelectedRoad">
+<StackLayout *ngIf="!isOnSelectedRoad" class="page pageDashboard">
     <CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
         <StackLayout class="p-10">
             <Label text="Verktyget är redo att användas!" class="h2 fontBold" horizontalAlignment="center" textWrap="true"></Label>
@@ -20,7 +20,7 @@
     </CardView>
     <ActivityIndicator width="100" height="100" row="0" rowSpan="5" colSpan="2" #activityIndicator [busy]="isBusy" class="activity-indicator"></ActivityIndicator>
 </StackLayout>
-<GridLayout *ngIf="isOnSelectedRoad" class="page" columns="*" rows="*,auto">
+<GridLayout *ngIf="isOnSelectedRoad" class="page pageDashboard" columns="*" rows="*,auto" [ngClass] = "{'page-dark':isDarkModeActivated === true}">
 
     <StackLayout row="0">
 

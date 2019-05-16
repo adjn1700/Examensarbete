@@ -123,16 +123,8 @@
 }
 
 
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-  color: #fff;
-}
-.sidedrawer .sidedrawer-content{
-  background-color: #fff;
-}
 
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
-  background-color: #F8F8F8;
-}
+
 
 .cardStyle{
   background-color: #fff;
@@ -143,46 +135,30 @@
   background-color:white;
 }
 
-/*
 
 
-.cardStyle{
+/* Dark
+
+*/
+
+.cardStyle-dark{
   background-color: #646464;
   color: rgb(54, 52, 52);
-  shadow-color: rgb(173, 173, 173);
+  shadowColor: rgb(20, 20, 20);
 }
 
-.cardContent Label{
-  color: white;
-}
 
-.cardStyle h1 h2 h3 h4 {
-  color: white;
-}
 
-.page{
+.page-dark{
   background-color:#333335;
 }
 
-.action-bar{
+.action-bar-dark{
   background-color:black;
   color: white;
 }
 
-
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-  color: black;
-}
-.sidedrawer .sidedrawer-content{
-  background-color: #333335;
-}
-
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
-  background-color: #F8F8F8;
-}
-
-Button{
+.cardStyle-dark Label{
   color: white;
 }
 
-*/

@@ -26,6 +26,7 @@ import { getBoolean } from "tns-core-modules/application-settings";
 export class DashboardComponent implements OnInit, OnDestroy {
 
     public isGraphComponentActivated: boolean;
+    public isDarkModeActivated: boolean;
     public isPavingsComponentActivated: boolean;
     public selectedRoad: SelectedRoad;
     public isOnSelectedRoad: boolean = false;
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public isOnline: boolean = true;
     connection$;
     public startupClForTest: number = 0;
+
 
     public testResponse: number;
 
@@ -55,6 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.isGraphComponentActivated = getBoolean("isGraphComponentActivated", true);
         this.isPavingsComponentActivated = getBoolean("isPavingsComponentActivated", true);
+        this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
         this.selectedRoad = this.dataShareService.selectedRoad;
 
         keepAwake().then(function() {

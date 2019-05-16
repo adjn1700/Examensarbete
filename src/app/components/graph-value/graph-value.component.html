@@ -1,4 +1,4 @@
-<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" row="0" col="1">
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" row="0" col="1" [ngClass] = "{'cardStyle-dark':isDarkModeActivated === true}">
 
     <StackLayout *ngIf="graphService.currentSlideService == 0" class="cardContent">
         <Label horizontalAlignment="center" [text]="graphService.rutDepthMax17Current" class="bigBoldText"></Label>

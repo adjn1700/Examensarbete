@@ -11,7 +11,7 @@
 -->
 
 
-<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" [ngClass] = "{'cardStyle-dark':isDarkModeActivated === true}">
     <StackLayout class="cardContent">
         <Label horizontalAlignment="center" class="h2" text="N: {{location.latitude}}"></Label>
         <Label horizontalAlignment="center" class="h2" text="E: {{location.longitude}}"></Label>

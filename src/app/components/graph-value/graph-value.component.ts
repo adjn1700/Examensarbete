@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GraphData } from '../../models/graphData';
 import { GraphService } from '~/app/services/graph.service';
 import { Subscription } from 'rxjs';
+import { getBoolean } from "tns-core-modules/application-settings";
 
 @Component({
   selector: 'ns-graph-value',
@@ -11,11 +12,14 @@ import { Subscription } from 'rxjs';
 })
 export class GraphValueComponent implements OnInit {
 
+    public isDarkModeActivated: boolean;
+
     private graphValueSubscription: Subscription;
 
   constructor(private graphService: GraphService) { }
 
   ngOnInit() {
+    this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
 
   }
 
