@@ -14,7 +14,7 @@ import { GraphData } from '~/app/models/graphData';
   providedIn: 'root'
 })
 export class ApiService {
-    private apiUrl = 'https://api.trafikinfo.trafikverket.se/v1.3/data.json';
+    private apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
     private authKey = '8ccbb37be31d48adbaf3009f14a45141'
     public apiTimeoutValue: number = 1000;
 

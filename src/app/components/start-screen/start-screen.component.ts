@@ -84,7 +84,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
     }
 
     getNameForMainAndSubroad(road: Road){
-        let result = "Vägnummer " + road.RoadMainNumber.toFixed() + " - Undernummer " + road.RoadSubNumber;
+        let result = "Vägnummer " + road.RoadMainNumber.toFixed() + "." + road.RoadSubNumber;
         return result;
     }
 

@@ -30,7 +30,7 @@ export class LocationComponent implements OnInit, OnDestroy {
             this.loSubscription = this.locationService.location$.subscribe(
                 loc => {
                     const convertedLoc = this.conversionService.convertWgsToSweref(loc.latitude, loc.longitude);
-                    this.location = new Location({latitude:convertedLoc[0], longitude:convertedLoc[1]});
+                    this.location = new Location({latitude:Math.round(convertedLoc[0]), longitude:Math.round(convertedLoc[1])});
                     //this.location = loc;
                 });
             this.clSubscription = this.clService.continuousLength$.subscribe(
