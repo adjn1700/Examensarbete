@@ -15,8 +15,8 @@
                 <StackLayout col="0" class="progressbar-value"></StackLayout>
             </GridLayout>
             <Label [text]="currentPaving.PavementType" horizontalAlignment="center"
-                class="font-weight-bold"></Label>
-            <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5">
+                class="font-weight-bold m-t-5 m-b-5"></Label>
+            <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5 m-b-5">
                 <Label horizontalAlignment="center" text="Nästa: {{nextPaving.StartContinuousLength}}m - {{nextPaving.EndContinuousLength}}m" class="h3"></Label>
             </StackLayout>
         </StackLayout>

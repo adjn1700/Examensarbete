@@ -3,14 +3,14 @@
         <Label *ngIf="!graphService.isGraphDataAvailable" text="Försöker hämta in grafdata..." horizontalAlignment="center"></Label>
         <ActivityIndicator width="50" height="50" row="0"[busy]="!graphService.isGraphDataAvailable" class="activity-indicator"></ActivityIndicator>
     </StackLayout>
-    <ns:Carousel #graphCarousel *ngIf="graphService.isGraphDataAvailable" class="cardContent" height="240" width="100%" (pageChanged)="onGraphSwiped($event)" pageTapped="mySelectedEvent"
+    <ns:Carousel #graphCarousel *ngIf="graphService.isGraphDataAvailable" class="cardContent" height="260" width="100%" (pageChanged)="onGraphSwiped($event)" pageTapped="mySelectedEvent"
             indicatorColor="#000000" finite="true" bounce="false" showIndicator="true" verticalAlignment="top"
             android:indicatorAnimation="swap" color="white" indicatorOffset="0,5">
                 <ns:CarouselItem id="slide1">
                     <StackLayout>
                         <GridLayout rows="auto,auto">
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Spårdjup max17 (20m)"></Label>
-                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="200">
+                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
                                 <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis id="vAxis" labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.0f"></LinearAxis>
@@ -34,7 +34,7 @@
                     <StackLayout>
                         <GridLayout rows="auto,auto">
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="IRI höger (20m)"></Label>
-                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="200">
+                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
                                 <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16"></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="" labelLayoutMode="outer" labelSize="16" labelFormat="%.0f"></LinearAxis>
@@ -50,7 +50,7 @@
                     <StackLayout>
                         <GridLayout rows="auto,auto">
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Kantdjup (20m)"></Label>
-                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="200">
+                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
                                 <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.0f"></LinearAxis>
@@ -66,7 +66,7 @@
                     <StackLayout>
                         <GridLayout rows="auto,auto">
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Spårbottentvärfall"></Label>
-                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="200">
+                            <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
                                 <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.0f"></LinearAxis>
