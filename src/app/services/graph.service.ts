@@ -82,6 +82,9 @@ export class GraphService {
                 this.setNextApiThreshold();
                 this.isGraphDataAvailable = true;
             }
+            else{
+                this.isGraphDataAvailable = false;
+            }
         }, error => {
             this.isGraphDataAvailable = false
             console.error(error);

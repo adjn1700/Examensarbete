@@ -19,6 +19,8 @@ export class ContinuousLengthService implements OnDestroy{
   private currentContinuousLength: number;
   public isAdjustingToSpeed: boolean = false;
   private apiCallFrequency: number = 1000;
+  private numberOfFailedApiCalls: number = 0;
+  private distanceSinceLastApiCall: number = 0;
 
   private locSubscription: Subscription;
   private apiClSubscription: Subscription;
@@ -124,27 +126,51 @@ export class ContinuousLengthService implements OnDestroy{
         this.apiClSubscription = timer(0, this.apiCallFrequency).pipe(
             switchMap(() => {
                 this.locSentToApi = this.currentLocation;
-                return this.apiService.getCurrentContinuousLength(this.currentLocation).pipe(
+                return this.apiService.getCurrentContinuousLength(this.currentLocation, true).pipe(
                     catchError((error) => this.handleApiRequestError(error)));
             }))
                 .subscribe(result => {
                     this.isOffline = false;
                     this.setCurrentOnlineContinuousLength(Number(result));
+                    this.numberOfFailedApiCalls = 0;
+                    this.distanceSinceLastApiCall = 0;
                 }, error => {console.error(error)});
     }
 
     private handleApiRequestError(error: HttpErrorResponse){
-        console.log("fel vid api-request " + error.message);
-        this.isOffline = true;
-        this.addDeviceMovementForApiFail();
+        console.log("fel vid api-request ");
+        this.numberOfFailedApiCalls++;
+        //Allows three failed attempts before switching to offline mode
+        if(this.numberOfFailedApiCalls >= 3){
+            this.isOffline = true;
+            this.addDeviceMovementForApiFail();
+        }
+        else{
+            this.storeDistanceTravelledForApiFail();
+        }
         return empty();
+    }
+
+    private storeDistanceTravelledForApiFail(){
+        let currentSpeed = Math.round(this.locSentToApi.speed);
+        this.distanceSinceLastApiCall += currentSpeed;
+        ("Distance since last api call: " + this.distanceSinceLastApiCall);
     }
 
     /**In case of API response fail, adds current meters per second travelled as backup until regained connection */
     private addDeviceMovementForApiFail(){
-        let currentSpeed = Math.round(this.locSentToApi.speed);
-        this.currentContinuousLength = this.currentContinuousLength + currentSpeed;
-        this.continuousLengthSource.next(this.currentContinuousLength);
+        //First method call will result in adding distance travelled since latest successful api call
+        if(this.distanceSinceLastApiCall > 0){
+            this.currentContinuousLength = this.currentContinuousLength + this.distanceSinceLastApiCall;
+            this.continuousLengthSource.next(this.currentContinuousLength);
+            this.distanceSinceLastApiCall = 0;
+        }
+        else{
+            let currentSpeed = Math.round(this.locSentToApi.speed);
+            this.currentContinuousLength = this.currentContinuousLength + currentSpeed;
+            this.continuousLengthSource.next(this.currentContinuousLength);
+        }
+
     }
 
     private startSettingOfflineContinuousLength(){

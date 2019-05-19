@@ -42,40 +42,30 @@ export class PavingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.clSubscription.unsubscribe();
+    this.clSubscription.unsubscribe();
   }
 
   private setCurrentAndNextPaving(){
-      let numberOfPavings = this.pavings.length;
-
-          if(numberOfPavings === 2){
-            this.currentPaving = this.pavings[0];
-            this.nextPaving = this.pavings[1];
-            this.isDataAvailable = true;
-
-          }
-          else if(numberOfPavings === 1){
-              this.currentPaving = this.pavings[0];
-              this.nextPaving = null;
-              this.isDataAvailable = true;
-          }
-          else{
-              this.currentPaving = null;
-              this.nextPaving = null;
-              this.isDataAvailable = false;
-          }
+    let numberOfPavings = this.pavings.length;
+    this.currentPaving = this.pavings[0];
+    if(numberOfPavings === 2){
+        this.nextPaving = this.pavings[1];
+    }
+    else{
+        this.nextPaving = null;
+    }
   }
 
   private setNextPavingAsCurrentIfAvailable(){
-      let numberOfPavings = this.pavings.length;
-      if(numberOfPavings === 2){
-          this.currentPaving = this.pavings[1];
-          this.nextPaving = null;
-          this.pavings.shift();
-      }
-      else if(numberOfPavings <= 1){
-          this.isDataAvailable = false;
-      }
+    let numberOfPavings = this.pavings.length;
+    if(numberOfPavings === 2){
+        this.currentPaving = this.pavings[1];
+        this.nextPaving = null;
+        this.pavings.shift();
+    }
+    else if(numberOfPavings <= 1){
+        this.isDataAvailable = false;
+    }
   }
 
   private setNewPavementDataForRoad(){
@@ -88,6 +78,10 @@ export class PavingComponent implements OnInit, OnDestroy {
             if(data.length > 0){
                 this.pavings = data;
                 this.setCurrentAndNextPaving();
+                this.isDataAvailable = true;
+            }
+            else{
+                this.isDataAvailable = false;
             }
         }, error => {
             console.error(error);

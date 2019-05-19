@@ -41,12 +41,16 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
+    //Sets startup graph if has been selected by user
     let userSelectedStartupPage = getNumber("graphStartupPageValue", 0)
     if(userSelectedStartupPage != 0){
         setTimeout(() => {
-            let gCarousel = this.graphCarousel.nativeElement as Carousel;
-            gCarousel.selectedPage = userSelectedStartupPage;
-            this.graphService.currentSlideService = userSelectedStartupPage;
+            if(this.graphService.isGraphDataAvailable){
+                let gCarousel = this.graphCarousel.nativeElement as Carousel;
+                gCarousel.selectedPage = userSelectedStartupPage;
+                this.graphService.currentSlideService = userSelectedStartupPage;
+            }
+
         }, 1000);
     }
 

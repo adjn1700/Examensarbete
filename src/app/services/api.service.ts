@@ -16,7 +16,8 @@ import { GraphData } from '~/app/models/graphData';
 export class ApiService {
     private apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
     private authKey = '8ccbb37be31d48adbaf3009f14a45141'
-    public apiTimeoutValue: number = 1000;
+    public defaultApiTimeoutValue: number = 5000;
+    public customApiTimeOutValue: number = 990;
 
     constructor(
         private http: HttpClient,
@@ -63,7 +64,7 @@ export class ApiService {
             );
     }
 
-    getCurrentContinuousLength(currentLocation: Location): Observable<number>{
+    getCurrentContinuousLength(currentLocation: Location, setQuickTimeout?: boolean): Observable<number>{
        let selectedRoad = this.dataShareService.selectedRoad;
        //Use this code later to send correct coordinates
         /*
@@ -87,6 +88,14 @@ export class ApiService {
             let currentSwerefCoordinatesArray = this.conversionService.convertWgsToSweref(currentLocation.latitude, currentLocation.longitude);
             let coordinateNorthSouth = currentSwerefCoordinatesArray[0];
             let coordinateEastWest = currentSwerefCoordinatesArray[1];
+            let timeoutValue: number;
+
+            if(setQuickTimeout === true){
+                timeoutValue = this.customApiTimeOutValue;
+            }
+            else{
+                timeoutValue = this.defaultApiTimeoutValue;
+            }
 
 
             let customRequest = `
@@ -105,7 +114,7 @@ export class ApiService {
         return this.postData(customRequest)
             .pipe(
                 map(res => Number(res["RESPONSE"].RESULT[0].INFO.EVALRESULT[0].LopandeLangd)),
-                    timeout(this.apiTimeoutValue),
+                    timeout(timeoutValue),
                         catchError(this.handleError)
                 );
     }
