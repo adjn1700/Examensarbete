@@ -1,4 +1,4 @@
-<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5" [ngClass] = "{'cardStyle-dark':isDarkModeActivated === true}">
+<CardView class="cardStyle m-t-5 m-l-5 m-r-5" elevation="40" radius="10" ios:shadowRadius="3" [ngClass] = "{'cardStyle-dark':isDarkModeActivated === true}">
     <StackLayout class="cardContent">
         <StackLayout *ngIf="!isDataAvailable" class="p-10">
             <Label *ngIf="!isDataAvailable"  text="Försöker hämta in beläggningsdata..." horizontalAlignment="center"></Label>
@@ -16,7 +16,7 @@
             </GridLayout>
             <Label [text]="currentPaving.PavementType" horizontalAlignment="center"
                 class="font-weight-bold m-t-5 m-b-5"></Label>
-            <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-5 m-b-5">
+            <StackLayout *ngIf="nextPaving" id="nextPavingContainer" class=" m-t-3 m-b-3">
                 <Label horizontalAlignment="center" text="Nästa: {{nextPaving.StartContinuousLength}}m - {{nextPaving.EndContinuousLength}}m" class="h3"></Label>
             </StackLayout>
         </StackLayout>
