@@ -21,7 +21,7 @@
                 </StackLayout>
     </StackLayout>
     <GridLayout row="1" rows="auto" columns="*, auto">
-        <Switch col="1" class="m-15" (checked)="true" (checkedChange)="onDevSwitchChange($event)"></Switch>
+        <Switch col="1" class="m-15" [checked]="dataShareService.devmode" (checkedChange)="onDevSwitchChange($event)"></Switch>
     </GridLayout>
 
 </GridLayout>
