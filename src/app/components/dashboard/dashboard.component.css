@@ -2,8 +2,9 @@
 
 .connection-status-bar{
   background-color: #CE3743;
-  padding: 3px 0px;
+  padding: 1px 0px;
   text-align: center;
+  margin-top: 0;
 }
 
 .title-internet{
