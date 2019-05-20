@@ -19,10 +19,16 @@
                  horizontalAlignment="right" verticalAlignment="center"></Switch>
         </GridLayout>
         <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
-        <Label text="Förvald graf-sida:" class="h2 m-b-25"></Label>
-        <StackLayout row="5" col="0" colspan="2" id="graphValueDDContainer"  class="form m-t-15">
+        <Label text="Graf" class="h2 m-b-25"></Label>
+        <Label text="Förvald sida vid uppstart:" class="m-t-10 m-l-10"></Label>
+        <StackLayout id="graphValueDDContainer"  class="form m-t-15">
             <DropDown #graphValueDD id="graphValueDropDown" class="input input-rounded " verticalAlignment="center"
-                (selectedIndexChanged)="onGraphValueChanged($event)" row="0" colSpan="2"></DropDown>
+                (selectedIndexChanged)="onGraphValueChanged($event)"></DropDown>
+        </StackLayout>
+        <Label text="Intervall för inhämtad data:" class="m-t-10 m-l-10"></Label>
+        <StackLayout id="graphIntervalDDContainer"  class="form m-t-15">
+            <DropDown #graphIntervalDD id="graphIntervalDropDown" class="input input-rounded " verticalAlignment="center"
+                (selectedIndexChanged)="onGraphIntervalChanged($event)"></DropDown>
         </StackLayout>
         <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
         <Label  text="Beta-funktioner" class="h2 m-b-15"  horizontalAlignment="left" verticalAlignment="center"></Label>

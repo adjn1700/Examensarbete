@@ -2,7 +2,9 @@
 
 #graphValueDropDown{
     font-size: 20;
-    height: 60;
+}
+#graphIntervalDropDown{
+    font-size: 20;
 }
 
 #infoText{

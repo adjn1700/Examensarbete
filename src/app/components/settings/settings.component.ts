@@ -18,6 +18,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
 
 @ViewChild('graphValueDD') graphValueDropDown: ElementRef;
+@ViewChild('graphIntervalDD') graphIntervalDropDown: ElementRef;
 
 
   public isDarkModeTurnedOn: boolean;
@@ -25,7 +26,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   public isPavingsComponentActivated: boolean;
   public isSpeedCalcActivated: boolean;
 
-  public selectedGraphValueIndex: number = 0;
+  public graphValueList: ValueList<string>;
+  public graphIntervalList: ValueList<string>;
+
   constructor(private clService: ContinuousLengthService) { }
 
   ngOnInit() {
@@ -42,6 +45,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
          //Sets items for dropdown after view init
         this.setItemsToGraphValueDropDown();
         this.setStartupForGraphValueDropDown();
+        this.setItemsToGraphIntervalDropDown();
+        this.setStartupForGraphIntervalDropDown();
     }
 
   //Sets dark theme if true, otherwise light theme as default
@@ -88,14 +93,44 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     setNumber("graphStartupPageValue", selectedIndex)
   }
 
+  public onGraphIntervalChanged(args){
+    let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
+    let selectedIndex = graphIntervalDD.selectedIndex;
+    let selectedValue = this.graphIntervalList.getValue(selectedIndex);
+    setNumber("graphIntervalValue", Number(selectedValue));
+  }
+
+  private setItemsToGraphIntervalDropDown(){
+      let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
+      this.graphIntervalList = new ValueList<string>();
+      this.graphIntervalList.push([
+          {value:"400", display:"400m"},
+          {value:"500", display:"500m"},
+          {value:"600", display:"600m"},
+          {value:"700", display:"700m"}
+        ]);
+      graphIntervalDD.items = this.graphIntervalList;
+    }
+
+    private setStartupForGraphIntervalDropDown(){
+        let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
+        let preSelectedValue = getNumber("graphIntervalValue", 500);
+        console.log("Förvalt value är " + preSelectedValue);
+        let preselectedIndex = this.graphIntervalList.getIndex(String(preSelectedValue));
+        console.log("Förvalt index är: " + preselectedIndex);
+        graphIntervalDD.selectedIndex = preselectedIndex;
+    }
+
   private setItemsToGraphValueDropDown(){
     let graphValueDD = this.graphValueDropDown.nativeElement;
-    let items = new ValueList<string>();
-    items.push([{value:"0", display:"Spårdjup"}]);
-    items.push([{value:"1", display:"IRI"}]);
-    items.push([{value:"2", display:"Kantdjup"}]);
-    items.push([{value:"3", display:"Spårbottentvärfall"}]);
-    graphValueDD.items = items;
+    this.graphValueList = new ValueList<string>();
+    this.graphValueList.push([
+        {value:"0", display:"Spårdjup"},
+        {value:"1", display:"IRI"},
+        {value:"2", display:"Kantdjup"},
+        {value:"3", display:"Spårbottentvärfall"}
+    ]);
+    graphValueDD.items = this.graphValueList;
   }
   private setStartupForGraphValueDropDown(){
     let graphValueDD = this.graphValueDropDown.nativeElement;
