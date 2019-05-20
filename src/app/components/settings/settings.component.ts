@@ -7,6 +7,7 @@ import {
 import { Switch } from 'tns-core-modules/ui/switch/switch';
 import { ValueList } from 'nativescript-drop-down';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
+import { GraphService } from '~/app/services/graph.service';
 
 @Component({
   selector: 'ns-settings',
@@ -29,7 +30,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   public graphValueList: ValueList<string>;
   public graphIntervalList: ValueList<string>;
 
-  constructor(private clService: ContinuousLengthService) { }
+  constructor(
+      private clService: ContinuousLengthService,
+      private graphService: GraphService
+      ) { }
 
   ngOnInit() {
     //sets selected values if any, else defaults
@@ -97,6 +101,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
     let selectedIndex = graphIntervalDD.selectedIndex;
     let selectedValue = this.graphIntervalList.getValue(selectedIndex);
+    this.graphService.setNewGraphDataInterval(Number(selectedValue));
     setNumber("graphIntervalValue", Number(selectedValue));
   }
 
@@ -104,10 +109,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
       this.graphIntervalList = new ValueList<string>();
       this.graphIntervalList.push([
-          {value:"400", display:"400m"},
+          {value:"250", display:"250m"},
           {value:"500", display:"500m"},
-          {value:"600", display:"600m"},
-          {value:"700", display:"700m"}
+          {value:"750", display:"750m"}
         ]);
       graphIntervalDD.items = this.graphIntervalList;
     }
@@ -115,9 +119,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private setStartupForGraphIntervalDropDown(){
         let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
         let preSelectedValue = getNumber("graphIntervalValue", 500);
-        console.log("Förvalt value är " + preSelectedValue);
         let preselectedIndex = this.graphIntervalList.getIndex(String(preSelectedValue));
-        console.log("Förvalt index är: " + preselectedIndex);
         graphIntervalDD.selectedIndex = preselectedIndex;
     }
 

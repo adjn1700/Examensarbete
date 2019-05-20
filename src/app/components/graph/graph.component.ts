@@ -27,18 +27,15 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
     public graphSub: Subscription;
     private clSubscription: Subscription;
     public currentContinuousLength: number;
-    //For custom position bar
-    //public cuColumns: string = "1*,auto, 99*";
-
-
+    public tickIntervalHorizontalAxis: number;
 
     public sliderCurrent: number;
-  constructor(
-      private apiService: ApiService,
-      private clService: ContinuousLengthService,
-      public graphService: GraphService,
-      private dataShareService: DataShareService
-  ) { }
+    constructor(
+        private apiService: ApiService,
+        private clService: ContinuousLengthService,
+        public graphService: GraphService,
+        private dataShareService: DataShareService
+    ) { }
 
   ngAfterViewInit(): void {
     //Sets startup graph if has been selected by user
@@ -58,14 +55,9 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.setTickIntervalForHorizontalLine();
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
-        //For custom position bar
-        /*
-        if(this.graphValues && this.graphValues.length){
-            this.setCurrentPositionbarWidth(this.setTraveledPercentages());
-        }
-        */
     });
 
 
@@ -88,37 +80,33 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
     this.clSubscription.unsubscribe();
     }
 
+    /** sets custom tick interval to always show three values on x axis in graph  */
+    private setTickIntervalForHorizontalLine(){
+        let graphDataInterval = getNumber("graphIntervalValue", 500);
+        console.log("graphdatainterval från settings är " + graphDataInterval)
+        switch(graphDataInterval){
+            case 250: {
+                this.tickIntervalHorizontalAxis = 5;
+                console.log("tick för interval 250")
+                break;
+            }
+            case 500: {
+                this.tickIntervalHorizontalAxis = 10;
+                console.log("tick för interval 500")
+                break;
+            }
+            case 750: {
+                this.tickIntervalHorizontalAxis = 15;
+                console.log("tick för interval 750")
+                break;
+            }
+        }
+    }
+
 
     public onGraphSwiped(args){
         this.graphService.currentSlideService = args.index;
     }
-
-    //For custom position bar
-    /*
-    private setTraveledPercentages(): number[]{
-        let firstColumnValue: number = 0;
-        let secondColumnValue: number = 0;
-        let columns: number[] = [];
-        let x = this.currentContinuousLength;
-        let y = this.graphValues[this.graphValues.length - 1].EndContinuousLength;
-        let z = this.graphValues[0].StartContinuousLength;
-
-        let firstColumnPercentage = (x - z)/(y - z);
-        firstColumnValue = firstColumnPercentage * 100;
-
-        columns.push(firstColumnValue);
-
-        secondColumnValue = (100 - firstColumnValue)
-        columns.push(secondColumnValue);
-
-        return columns;
-    }
-
-
-    private setCurrentPositionbarWidth(columns) {
-      this.cuColumns = columns[0] + "*," + "auto," + columns[1] + "*";
-    }
-    */
 }
 
 

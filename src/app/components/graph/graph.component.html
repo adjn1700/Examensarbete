@@ -12,7 +12,7 @@
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Spårdjup max17 (20m)"></Label>
                             <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
-                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
+                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis [majorTickInterval]="tickIntervalHorizontalAxis" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis id="vAxis" labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
                                 <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="RutDepthMax17"></LineSeries>
                                 <ChartPlotBandAnnotation tkCartesianAnnotations axisId="hAxis" hidden="false" zPosition="AboveSeries" strokeWidth="2" value="20"
@@ -36,7 +36,7 @@
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="IRI höger (20m)"></Label>
                             <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
-                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16"></CategoricalAxis>
+                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis [majorTickInterval]="tickIntervalHorizontalAxis" labelSize="16"></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="" labelLayoutMode="outer" labelSize="16" labelFormat="%.1f"></LinearAxis>
                                 <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="IRIRight"></LineSeries>
                                 <ChartPlotBandAnnotation tkCartesianAnnotations axisId="hAxis" hidden="false" zPosition="AboveSeries" strokeWidth="2" value="20"
@@ -52,7 +52,7 @@
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Kantdjup (20m)"></Label>
                             <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
-                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
+                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis [majorTickInterval]="tickIntervalHorizontalAxis" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
                                 <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="EdgeDepth"></LineSeries>
                                 <ChartPlotBandAnnotation tkCartesianAnnotations axisId="hAxis" hidden="false" zPosition="AboveSeries" strokeWidth="2" value="20"
@@ -68,7 +68,7 @@
                             <Label row="0" class="h2 fontBold" horizontalAlignment="center" text="Spårbottentvärfall"></Label>
                             <RadCartesianChart row="1" tkExampleTitle tkToggleNavButton height="220">
                                 <Trackball tkCartesianTrackball snapMode="AllClosestPoints" showIntersectionPoints="true"></Trackball>
-                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis majorTickInterval="10" labelSize="16" ></CategoricalAxis>
+                                <CategoricalAxis id="hAxis" tkCartesianHorizontalAxis [majorTickInterval]="tickIntervalHorizontalAxis" labelSize="16" ></CategoricalAxis>
                                 <LinearAxis tkCartesianVerticalAxis labelMargin="4" labelLayoutMode="outer" labelSize="16" labelFitMode="rotate" labelFormat="%.1f"></LinearAxis>
                                 <LineSeries tkCartesianSeries [items]="graphValues" categoryProperty="StartContinuousLength" valueProperty="CrossfallRutBottom"></LineSeries>
                                 <ChartPlotBandAnnotation tkCartesianAnnotations axisId="hAxis" hidden="false" zPosition="AboveSeries" strokeWidth="2" value="20"

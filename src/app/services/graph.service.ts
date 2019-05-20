@@ -3,12 +3,14 @@ import { ContinuousLengthService } from './continuous-length.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { GraphData } from '../models/graphData';
+import { getNumber } from 'tns-core-modules/application-settings/application-settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GraphService {
 
+  private graphDataInterval: number;
   private graphValues: GraphData[];
   private clSubscription: Subscription;
   private graphSubscription: Subscription;
@@ -31,6 +33,7 @@ export class GraphService {
     private clService: ContinuousLengthService,
     private apiService: ApiService
     ) {
+    this.graphDataInterval = getNumber("graphIntervalValue", 500);
 
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
@@ -75,7 +78,7 @@ export class GraphService {
 
   public setGraphData(){
     if(!this.clService.isOffline){
-        this.apiService.getGraphData(this.currentContinuousLength).toPromise().then(data => {
+        this.apiService.getGraphData(this.currentContinuousLength, this.graphDataInterval).toPromise().then(data => {
             if(data.length > 0){
                 this.graphValues = data;
                 this.graphDataSource.next(data);
@@ -93,5 +96,9 @@ export class GraphService {
         else{
             this.isGraphDataAvailable = false;
         }
+    }
+
+    public setNewGraphDataInterval(value: number){
+        this.graphDataInterval = value;
     }
 }
