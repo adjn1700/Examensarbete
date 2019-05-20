@@ -100,6 +100,11 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
                 console.log("tick för interval 750")
                 break;
             }
+            case 1000: {
+                this.tickIntervalHorizontalAxis = 20;
+                console.log("tick för interval 1000")
+                break;
+            }
         }
     }
 

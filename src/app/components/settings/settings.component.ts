@@ -111,7 +111,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.graphIntervalList.push([
           {value:"250", display:"250m"},
           {value:"500", display:"500m"},
-          {value:"750", display:"750m"}
+          {value:"750", display:"750m"},
+          {value:"1000", display:"1000m"}
         ]);
       graphIntervalDD.items = this.graphIntervalList;
     }
