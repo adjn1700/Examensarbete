@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
         this.selectedRoad = this.dataShareService.selectedRoad;
 
+        //Keeps phone awake
         keepAwake().then(function() {
             console.log("Insomnia is active");
         });
@@ -188,6 +189,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } );
   }
 
+  //Opens side drawer
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();

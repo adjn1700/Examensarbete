@@ -40,6 +40,7 @@ export class LocationComponent implements OnInit, OnDestroy {
         }
 
     ngOnInit(){
+        //Check if darkmode is activated
         this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
     }
     ngOnDestroy(){

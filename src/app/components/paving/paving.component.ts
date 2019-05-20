@@ -29,8 +29,10 @@ export class PavingComponent implements OnInit, OnDestroy {
       ) { }
 
   ngOnInit() {
+    //Check if darkmode is activated
     this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
-     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
+
+    this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
         if(this.pavings){
             this.checkIfPavingEnded();

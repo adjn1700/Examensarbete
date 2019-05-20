@@ -19,6 +19,7 @@ export class GraphValueComponent implements OnInit {
   constructor(private graphService: GraphService) { }
 
   ngOnInit() {
+    //Check if darkmode is activated
     this.isDarkModeActivated = getBoolean("isDarkModeTurnedOn", false);
 
   }

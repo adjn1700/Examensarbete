@@ -48,7 +48,7 @@ export class DestinationComponent implements OnInit {
     }
 
     addDestination(): void {
-        this.destinationValue = 1280;
+        this.destinationValue = 0;
     }
 
     showAlert(): void {

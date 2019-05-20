@@ -1,4 +1,12 @@
-<StackLayout class="m-t-10">
-    <Label text="Välj din destination" class="label destlbl"></Label>
-    <TextField class="tfDestination m-t-5" keyboardType="number"></TextField>
-</StackLayout>
+
+<CardView class="cardStyle" elevation="40" radius="10" ios:shadowRadius="3" margin="5">
+    <GridLayout *ngIf="isDestinationActive()" rows="auto, auto" columns="*, auto, *" id="destinationontainer"
+    class="cardContent">
+
+        <Label text="Välj din destination" class="label destlbl"></Label>
+        <TextField class="tfDestination m-t-5" keyboardType="number"></TextField>
+
+    </GridLayout>
+</CardView>
+
+
