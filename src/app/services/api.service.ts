@@ -150,8 +150,9 @@ export class ApiService {
     return this.postData(customRequest)
         .pipe(
             map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
-                catchError(this.handleError)
-                );
+            timeout(2000),
+            catchError(this.handleError)
+            );
     }
 
     private createRequest() {

@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 @ViewChild('graphValueDD') graphValueDropDown: ElementRef;
 @ViewChild('graphIntervalDD') graphIntervalDropDown: ElementRef;
 
-
+  public isOfflineGraphDataActivated: boolean;
   public isDarkModeTurnedOn: boolean;
   public isGraphComponentActivated: boolean;
   public isPavingsComponentActivated: boolean;
@@ -41,6 +41,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.isGraphComponentActivated = getBoolean("isGraphComponentActivated", true);
     this.isPavingsComponentActivated = getBoolean("isPavingsComponentActivated", true);
     this.isSpeedCalcActivated = getBoolean("isSpeedCalcActivated", true)
+    this.isOfflineGraphDataActivated = getBoolean("isOfflineGraphDataActivated", false);
     console.log("graph activated: " + this.isGraphComponentActivated);
     console.log("pavings activated: " + this.isPavingsComponentActivated)
      }
@@ -103,6 +104,20 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     let selectedValue = this.graphIntervalList.getValue(selectedIndex);
     this.graphService.setNewGraphDataInterval(Number(selectedValue));
     setNumber("graphIntervalValue", Number(selectedValue));
+  }
+
+  public setOfflineGraphDataActivation(args){
+    let oSwitch = <Switch>args.object;
+    if (oSwitch.checked){
+        this.isOfflineGraphDataActivated = true;
+        setBoolean("isOfflineGraphDataActivated", true);
+        this.graphService.isCurrentAndNextActivated = true;
+    }
+    else{
+        this.isOfflineGraphDataActivated = false;
+        setBoolean("isOfflineGraphDataActivated", false);
+        this.graphService.isCurrentAndNextActivated = false;
+    }
   }
 
   private setItemsToGraphIntervalDropDown(){

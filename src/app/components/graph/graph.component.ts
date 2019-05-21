@@ -78,6 +78,7 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.graphSub.unsubscribe();
     this.clSubscription.unsubscribe();
+    this.graphService.endCurrentSession();
     }
 
     /** sets custom tick interval to always show three values on x axis in graph  */

@@ -30,12 +30,19 @@
             <DropDown #graphIntervalDD id="graphIntervalDropDown" class="input input-rounded " verticalAlignment="center"
                 (selectedIndexChanged)="onGraphIntervalChanged($event)"></DropDown>
         </StackLayout>
+        <GridLayout rows="auto" columns="auto,*"  class="m-t-10 m-b-10">
+            <Label row="0" col="0"  text="Hämta extra data för offline" horizontalAlignment="left" verticalAlignment="center"></Label>
+            <Switch row="0" col="1" [checked]="isOfflineGraphDataActivated" (checkedChange)="setOfflineGraphDataActivation($event)"
+                 horizontalAlignment="right" verticalAlignment="center"></Switch>
+        </GridLayout>
+        <Label id="infoText" class="h3" textWrap="true"
+             text="(Gör att grafen visas längre vid förlorad kontakt med databasen. Ökar mobildata-användning) "></Label>
         <StackLayout class="hr-light m-x-10 m-y-20"></StackLayout>
         <Label  text="Beta-funktioner" class="h2 m-b-15"  horizontalAlignment="left" verticalAlignment="center"></Label>
-        <GridLayout rows="auto" columns="auto,*">
-            <Label row="0" col="0" class="m-b-15" text="Hastighetskorrigera löpande längd" horizontalAlignment="left" verticalAlignment="center"></Label>
+        <GridLayout rows="auto" columns="auto,*" class="m-b-15">
+            <Label row="0" col="0"  text="Hastighetskorrigera löpande längd" horizontalAlignment="left" verticalAlignment="center"></Label>
             <Switch row="0" col="1" [checked]="isSpeedCalcActivated" (checkedChange)="setSpeedCalcActivation($event)"
-                class="m-b-15" horizontalAlignment="right" verticalAlignment="center"></Switch>
+                 horizontalAlignment="right" verticalAlignment="center"></Switch>
         </GridLayout>
          <Label id="infoText" class="h3" textWrap="true"
              text="(Om du har problem med att löpande längd-siffran hoppar fram och tillbaka, testa att stänga av denna.)"></Label>

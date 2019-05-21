@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
 
     private showErrorMessage(errorMessage: string){
+        console.log("felmeddelandet för alert är " + errorMessage);
         let alertOptions = {
             title: "Ett fel uppstod",
             message: errorMessage,
@@ -122,7 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
         catch(error){
             console.error(error);
-            this.showErrorMessage(error);
+            this.showErrorMessage(error.message);
             this.isBusy = false;
         }
     }
