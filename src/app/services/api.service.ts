@@ -123,6 +123,7 @@ export class ApiService {
         let selectedRoad = this.dataShareService.selectedRoad;
         let startLength = currentContinuousLength;
         let endLength = currentContinuousLength + graphDataInterval;
+        let checkvalue: number;
 
         let customRequest = `
         <REQUEST>
@@ -149,7 +150,15 @@ export class ApiService {
 
     return this.postData(customRequest)
         .pipe(
-            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
+            map(res => res["RESPONSE"].RESULT[0].MeasurementData20.map(m => {
+                if(checkvalue !== m.StartContinuousLength){
+                checkvalue = m.StartContinuousLength;
+                if(!m.IRIRight) m.IRIRight = 0;
+                if(!m.EdgeDepth) m.EdgeDepth = 0;
+                if(!m.RutDepthMax17) m.RutDepthMax17 = 0;
+                return m;
+                }
+            })),
             timeout(2000),
             catchError(this.handleError)
             );
