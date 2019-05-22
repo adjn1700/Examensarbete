@@ -16,8 +16,9 @@ import { GraphData } from '~/app/models/graphData';
 export class ApiService {
     private apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
     private authKey = '8ccbb37be31d48adbaf3009f14a45141'
-    public defaultApiTimeoutValue: number = 5000;
-    public customApiTimeOutValue: number = 990;
+    public defaultClTimeoutValue: number = 5000;
+    public customClTimeOutValue: number = 990;
+    public customGraphTimeOutValue: number = 4900;
 
     constructor(
         private http: HttpClient,
@@ -91,10 +92,10 @@ export class ApiService {
             let timeoutValue: number;
 
             if(setQuickTimeout === true){
-                timeoutValue = this.customApiTimeOutValue;
+                timeoutValue = this.customClTimeOutValue;
             }
             else{
-                timeoutValue = this.defaultApiTimeoutValue;
+                timeoutValue = this.defaultClTimeoutValue;
             }
 
 
@@ -123,7 +124,11 @@ export class ApiService {
         let selectedRoad = this.dataShareService.selectedRoad;
         let startLength = currentContinuousLength;
         let endLength = currentContinuousLength + graphDataInterval;
+<<<<<<< HEAD
         let checkvalue: number;
+=======
+        let timeoutValue: number;
+>>>>>>> 9436046d93a589203ba4d72874eb54a7bea6c75d
 
         let customRequest = `
         <REQUEST>
@@ -150,6 +155,7 @@ export class ApiService {
 
     return this.postData(customRequest)
         .pipe(
+<<<<<<< HEAD
             map(res => res["RESPONSE"].RESULT[0].MeasurementData20.map(m => {
                 if(checkvalue !== m.StartContinuousLength){
                 checkvalue = m.StartContinuousLength;
@@ -160,6 +166,10 @@ export class ApiService {
                 }
             })),
             timeout(2000),
+=======
+            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
+            timeout(this.customGraphTimeOutValue),
+>>>>>>> 9436046d93a589203ba4d72874eb54a7bea6c75d
             catchError(this.handleError)
             );
     }
