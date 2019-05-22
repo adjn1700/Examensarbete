@@ -161,8 +161,6 @@ export class ApiService {
                 return m;
                 }
             })),
-            timeout(2000),
-            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
             timeout(this.customGraphTimeOutValue),
             catchError(this.handleError)
             );
