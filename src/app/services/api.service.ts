@@ -124,11 +124,8 @@ export class ApiService {
         let selectedRoad = this.dataShareService.selectedRoad;
         let startLength = currentContinuousLength;
         let endLength = currentContinuousLength + graphDataInterval;
-<<<<<<< HEAD
         let checkvalue: number;
-=======
         let timeoutValue: number;
->>>>>>> 9436046d93a589203ba4d72874eb54a7bea6c75d
 
         let customRequest = `
         <REQUEST>
@@ -155,7 +152,6 @@ export class ApiService {
 
     return this.postData(customRequest)
         .pipe(
-<<<<<<< HEAD
             map(res => res["RESPONSE"].RESULT[0].MeasurementData20.map(m => {
                 if(checkvalue !== m.StartContinuousLength){
                 checkvalue = m.StartContinuousLength;
@@ -166,10 +162,8 @@ export class ApiService {
                 }
             })),
             timeout(2000),
-=======
             map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
             timeout(this.customGraphTimeOutValue),
->>>>>>> 9436046d93a589203ba4d72874eb54a7bea6c75d
             catchError(this.handleError)
             );
     }
