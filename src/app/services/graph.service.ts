@@ -130,7 +130,7 @@ export class GraphService {
   public setGraphData(){
       if(!this.apiCallIsActive){
         this.apiCallIsActive = true;
-        this.apiCallSubscription = timer(0, 3000).pipe(
+        this.apiCallSubscription = timer(0, 5000).pipe(
             switchMap(() => {
                 return this.apiService.getGraphData(this.currentContinuousLength, this.getGraphInterval()).pipe(
                     catchError((error) => {
