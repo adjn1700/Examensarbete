@@ -18,7 +18,6 @@
             <Button class="btn btn-danger btn-rounded-sm" text="Avbryt" (tap)="cancelAlert()"></Button>
         </StackLayout>
     </CardView>
-    <ActivityIndicator width="100" height="100" row="0" rowSpan="5" colSpan="2" #activityIndicator [busy]="isBusy" class="activity-indicator"></ActivityIndicator>
 </StackLayout>
 <GridLayout *ngIf="isOnSelectedRoad" class="page pageDashboard" columns="*" rows="*,auto" [ngClass] = "{'page-dark':isDarkModeActivated === true}">
 

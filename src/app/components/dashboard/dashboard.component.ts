@@ -16,6 +16,7 @@ import { keepAwake } from "nativescript-insomnia";
 import { InternetConnectionService } from '../../services/internet-connection.service';
 import { TextField } from "tns-core-modules/ui/text-field";
 import { getBoolean } from "tns-core-modules/application-settings";
+import {LoadingIndicator} from "nativescript-loading-indicator";
 
 @Component({
   selector: 'ns-dashboard',
@@ -30,10 +31,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public isPavingsComponentActivated: boolean;
     public selectedRoad: SelectedRoad;
     public isOnSelectedRoad: boolean = false;
-    public isBusy = false;
+    //public isBusy = false;
     public isOnline: boolean = true;
     connection$;
     public startupClForTest: number = 0;
+    public loader = new LoadingIndicator();
+    public loadingOptions = {
+        message: 'Laddar...'
+    }
 
 
     public testResponse: number;
@@ -100,7 +105,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public async startUsingDashboard(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
-        this.isBusy = true;
+        this.loader.show(this.loadingOptions);
         try{
             let result = await this.locationService.getAndSetDeviceLocation();
             console.log(result);
@@ -119,19 +124,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthServiceWithApiConnection(startupCl);
             this.isOnSelectedRoad = true;
-            this.isBusy = false;
+            this.loader.hide()
         }
         catch(error){
             console.error(error);
             this.showErrorMessage(error.message);
-            this.isBusy = false;
+            this.loader.hide();
         }
     }
 
     public async startUsingDashboardWithOfflineContinuousLength(){
         //Checks users current coordinates
         let currentLocation: Location = new Location();
-        this.isBusy = true;
+        this.loader.show(this.loadingOptions);
         try{
             let result = await this.locationService.getAndSetDeviceLocation();
             currentLocation.latitude = result.latitude;
@@ -145,15 +150,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.locationService.startWatchingLocation();
             //Starts service to get continuous length to connected child components
             this.clService.startContinuousLengthServiceOfflineForTest(startupCl);
+            this.loader.hide();
             this.isOnSelectedRoad = true;
-            this.isBusy = false;
             console.log("dashboard startad med speedcalc satt till: " + this.clService.isAdjustingToSpeed)
 
         }
         catch(error){
             console.error(error);
             this.showErrorMessage(error.message);
-            this.isBusy = false;
+            this.loader.hide();
         }
     }
 

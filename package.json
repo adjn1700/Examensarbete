@@ -27,6 +27,7 @@
     "nativescript-drop-down": "^5.0.0",
     "nativescript-geolocation": "^5.0.0",
     "nativescript-insomnia": "^1.2.2",
+    "nativescript-loading-indicator": "^2.5.1",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-ui-autocomplete": "^4.0.0",
     "nativescript-ui-chart": "^4.0.2",
