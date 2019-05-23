@@ -8,6 +8,8 @@ import { Switch } from 'tns-core-modules/ui/switch/switch';
 import { ValueList } from 'nativescript-drop-down';
 import { ContinuousLengthService } from '~/app/services/continuous-length.service';
 import { GraphService } from '~/app/services/graph.service';
+import { alert } from "tns-core-modules/ui/dialogs";
+
 
 @Component({
   selector: 'ns-settings',
@@ -20,6 +22,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
 @ViewChild('graphValueDD') graphValueDropDown: ElementRef;
 @ViewChild('graphIntervalDD') graphIntervalDropDown: ElementRef;
+@ViewChild('graphOfflineSwitch') graphOfflineSwitch: ElementRef;
 
   public isOfflineGraphDataActivated: boolean;
   public isDarkModeTurnedOn: boolean;
@@ -99,19 +102,31 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   public onGraphIntervalChanged(args){
-    let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
-    let selectedIndex = graphIntervalDD.selectedIndex;
-    let selectedValue = this.graphIntervalList.getValue(selectedIndex);
-    this.graphService.setNewGraphDataInterval(Number(selectedValue));
-    setNumber("graphIntervalValue", Number(selectedValue));
+    if(!this.checkIfGraphHasHighValue()){
+        this.deactivateOfflineGraphModeSwitch();
+    }
+    else{
+        let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
+        let selectedIndex = graphIntervalDD.selectedIndex;
+        let selectedValue = this.graphIntervalList.getValue(selectedIndex);
+        this.graphService.setNewGraphDataInterval(Number(selectedValue));
+        setNumber("graphIntervalValue", Number(selectedValue));
+    }
+
   }
 
   public setOfflineGraphDataActivation(args){
     let oSwitch = <Switch>args.object;
     if (oSwitch.checked){
-        this.isOfflineGraphDataActivated = true;
-        setBoolean("isOfflineGraphDataActivated", true);
-        this.graphService.isCurrentAndNextActivated = true;
+        if(this.checkIfGraphHasHighValue()){
+            this.isOfflineGraphDataActivated = true;
+            setBoolean("isOfflineGraphDataActivated", true);
+            this.graphService.isCurrentAndNextActivated = true;
+        }
+        else{
+            this.handleAlertForTooLowGraphValue().then(() => {this.deactivateOfflineGraphModeSwitch();});
+
+        }
     }
     else{
         this.isOfflineGraphDataActivated = false;
@@ -167,6 +182,32 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         setBoolean("isSpeedCalcActivated", false);
         this.clService.isAdjustingToSpeed = false;
     }
+  }
+
+  private handleAlertForTooLowGraphValue(){
+    let alertOptions = {
+        title: "Ditt val sparades inte",
+        message: "Denna funktion kan endast aktiveras vid grafintervall 500 eller högre. Ändra intervallet för grafen och försök igen",
+        okButtonText: "OK"
+    };
+    return alert(alertOptions);
+  }
+
+  private deactivateOfflineGraphModeSwitch(){
+    let graphOfflineSwitch = this.graphOfflineSwitch.nativeElement;
+    graphOfflineSwitch.checked = false;
+    setBoolean("isOfflineGraphDataActivated", false);
+  }
+
+  private checkIfGraphHasHighValue(){
+    let graphIntervalDD = this.graphIntervalDropDown.nativeElement;
+    let selectedIndex = graphIntervalDD.selectedIndex;
+    let selectedValue = Number(this.graphIntervalList.getValue(selectedIndex));
+
+    if(selectedValue >= 500){
+        return true;
+    }
+    return false;
   }
 
 }
