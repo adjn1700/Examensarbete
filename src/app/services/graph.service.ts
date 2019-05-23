@@ -142,6 +142,7 @@ export class GraphService {
             }))
                 .subscribe(data => {
                     if(data.length > 0){
+                        this.checkForUnorderedData(data);
                         console.log("Ett api-anrop gjordes och lyckades för graf")
                         this.setGraphDataFromApi(data);
                         this.setCurrentGraphData();
@@ -174,5 +175,38 @@ export class GraphService {
         this.graphDataFromApi = [];
         this.graphDataSource.next([]);
         this.graphValues = [];
+    }
+
+    public checkForUnorderedData(data){
+        //Sorterar grafdata med mer än 25 värden
+        if(data.length > 25){
+
+            var sortdata: GraphData[] = data.sort((obj1, obj2) => {
+                if (obj1.StartContinuousLength > obj2.StartContinuousLength) {
+                    return 1;
+                }
+
+                if (obj1.StartContinuousLength < obj2.StartContinuousLength) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            console.log(sortdata);
+
+            //Tar bort den grafdata som ligger på ett mindre löpande längd än föregående data (Fungerar inte riktigt)
+            /*
+            let start: number = 0;
+            for (let index = 0; index < data.length; index++) {
+                if (start > data[index].StartContinuousLength) {
+                    console.log(data[index].StartContinuousLength);
+                    console.log("Värdet är lägre än det föregående");
+                    data.splice(index,1)
+                }
+                else{
+                    start = data[index].StartContinuousLength;
+                }
+            }*/
+        }
     }
 }
