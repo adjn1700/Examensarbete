@@ -174,12 +174,14 @@ export class ContinuousLengthService implements OnDestroy{
     }
 
     private startSettingOfflineContinuousLength(){
+        this.locationService.isWatchingDistance = true;
         this.offlineClSubscription = this.offlineClService.offlineContinuousLength$.subscribe(cl => {
             this.continuousLengthSource.next(cl);
         });
     }
 
     private stopSettingOfflineContinuousLength(){
+        this.locationService.isWatchingDistance = false;
         this.offlineClService.stopWatchingOfflineContinuousLength();
         this.offlineClSubscription.unsubscribe();
     }

@@ -56,7 +56,9 @@ export class LocationService {
                     if(!this.isFirstLocation){
                         //For calculating device movement
                         this.locations.push(location)
-                        this.calcDistanceTravelled();
+                        if (this.isWatchingDistance === true) {
+                            this.calcDistanceTravelled();
+                        }
                         console.log("location skickad");
 
                         let loc = new Location();
