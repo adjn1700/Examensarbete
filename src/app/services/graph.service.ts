@@ -137,6 +137,7 @@ export class GraphService {
                         this.isGraphDataAvailable = false;
                         this.setNextGraphDataOfflineIfPossible();
                         console.log("Grafdata kunde inte hämtas");
+                        console.error(error);
                         return empty();
                     }));
             }))

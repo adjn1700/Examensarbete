@@ -45,17 +45,7 @@ export class ContinuousLengthService implements OnDestroy{
         return this.apiService.getCurrentContinuousLength(currentLocation).toPromise();
     }
 
-    /** For testing only */
-    public startContinuousLengthServiceOfflineForTest(startupCl: number){
-            this.currentContinuousLength = startupCl;
-            this.offlineClService.startWatchingOfflineContinuousLength(startupCl);
-            this.startSettingOfflineContinuousLength();
 
-            this.locSubscription = this.locationService.location$.subscribe(
-                loc => {
-                    this.currentLocation = loc;
-                });
-    }
 
     public startContinuousLengthServiceWithApiConnection(startupCl: number){
         this.currentContinuousLength = startupCl;
@@ -68,6 +58,7 @@ export class ContinuousLengthService implements OnDestroy{
     }
 
     stopWatchingContinuousLength(){
+        this.currentLocation = null;
         this.isOffline = false;
         this.currentContinuousLength = 0;
         this.continuousLengthSource.next(0);
@@ -85,24 +76,18 @@ export class ContinuousLengthService implements OnDestroy{
 
     private getDifferenceInSeconds(startDate:Date, endDate:Date): number{
         let diff = endDate.getTime() - startDate.getTime();
-        //console.log("timediff " + diff);
         let diffInSeconds = diff / 1000;
-        //console.log("diffInSeconds " + diffInSeconds)
         return diffInSeconds;
     }
 
     /** Checks differrence in time between location sent to API and response,
      * then adds decvice movement passed since then (for accuracy) */
     private addSpeedAdjustment(input: number): number{
-        //console.log("Location skickad för speed adjust");
-        //console.log(this.locSentToApi);
         let currentSpeed = this.locSentToApi.speed;
         let locTimeStamp = this.locSentToApi.timestamp;
         let currentTimeStamp = new Date();
         let timeDiff = this.getDifferenceInSeconds(locTimeStamp, currentTimeStamp);
-
         let adjustment = Math.floor(currentSpeed * timeDiff * 0.66667);
-        //console.log("justerad siffra " + adjustment);
         let total = adjustment + input;
         return total;
     }
@@ -110,7 +95,6 @@ export class ContinuousLengthService implements OnDestroy{
     private setCurrentOnlineContinuousLength(input: number){
         if(this.isAdjustingToSpeed && this.locSentToApi && this.locSentToApi.speed >= 10){
             let adjustedCl = this.addSpeedAdjustment(input);
-            //console.log("justerat utifrån speed " + adjustedCl);
 
             this.currentContinuousLength = adjustedCl;
             this.continuousLengthSource.next(this.currentContinuousLength);
@@ -125,9 +109,13 @@ export class ContinuousLengthService implements OnDestroy{
     private startGettingOnlineContinuousLength(){
         this.apiClSubscription = timer(0, this.apiCallFrequency).pipe(
             switchMap(() => {
-                this.locSentToApi = this.currentLocation;
-                return this.apiService.getCurrentContinuousLength(this.currentLocation, true).pipe(
-                    catchError((error) => this.handleApiRequestError(error)));
+                if(this.currentLocation){
+                    this.locSentToApi = this.currentLocation;
+                    return this.apiService.getCurrentContinuousLength(this.currentLocation, true).pipe(
+                        catchError((error) => this.handleApiRequestError(error)));
+                }
+                return empty();
+
             }))
                 .subscribe(result => {
                     this.isOffline = false;
@@ -172,6 +160,18 @@ export class ContinuousLengthService implements OnDestroy{
         }
 
     }
+
+    /** For testing only */
+    public startContinuousLengthServiceOfflineForTest(startupCl: number){
+        this.currentContinuousLength = startupCl;
+        this.offlineClService.startWatchingOfflineContinuousLength(startupCl);
+        this.startSettingOfflineContinuousLength();
+
+        this.locSubscription = this.locationService.location$.subscribe(
+            loc => {
+                this.currentLocation = loc;
+            });
+}
 
     private startSettingOfflineContinuousLength(){
         this.offlineClSubscription = this.offlineClService.offlineContinuousLength$.subscribe(cl => {

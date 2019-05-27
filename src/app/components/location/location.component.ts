@@ -15,7 +15,7 @@ import { getBoolean } from "tns-core-modules/application-settings";
 export class LocationComponent implements OnInit, OnDestroy {
 
     public currentContinuousLength: number;
-    public location: Location;
+    public location: Location = new Location();
     private loSubscription: Subscription;
     private clSubscription: Subscription;
     public isDarkModeActivated: boolean;

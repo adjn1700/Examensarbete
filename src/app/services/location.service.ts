@@ -1,13 +1,13 @@
 import { Injectable, NgZone } from '@angular/core';
 import * as Geolocation from "nativescript-geolocation";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Location } from '../models/location';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
-    private locationSource = new BehaviorSubject<Location>(new Location());
+    private locationSource = new Subject<Location>();
     private distanceTravelledSource = new BehaviorSubject<number>(0);
 
     private locations = [];
@@ -57,7 +57,7 @@ export class LocationService {
                         //For calculating device movement
                         this.locations.push(location)
                         this.calcDistanceTravelled();
-                        console.log("location skickad");
+                        console.log("location skickad kl " + location.timestamp);
 
                         let loc = new Location();
                         loc.latitude = location.latitude;
