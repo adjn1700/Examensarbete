@@ -24,10 +24,12 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('graphCarousel') graphCarousel: ElementRef;
 
     public graphValues: GraphData[];
+    public extraGraphValues: GraphData[];
     public graphSub: Subscription;
     private clSubscription: Subscription;
     public currentContinuousLength: number;
     public tickIntervalHorizontalAxis: number;
+    private graphDataInterval: number;
 
     public sliderCurrent: number;
     constructor(
@@ -55,6 +57,7 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.graphDataInterval = getNumber("graphIntervalValue", 500);
     this.setTickIntervalForHorizontalLine();
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
@@ -65,7 +68,17 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
     this.graphSub = this.graphService.graphValues$.subscribe(gs => {
         if(gs.length > 0){
             this.graphValues = gs;
-            console.log(this.graphValues);
+
+            //Fix later to show dual graph lines for old + new measurement data
+            /*
+            this.resetGraphDataArrays();
+            if(this.checkForUnexpectedDataLength(gs.length)){
+                this.setGraphDataToSeperateArrays(gs);
+            }
+            else{
+                this.graphValues = gs;
+            }
+            */
 
         }
     });
@@ -113,6 +126,53 @@ export class GraphComponent implements OnInit, OnDestroy, AfterViewInit {
     public onGraphSwiped(args){
         this.graphService.currentSlideService = args.index;
     }
+
+    private checkForUnexpectedDataLength(dataLength: number){
+        //Sorts array when more data posts than expected from database
+        let errorMargin = 2;
+        let expectedNumberOfData = (this.graphDataInterval / 20) + errorMargin;
+        if(dataLength > expectedNumberOfData){
+            return true;
+        }
+        return false;
+    }
+
+    //Fix below two methods later to show dual graph lines for old + new measurement data
+    /*
+    private resetGraphDataArrays(){
+        this.graphValues = [];
+        this.extraGraphValues = [];
+    }
+
+    private setGraphDataToSeperateArrays(data){
+        //Timestamp property used for test, change to MeasurementDate when working with API-request
+        let timeStampCheck: Date = data[0].TimeStamp;
+
+        let firstGraph: GraphData[] = [];
+        let secondGraph: GraphData[] = [];
+        //Sorts original array into two, seperated by date when graph data was measured
+        for(let i = 1; i < data.length; i++){
+            if(timeStampCheck === data[i].TimeStamp){
+                firstGraph.push(data[i]);
+
+            }
+            else{
+                secondGraph.push(data[i]);
+            }
+        }
+        //Makes sure graphValues always gets assigned data from newest data measurement
+        if (firstGraph[0].TimeStamp > secondGraph[1].TimeStamp){
+            this.graphValues = firstGraph;
+            this.extraGraphValues = secondGraph;
+        }
+        else{
+            this.graphValues = secondGraph;
+            this.extraGraphValues = firstGraph;
+        }
+
+    }*/
+
 }
+
 
 

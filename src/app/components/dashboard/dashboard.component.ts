@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //public isBusy = false;
     public isOnline: boolean = true;
     connection$;
-    public startupClForTest: number = 0;
+    public startupClForTest: number = 86250;
     public loader = new LoadingIndicator();
     public loadingOptions = {
         message: 'Laddar...'

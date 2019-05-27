@@ -152,15 +152,7 @@ export class ApiService {
 
     return this.postData(customRequest)
         .pipe(
-            map(res => res["RESPONSE"].RESULT[0].MeasurementData20.map(m => {
-                if(checkvalue !== m.StartContinuousLength){
-                checkvalue = m.StartContinuousLength;
-                if(!m.IRIRight) m.IRIRight = 0;
-                if(!m.EdgeDepth) m.EdgeDepth = 0;
-                if(!m.RutDepthMax17) m.RutDepthMax17 = 0;
-                return m;
-                }
-            })),
+            map(res => res["RESPONSE"].RESULT[0].MeasurementData20),
             timeout(this.customGraphTimeOutValue),
             catchError(this.handleError)
             );

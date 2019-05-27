@@ -158,10 +158,10 @@ export class StartScreenComponent implements OnInit, AfterViewInit {
         let sr = new SelectedRoad();
         sr.county = "Jämtland (Z)";
         sr.countyId = 23;
-        sr.roadId = 45;
+        sr.roadId = 14;
         sr.subroadId=0;
-        sr.direction = "Mot";
-        sr.directionId = 2;
+        sr.direction = "Med";
+        sr.directionId = 1;
 
         this.dataShareService.selectedRoad = sr;
         this.router.navigate(['/dashboard'], {clearHistory: true});

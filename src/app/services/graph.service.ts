@@ -44,8 +44,7 @@ export class GraphService {
     this.clSubscription = this.clService.continuousLength$.subscribe(cl => {
         this.currentContinuousLength = cl;
         if(this.checkIfPassedThreshold()){
-            this.graphDataStartingLengthCurrent = null;
-            this.graphDataEndLengthCurrent = null;
+            this.resetGraphAnnotationValues();
             this.setGraphData();
         }
         if(this.graphValues && this.graphValues.length){
@@ -98,7 +97,8 @@ export class GraphService {
 
   private setCurrentGraphData(){
      if(this.isCurrentAndNextActivated){
-        let numberOfValuesRequired = (this.graphDataInterval / 20)
+        //let numberOfValuesRequired = (this.graphDataInterval / 20)
+        let numberOfValuesRequired = Math.ceil(this.graphDataFromApi.length / 2);
         this.graphValues = this.graphDataFromApi.splice(0, numberOfValuesRequired);
      }
      else{
@@ -137,12 +137,15 @@ export class GraphService {
                         this.isGraphDataAvailable = false;
                         this.setNextGraphDataOfflineIfPossible();
                         console.log("Grafdata kunde inte hämtas");
+                        console.error(error);
                         return empty();
                     }));
             }))
                 .subscribe(data => {
                     if(data.length > 0){
-                        this.checkForUnorderedData(data);
+                        if(this.checkForUnexpectedDataLength(data.length)){
+                            data = this.fixUnexpectedDataLength(data);
+                        }
                         console.log("Ett api-anrop gjordes och lyckades för graf")
                         this.setGraphDataFromApi(data);
                         this.setCurrentGraphData();
@@ -171,42 +174,44 @@ export class GraphService {
     }
 
     public endCurrentSession(){
+        this.resetGraphAnnotationValues();
         this.cancelActiveApiRequest();
         this.graphDataFromApi = [];
         this.graphDataSource.next([]);
         this.graphValues = [];
     }
 
-    public checkForUnorderedData(data){
-        //Sorterar grafdata med mer än 25 värden
-        if(data.length > 25){
+    private resetGraphAnnotationValues(){
+        this.graphDataStartingLengthCurrent = null;
+        this.graphDataEndLengthCurrent = null;
+    }
 
-            var sortdata: GraphData[] = data.sort((obj1, obj2) => {
-                if (obj1.StartContinuousLength > obj2.StartContinuousLength) {
-                    return 1;
-                }
-
-                if (obj1.StartContinuousLength < obj2.StartContinuousLength) {
-                    return -1;
-                }
-
-                return 0;
-            });
-            console.log(sortdata);
-
-            //Tar bort den grafdata som ligger på ett mindre löpande längd än föregående data (Fungerar inte riktigt)
-            /*
-            let start: number = 0;
-            for (let index = 0; index < data.length; index++) {
-                if (start > data[index].StartContinuousLength) {
-                    console.log(data[index].StartContinuousLength);
-                    console.log("Värdet är lägre än det föregående");
-                    data.splice(index,1)
-                }
-                else{
-                    start = data[index].StartContinuousLength;
-                }
-            }*/
+    /** Method for checking if too more data posts in response from API than expected, occurs
+     *  when multiple graph values exists for same continuous length interval
+    */
+    private checkForUnexpectedDataLength(dataLength: number){
+        //Sorts array when more data posts than expected from database
+        let errorMargin = 2;
+        let expectedNumberOfData = Math.ceil(this.graphDataInterval / 20) + errorMargin;
+        if(dataLength > expectedNumberOfData){
+            return true;
         }
+        return false;
+    }
+
+    /** Temporary fix for unexpected data length */
+    public fixUnexpectedDataLength(data){
+        let filteredArray: GraphData[] = [];
+
+        //Removes data posts if previous value has lower continuous length. Fixes
+        //problem with graph line going backwards
+        let checkValue = data[0].StartContinuousLength;
+        for(let i = 1; i < data.length; i++){
+            if(data[i].StartContinuousLength > checkValue){
+                filteredArray.push(data[i]);
+                checkValue = data[i].StartContinuousLength;
+            }
+        }
+        return filteredArray;
     }
 }
